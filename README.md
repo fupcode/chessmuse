@@ -17,7 +17,7 @@ uv run chessmuse serve
 
 演示采用**晓晓神经网络女声**，语速为默认的 95%，音频已随项目缓存；完成依赖安装后，播放不需要网络、LLM、引擎或系统 TTS。首次点击播放后才会发声；语音加载失败会暂停并提示，可重试或关闭「中文语音」继续看字幕。
 
-如果 uv 的默认缓存目录不可访问，可在以上 uv 命令中加入 `--cache-dir .uv-cache`，例如 `uv --cache-dir .uv-cache sync --locked`。
+工具缓存统一放在项目根目录的 `.cache/`，由配置自动生效：uv 使用 `.cache/uv/`，pytest 使用 `.cache/pytest_cache/`，测试临时文件使用 `.cache/pytest-tmp/`。直接运行上述命令即可，不需要额外传入缓存路径。整个 `.cache/` 不提交 Git；测试临时目录会在下一次测试开始时重建。
 
 ## 验证与修改
 

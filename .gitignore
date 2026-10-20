@@ -1,8 +1,6 @@
 .venv/
-.uv-cache/
+.cache/
 __pycache__/
-.pytest_cache/
-pytest-cache-files-*/
 *.egg-info/
 build/
 dist/
