@@ -1,0 +1,535 @@
+{
+  "id": "qima-13",
+  "title": "橘中秘 · 弃马十三着",
+  "description": "古谱完整主线 · 直觉与专家对照 · 三处关键变化",
+  "source": {
+    "title": "橘中秘：弃马十三着（十三回合通行次序）",
+    "url": "https://zh.wikipedia.org/wiki/弃马十三着",
+    "revision": "49799855",
+    "kind": "古谱演示，非现代比赛实战",
+    "note": "仅转录公共领域古谱走法，不采用网页讲解或棋手信息；网络存在不同次序版本，本示例固定为本条目的25半回合版本。"
+  },
+  "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+  "mainline": [
+    "h2e2",
+    "h7e7",
+    "h0g2",
+    "h9g7",
+    "i0i1",
+    "i9h9",
+    "i1d1",
+    "h9h3",
+    "d1d8",
+    "b9a7",
+    "a0a1",
+    "b7b0",
+    "b2b7",
+    "g7h9",
+    "e2e6",
+    "f9e8",
+    "a1d1",
+    "e9f9",
+    "d8d9",
+    "e8d9",
+    "d1f1",
+    "e7f7",
+    "f1f7",
+    "f9e9",
+    "b7e7"
+  ],
+  "paragraphs": [
+    {
+      "id": "famous-intro",
+      "title": "认识这份古谱",
+      "text": "今天看橘中秘的弃马十三着。这是古谱的十三回合通行版本，不是现代比赛实战。我们看完完整主线，重点讲吃马的诱惑、进炮与追子的取舍，以及最后的弃车攻杀；同时用现代搜索检查黑方是否还有其他防守。"
+    },
+    {
+      "id": "node-12-intuition",
+      "title": "直觉",
+      "text": "先看直觉。先看黑方眼前的收益。纯子力模型在一层、三层和五层搜索中都把炮二进七吃马排在首位；它看见了少一匹马带来的物质收益。"
+    },
+    {
+      "id": "node-12-disagreement",
+      "title": "分歧",
+      "text": "问题在哪里？专家在十六层搜索里更偏好先走士６进５。吃马分支的行棋方视角的评价为-71，这是有限深度的引擎估计。这不是黑方一吃马就被证明必败。"
+    },
+    {
+      "id": "node-12-variation",
+      "title": "变化验证",
+      "text": "让我们用变化验证。现在从吃马前的局面看一条专家建议的防守变化。推演只是代表性应对，不是唯一走法。看完后回到古谱，继续观察红方怎样利用出子先手。"
+    },
+    {
+      "id": "defense-return",
+      "title": "回到古谱",
+      "text": "推演到这里，回到古谱当前局面。"
+    },
+    {
+      "id": "node-12-lesson",
+      "title": "棋理总结",
+      "text": "回到这一步的棋理。这个节点要比较的是眼前得子与完成防守的先后。浅层模型的偏好不能代表所有普通棋手，古谱的漂亮结尾也不能替代对其他防守的检查。"
+    },
+    {
+      "id": "node-13-intuition",
+      "title": "直觉",
+      "text": "先看直觉。红方已经少了一匹马。纯子力模型在五层搜索中优先选择车九退一，希望把车沿边线退回，攻击刚吃马的黑炮。它并不是当场就把炮吃掉。"
+    },
+    {
+      "id": "node-13-disagreement",
+      "title": "分歧",
+      "text": "问题在哪里？专家十六层搜索把炮八进五列为首选，而它在同样五层的纯子力模型中排第4。进炮后，黑方中炮成为炮架，红炮隔子攻击黑方七路马。这是攻击关系，并非已经吃到马，黑方仍可应对。加入位置表和将帅安全等特征的传统评价模型，在五层时也选择进炮。"
+    },
+    {
+      "id": "node-13-variation",
+      "title": "变化验证",
+      "text": "让我们用变化验证。先回到红方走前的位置，对照看回车追炮的变化。对手可以移动黑炮，眼前追子并没有自动换回失去的马。之后恢复古谱中的进炮局面。"
+    },
+    {
+      "id": "chase-return",
+      "title": "回到古谱",
+      "text": "推演到这里，回到古谱当前局面。"
+    },
+    {
+      "id": "node-13-lesson",
+      "title": "棋理总结",
+      "text": "回到这一步的棋理。两套模型的差别说明，只数棋子容易忽略局面中的其他价值。但五层搜索仍很短，我们只把这个结果当作可解释的模型对照，不把它当成人类棋力等级。"
+    },
+    {
+      "id": "retreat-error",
+      "title": "退马并非最强防守",
+      "text": "古谱中的黑方选择退马。十六层搜索中，这步相对同一局面的最佳走法损失约778个引擎分值。这个差值只说明本局面的搜索结果；吃马后仍能补防，退马这一步才让红方的机会明显扩大。"
+    },
+    {
+      "id": "node-19-intuition",
+      "title": "直觉",
+      "text": "先看直觉。红方前车进一，先吃掉底士并将军；黑士可以回吃这辆车。这是一个有明确物质代价的弃车攻杀候选。"
+    },
+    {
+      "id": "node-19-disagreement",
+      "title": "分歧",
+      "text": "问题在哪里？十二层和十六层的专家复查都认可这步进车。主线接下来确实损失了一辆红车，但这不等于黑方必须接受弃车。"
+    },
+    {
+      "id": "node-19-variation",
+      "title": "变化验证",
+      "text": "让我们用变化验证。先看拒绝弃车的将六进一分支，黑方没有吃车，局面还要继续算。再看古谱接受弃车的分支：士五退四吃车后，另一辆红车平四将军，随后进车吃炮，再由炮八平五收尾。"
+    },
+    {
+      "id": "decline-return",
+      "title": "回到古谱",
+      "text": "推演到这里，回到古谱当前局面。"
+    },
+    {
+      "id": "accept-return",
+      "title": "回到古谱",
+      "text": "推演到这里，回到古谱当前局面。"
+    },
+    {
+      "id": "node-19-lesson",
+      "title": "棋理总结",
+      "text": "回到这一步的棋理。古谱接受弃车的这条变化，最后的将军和无合法应对都已用规则核验。将死结论只针对这条走到终局的分支；其他防守不能一概称为必杀。"
+    },
+    {
+      "id": "famous-finish",
+      "title": "复盘结束",
+      "text": "炮八平五，黑方已无合法应对，古谱主线到此结束。今天的关键不是见子就吃或见弃子就叫妙手，而是把眼前收益、出子节奏和后续防守放在同一条变化里检验。我们展示了专家认可的进炮和进车，也保留了黑方拒绝弃车的防守分支。"
+    }
+  ],
+  "events": [
+    {
+      "id": "famous-intro",
+      "type": "speak",
+      "paragraph": "famous-intro",
+      "chapter": "古谱开场"
+    },
+    {
+      "id": "famous-m1",
+      "type": "move",
+      "move": "h2e2"
+    },
+    {
+      "id": "famous-m2",
+      "type": "move",
+      "move": "h7e7"
+    },
+    {
+      "id": "famous-m3",
+      "type": "move",
+      "move": "h0g2"
+    },
+    {
+      "id": "famous-m4",
+      "type": "move",
+      "move": "h9g7"
+    },
+    {
+      "id": "famous-m5",
+      "type": "move",
+      "move": "i0i1"
+    },
+    {
+      "id": "famous-m6",
+      "type": "move",
+      "move": "i9h9"
+    },
+    {
+      "id": "famous-m7",
+      "type": "move",
+      "move": "i1d1"
+    },
+    {
+      "id": "famous-m8",
+      "type": "move",
+      "move": "h9h3"
+    },
+    {
+      "id": "famous-m9",
+      "type": "move",
+      "move": "d1d8"
+    },
+    {
+      "id": "famous-m10",
+      "type": "move",
+      "move": "b9a7"
+    },
+    {
+      "id": "famous-m11",
+      "type": "move",
+      "move": "a0a1"
+    },
+    {
+      "id": "famous-m12",
+      "type": "move",
+      "move": "b7b0"
+    },
+    {
+      "id": "node-12-intuition",
+      "type": "speak",
+      "paragraph": "node-12-intuition",
+      "chapter": "吃马诱惑与防守反例"
+    },
+    {
+      "id": "node-12-disagreement",
+      "type": "speak",
+      "paragraph": "node-12-disagreement"
+    },
+    {
+      "id": "node-12-variation",
+      "type": "speak",
+      "paragraph": "node-12-variation"
+    },
+    {
+      "id": "defense-position",
+      "type": "set_position",
+      "mainline_ply": 11,
+      "branch": "黑方先补防"
+    },
+    {
+      "id": "defense-m1",
+      "type": "move",
+      "move": "f9e8"
+    },
+    {
+      "id": "defense-m2",
+      "type": "move",
+      "move": "b0c2"
+    },
+    {
+      "id": "defense-m3",
+      "type": "move",
+      "move": "b7d7"
+    },
+    {
+      "id": "defense-m4",
+      "type": "move",
+      "move": "d8b8"
+    },
+    {
+      "id": "defense-m5",
+      "type": "move",
+      "move": "h3g3"
+    },
+    {
+      "id": "defense-m6",
+      "type": "move",
+      "move": "c2e1"
+    },
+    {
+      "id": "defense-restore",
+      "type": "set_position",
+      "mainline_ply": 12
+    },
+    {
+      "id": "defense-return",
+      "type": "speak",
+      "paragraph": "defense-return"
+    },
+    {
+      "id": "node-12-lesson",
+      "type": "speak",
+      "paragraph": "node-12-lesson"
+    },
+    {
+      "id": "famous-m13",
+      "type": "move",
+      "move": "b2b7"
+    },
+    {
+      "id": "node-13-intuition",
+      "type": "speak",
+      "paragraph": "node-13-intuition",
+      "chapter": "纯子力模型与专家、传统评价的分歧"
+    },
+    {
+      "id": "node-13-disagreement",
+      "type": "speak",
+      "paragraph": "node-13-disagreement"
+    },
+    {
+      "id": "node-13-variation",
+      "type": "speak",
+      "paragraph": "node-13-variation"
+    },
+    {
+      "id": "chase-position",
+      "type": "set_position",
+      "mainline_ply": 12,
+      "branch": "回车追炮"
+    },
+    {
+      "id": "chase-m1",
+      "type": "move",
+      "move": "a1a0"
+    },
+    {
+      "id": "chase-m2",
+      "type": "move",
+      "move": "b0b1"
+    },
+    {
+      "id": "chase-m3",
+      "type": "move",
+      "move": "b2b7"
+    },
+    {
+      "id": "chase-m4",
+      "type": "move",
+      "move": "a9b9"
+    },
+    {
+      "id": "chase-m5",
+      "type": "move",
+      "move": "b7g7"
+    },
+    {
+      "id": "chase-m6",
+      "type": "move",
+      "move": "f9e8"
+    },
+    {
+      "id": "chase-restore",
+      "type": "set_position",
+      "mainline_ply": 13
+    },
+    {
+      "id": "chase-return",
+      "type": "speak",
+      "paragraph": "chase-return"
+    },
+    {
+      "id": "node-13-lesson",
+      "type": "speak",
+      "paragraph": "node-13-lesson"
+    },
+    {
+      "id": "famous-m14",
+      "type": "move",
+      "move": "g7h9"
+    },
+    {
+      "id": "retreat-error",
+      "type": "speak",
+      "paragraph": "retreat-error"
+    },
+    {
+      "id": "famous-m15",
+      "type": "move",
+      "move": "e2e6"
+    },
+    {
+      "id": "famous-m16",
+      "type": "move",
+      "move": "f9e8"
+    },
+    {
+      "id": "famous-m17",
+      "type": "move",
+      "move": "a1d1"
+    },
+    {
+      "id": "famous-m18",
+      "type": "move",
+      "move": "e9f9"
+    },
+    {
+      "id": "famous-m19",
+      "type": "move",
+      "move": "d8d9"
+    },
+    {
+      "id": "node-19-intuition",
+      "type": "speak",
+      "paragraph": "node-19-intuition",
+      "chapter": "弃车攻杀候选及接受/拒绝分支"
+    },
+    {
+      "id": "node-19-disagreement",
+      "type": "speak",
+      "paragraph": "node-19-disagreement"
+    },
+    {
+      "id": "node-19-variation",
+      "type": "speak",
+      "paragraph": "node-19-variation"
+    },
+    {
+      "id": "decline-position",
+      "type": "set_position",
+      "mainline_ply": 18,
+      "branch": "拒绝弃车"
+    },
+    {
+      "id": "decline-m1",
+      "type": "move",
+      "move": "d8d9"
+    },
+    {
+      "id": "decline-m2",
+      "type": "move",
+      "move": "f9f8"
+    },
+    {
+      "id": "decline-m3",
+      "type": "move",
+      "move": "d9g9"
+    },
+    {
+      "id": "decline-m4",
+      "type": "move",
+      "move": "h9i7"
+    },
+    {
+      "id": "decline-m5",
+      "type": "move",
+      "move": "b7i7"
+    },
+    {
+      "id": "decline-m6",
+      "type": "move",
+      "move": "a9a8"
+    },
+    {
+      "id": "decline-restore",
+      "type": "set_position",
+      "mainline_ply": 19
+    },
+    {
+      "id": "decline-return",
+      "type": "speak",
+      "paragraph": "decline-return"
+    },
+    {
+      "id": "accept-position",
+      "type": "set_position",
+      "mainline_ply": 18,
+      "branch": "古谱接受弃车至将死"
+    },
+    {
+      "id": "accept-m1",
+      "type": "move",
+      "move": "d8d9"
+    },
+    {
+      "id": "accept-m2",
+      "type": "move",
+      "move": "e8d9"
+    },
+    {
+      "id": "accept-m3",
+      "type": "move",
+      "move": "d1f1"
+    },
+    {
+      "id": "accept-m4",
+      "type": "move",
+      "move": "e7f7"
+    },
+    {
+      "id": "accept-m5",
+      "type": "move",
+      "move": "f1f7"
+    },
+    {
+      "id": "accept-m6",
+      "type": "move",
+      "move": "f9e9"
+    },
+    {
+      "id": "accept-m7",
+      "type": "move",
+      "move": "b7e7"
+    },
+    {
+      "id": "accept-restore",
+      "type": "set_position",
+      "mainline_ply": 19
+    },
+    {
+      "id": "accept-return",
+      "type": "speak",
+      "paragraph": "accept-return"
+    },
+    {
+      "id": "node-19-lesson",
+      "type": "speak",
+      "paragraph": "node-19-lesson"
+    },
+    {
+      "id": "famous-m20",
+      "type": "move",
+      "move": "e8d9"
+    },
+    {
+      "id": "famous-m21",
+      "type": "move",
+      "move": "d1f1"
+    },
+    {
+      "id": "famous-m22",
+      "type": "move",
+      "move": "e7f7"
+    },
+    {
+      "id": "famous-m23",
+      "type": "move",
+      "move": "f1f7"
+    },
+    {
+      "id": "famous-m24",
+      "type": "move",
+      "move": "f9e9"
+    },
+    {
+      "id": "famous-m25",
+      "type": "move",
+      "move": "b7e7"
+    },
+    {
+      "id": "famous-finish",
+      "type": "speak",
+      "paragraph": "famous-finish",
+      "chapter": "终局总结"
+    }
+  ],
+  "evidence_schema": 1,
+  "commentary_mode": "llm_fact_card_composition"
+}

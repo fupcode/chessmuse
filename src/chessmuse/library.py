@@ -2,11 +2,13 @@
 
 import json
 import re
+import wave
 from copy import deepcopy
 from pathlib import Path
 from uuid import uuid4
 
 from cchess import FULL_INIT_FEN
+from mutagen import MutagenError
 
 from chessmuse.demo import DATA, compile_demo, load_script
 from chessmuse.llm import DeepSeekClient, DeepSeekSettings
@@ -49,7 +51,13 @@ def examples() -> dict[str, dict]:
     original = load_script()
     horses = make_game({"title": "双方起马 · 四步示例", "moves": ["h0g2", "h9g7", "b0c2", "b9c7"]}, "horse-opening")
     horses["description"] = "简短示例 · 每步自然讲述 · 无引擎评价"
-    return {original["id"]: original, horses["id"]: horses}
+    result = {original["id"]: original, horses["id"]: horses}
+    reviewed = DATA / "famous-review.json"
+    if reviewed.exists():
+        famous = json.loads(reviewed.read_text(encoding="utf-8"))
+        # Put the finished substantive review first in the web catalog.
+        result = {famous["id"]: famous, **result}
+    return result
 
 
 class GameLibrary:
@@ -86,6 +94,8 @@ class GameLibrary:
         local = self.game_dir(game_id) / "narration.json"
         if not local.exists() and game_id == "opening-v1":
             return DATA / "narration.json"
+        if not local.exists() and game_id == "qima-13":
+            return DATA / "famous-narration.json"
         return local
 
     async def prepare(self, script: dict, *, force: bool = False, force_narration: bool = False,
@@ -112,6 +122,19 @@ class GameLibrary:
         audio_dir = self.audio / script["id"]
         plan = compile_demo(script, require_audio=False, narration_path=narration, audio_dir=audio_dir)
         report(36, "检查本地语音缓存")
+        if not force:
+            try:
+                manifest = json.loads((audio_dir / "audio.json").read_text(encoding="utf-8-sig"))
+                if (manifest.get("provider") != "edge-tts" or manifest.get("voice") != voice
+                        or manifest.get("rate") != rate):
+                    raise ValueError("音频配置变化")
+                result = compile_demo(script, narration_path=narration, audio_dir=audio_dir)
+            except (OSError, ValueError, KeyError, TypeError, MutagenError, wave.Error, EOFError):
+                pass
+            else:
+                report(97, "已核验并复用全部语音缓存")
+                report(100, "导入完成，可以播放")
+                return result
         await prepare_neural_audio(audio_dir, plan["paragraphs"], voice, rate, force=force,
                                    progress=lambda part, message: report(36 + int(part * 59), message))
         report(97, "校验音频与动画同步")

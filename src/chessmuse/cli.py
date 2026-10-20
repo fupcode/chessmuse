@@ -60,6 +60,12 @@ def main():
     all_prepare.add_argument("--example", default="opening-v1")
     all_prepare.add_argument("--force", action="store_true", help="重新生成短句和语音")
     all_prepare.add_argument("--env-file", default=".env")
+    intuition = sub.add_parser("prepare-intuition", help="构建ElephantEye有限深度直觉模型")
+    intuition.add_argument("--download", action="store_true", help="从固定官方版本下载，仅提取C++白名单")
+    famous = sub.add_parser("prepare-famous", help="构建弃马十三着的专家证据、讲解与语音")
+    famous.add_argument("--engine", default=".cache/pikafish/Pikafish-Windows-x86-64-universal.exe")
+    famous.add_argument("--env-file", default=".env")
+    famous.add_argument("--force", action="store_true")
     for command, help_text in (("analyze-position", "专家分析单个局面及指定候选"),
                                ("analyze-game", "全局浅扫棋谱并深度复查少量局面"),
                                ("analyze-suite", "复现内置专家分析小样本实验")):
@@ -86,6 +92,22 @@ def main():
             analyze.add_argument("--input", default=str(PACKAGE / "data" / "analysis-cases.json"))
             analyze.add_argument("--depth", type=int, default=8)
     args = parser.parse_args()
+    if args.command == "prepare-famous":
+        from chessmuse.review import prepare_famous
+        try:
+            demo = asyncio.run(prepare_famous(args.engine, force=args.force, env_file=args.env_file,
+                                            progress=lambda s: print(s, flush=True)))
+            print(f"古谱就绪：{len(demo['mainline'])} 个半回合，{len(demo['paragraphs'])} 段语音")
+        except (EngineError, LLMError, OSError, ValueError, subprocess.SubprocessError) as error:
+            parser.exit(1, f"古谱准备失败：{error}\n")
+        return
+    if args.command == "prepare-intuition":
+        from chessmuse.intuition import build_intuition
+        try:
+            print(build_intuition(download=args.download))
+        except (OSError, ValueError, subprocess.SubprocessError) as error:
+            parser.exit(1, f"直觉模型构建失败：{error}\n")
+        return
     if args.command.startswith("analyze-"):
         try:
             with Pikafish(args.engine, eval_file=args.eval_file, timeout=args.timeout) as engine:

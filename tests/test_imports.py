@@ -66,7 +66,8 @@ def test_http_import_returns_real_job_progress_and_errors(tmp_path, monkeypatch)
                 headers={"Content-Type": "application/json", **headers}))
         try:
             with urlopen(base + "/api/examples") as response:
-                assert len(json.load(response)["examples"]) == 2
+                assert {entry["id"] for entry in json.load(response)["examples"]} == {
+                    "qima-13", "opening-v1", "horse-opening"}
             with urlopen(base + "/api/examples/horse-opening/download") as response:
                 source = json.load(response)
                 assert source["moves"] == ["h0g2", "h9g7", "b0c2", "b9c7"]

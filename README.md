@@ -1,6 +1,6 @@
 # 棋妙 ChessMuse
 
-中国象棋 AI 复盘项目，目标与优先级见 [项目总纲](docs/overview.md)。目前支持网页选择示例、导入棋谱、LLM 自然走子短句、中文语音与同步棋盘动画；命令行已接入 Pikafish 专家搜索、指定候选分析及棋谱浅扫/复查。网页尚未接入专家评价，直觉模型及完整复盘分析尚未实现。
+中国象棋 AI 复盘项目，目标与优先级见 [项目总纲](docs/overview.md)。现已提供《橘中秘·弃马十三着》的完整讲解演示：完整主线、直觉与专家对照、关键变化推演、晓晓中文语音和同步字幕。其他导入棋谱目前支持合法回放与走子短句。
 
 ## 启动
 
@@ -11,7 +11,9 @@ uv sync --locked
 uv run chessmuse serve
 ```
 
-打开 <http://127.0.0.1:8000>。页面会自动准备第一个示例，也可选择「双方起马」或导入自己的 JSON 棋谱。服务启动不要求已存在音频；选择棋谱后，页面显示校验、短句生成、语音准备和完成的真实进度。缺少短句缓存时需要 `.env` 中可用的 LLM 配置；默认「中炮对屏风马」随代码附带短句，可直接复用。默认 TTS 首次生成需要联网，已有有效缓存时直接复用。
+打开 <http://127.0.0.1:8000>。默认准备「橘中秘 · 弃马十三着」，点击「播放解说」可听完约5分46秒的完整演示；也可选择开局示例或导入自己的 JSON 棋谱。服务启动不要求已存在音频；选择棋谱后会显示校验与准备进度。古谱讲解、古谱走子短句和「中炮对屏风马」短句随代码交付，播放无需在线 LLM；默认 TTS 首次生成需要联网，已有有效缓存时直接复用。
+
+本工作区古谱音频已准备好。新工作区可先执行 `uv run chessmuse prepare-example --example qima-13`。完整来源、三处重点、模型实验和重做流程见 [著名古谱讲解交付](docs/famous-review.md)。
 
 ## 导入棋谱
 
@@ -31,6 +33,7 @@ uv run chessmuse serve
 - `audio/<棋谱ID>/`：实际 MP3/WAV 及 `audio.json` 清单，位于项目根目录，**不提交 Git，也不打入 Python 包**。
 - `.cache/games/<棋谱ID>/`：导入棋谱与本地生成的 LLM 短句。
 - `.cache/tts/`、`.cache/narration/`：生成中的临时文件。
+- `.cache/review/`、`.cache/analysis/`：古谱证据和专家搜索；`.cache/elephanteye/`：白名单源码、直觉模型构建及实验缓存。
 - `.cache/uv/`、`.cache/pytest_cache/`、`.cache/pytest-tmp/`：工具缓存与测试临时文件。
 - `src/chessmuse/data/`：内置示例及一份可复用的文本短句记录，随代码交付。
 
@@ -82,6 +85,7 @@ uv run pytest -q
 node tests/player.test.mjs
 node tests/motion.test.mjs
 node tests/import.test.mjs
+node tests/review-playback.test.mjs
 uv run chessmuse validate
 ```
 
@@ -102,9 +106,9 @@ uv run chessmuse analyze-suite --engine .cache/pikafish/Pikafish-Windows-x86-64-
 
 ## 当前交接状态（2026-10-20）
 
-已实现棋规校验、分支回放、LLM 走子短句、晓晓 108% 语音、音画同步、JSON 导入和缓存复用；新增独立的专家分析模块 `engine.py`、`analysis.py` 和 10 个实验局面。专家搜索已在真实 Pikafish 上运行，指定候选、PV 与缓存经过验证；这些不能替代浏览器画面、听音与完整交互验收。
+已实现一份著名古谱的完整讲解：25个主线半回合、3个关键节点、4段推演、77个事件及69段真实语音。ElephantEye 的纯子力/传统评价配置完成1/3/5层对照，Pikafish深度12/16复查关键候选；详细战术采用已核验事实卡，由LLM组织段落。修复了多分支「回到主线」定位问题，完整音频缓存可直接复用。
 
-下一上下文先读 [项目总纲](docs/overview.md)、本 README 和 [专家分析阶段交付](docs/expert-analysis.md)。本次因浏览器/桌面连接清单为空，播放体验验收仍待完成；独立专家分析已推进至步骤 2 的可复现交付。下一开发边界是步骤 3 的 ElephantEye 定向调研与可运行直觉模型对照。网页完整复盘讲解尚未实现，当前 LLM 主要负责走子短句。
+下一上下文先读 [项目总纲](docs/overview.md)、本 README 和 [著名古谱讲解交付](docs/famous-review.md)。真实HTTP加载、全部音频访问、完整Player事件推进已验证；桌面操作因网址识别限制停止，画面、实际听音和主观讲解质量仍待人工验收。当前三个古谱节点由开发时指定，尚未覆盖任意导入棋谱的自动完整解说；下一步优先按真实观感改进本演示，再推广节点选择和名局样本。
 
 服务需在新会话中确认或重新启动，不依赖上一个会话的后台进程。导入任务和进度只保存在服务内存中；重启后需重新选择或导入，磁盘中有效的棋谱、短句和音频仍可复用。旧音频文件暂不自动清理，HTTP 仅提供当前清单引用的文件。
 

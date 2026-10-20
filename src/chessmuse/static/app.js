@@ -89,6 +89,9 @@ function mountDemo(demo) {
   $("chapters").replaceChildren();
   $("title").textContent=demo.title;
   $("description").textContent=demo.description;
+  $("evidence-note").textContent=demo.evidence_schema
+    ? "古谱讲解有专家搜索与直觉模型对照。变化逐手核验；有限深度评价不代表对所有防守的证明。"
+    : "走子短句基于已验证事实生成；本棋谱未提供专家复盘讲解。";
   const voiceName={"zh-CN-XiaoxiaoNeural":"晓晓", "zh-CN-YunxiNeural":"云希", "Microsoft Huihui Desktop":"慧慧"}[demo.voice];
   $("voice-label").textContent=voiceName ? `中文语音 · ${voiceName}` : "中文语音";
   drawGrid();
@@ -141,7 +144,7 @@ function mountDemo(demo) {
   $("replay").onclick=()=>{player.seek(0);player.play();};
   $("progress").oninput=e=>player.seek(Number(e.target.value));
   $("voice").onchange=e=>player.setVoice(e.target.checked);
-  $("mainline").onclick=()=>player.seek(demo.events.findIndex(e=>e.id==="return"));
+  $("mainline").onclick=()=>player.seek(player.mainlineReturnIndex());
   player.paint();
   $("status").textContent="准备就绪 · 点击播放开始";
 }

@@ -5,6 +5,22 @@ import assert from 'node:assert/strict';
 const source = await readFile(new URL('../src/chessmuse/static/player.js', import.meta.url), 'utf8');
 const { Player } = await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
 
+test('return to mainline chooses the current branch restoration in a multi-branch review',()=>{
+  const player=Object.create(Player.prototype);
+  player.demo={events:[
+    {type:'set_position',state:{branch:'first'}},
+    {type:'move',state:{branch:'first'}},
+    {type:'set_position',state:{branch:null}},
+    {type:'speak',state:{branch:null}},
+    {type:'set_position',state:{branch:'second'}},
+    {type:'move',state:{branch:'second'}},
+    {type:'set_position',state:{branch:null}},
+    {type:'speak',state:{branch:null}},
+  ]};
+  player.index=1;assert.equal(player.mainlineReturnIndex(),3);
+  player.index=5;assert.equal(player.mainlineReturnIndex(),7);
+});
+
 function setup() {
   let now = 0;
   const jobs = new Map();

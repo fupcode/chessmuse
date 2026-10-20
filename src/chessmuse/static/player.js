@@ -25,6 +25,14 @@ export class Player {
 
   get event() { return this.demo.events[this.index]; }
   get paragraph() { return this.demo.paragraphs.find(p => p.id === this.event.paragraph); }
+  mainlineReturnIndex() {
+    // A review can contain several independent branches. Return to this
+    // branch's next restoration, not the first restoration in the whole game.
+    const restore = this.demo.events.findIndex((event, index) => index > this.index
+      && event.type === "set_position" && !event.state.branch);
+    if (restore < 0) return this.index;
+    return this.demo.events[restore + 1]?.type === "speak" ? restore + 1 : restore;
+  }
   now() { return this.clock.performance.now(); }
 
   clearTimer() {
