@@ -24,15 +24,27 @@ def play(fen: str, move: str) -> tuple[str, str]:
     return board.to_fen(), notation
 
 
-def announce_move(fen: str, move: str, notation: str) -> tuple[str, bool]:
-    """Describe an already validated move; claim check only when rules confirm it."""
+def move_facts(fen: str, move: str, notation: str) -> dict:
+    """Facts for the language model; no generated narration or tactical guesses."""
     board = ChessBoard(fen)
     start = (ord(move[0]) - ord("a"), int(move[1]))
     end = (ord(move[2]) - ord("a"), int(move[3]))
-    gives_check = board.is_checking_move(start, end)
-    side = "红方" if fen.split()[1] == "w" else "黑方"
-    spoken = notation.translate(str.maketrans("123456789１２３４５６７８９", "一二三四五六七八九一二三四五六七八九"))
+    pieces = {"r": "车", "n": "马", "b": "象", "a": "士", "k": "将", "c": "炮", "p": "卒"}
+    moving = board.get_fench(start)
+    captured = board.get_fench(end)
+    labels = []
     if fen.split()[0] == "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR" and move in {"h2e2", "b2e2"}:
-        spoken = "当头炮"
-    text = f"{side}，{spoken}" + ("，将军。" if gives_check else "。")
-    return text, gives_check
+        labels.append("当头炮")
+    was_screen = board.get_fench((2, 7)) == "n" and board.get_fench((6, 7)) == "n"
+    gives_check = board.is_checking_move(start, end)
+    board.move(start, end)
+    if moving == "n" and not was_screen and board.get_fench((2, 7)) == "n" and board.get_fench((6, 7)) == "n":
+        labels.append("屏风马")
+    return {
+        "fen": fen, "move": move,
+        "side": "红方" if fen.split()[1] == "w" else "黑方",
+        "action": notation.translate(str.maketrans("123456789１２３４５６７８９", "一二三四五六七八九一二三四五六七八九")),
+        "piece": {"P": "兵", "B": "相", "A": "仕", "K": "帅"}.get(moving, pieces[moving.lower()]),
+        "capture": {"P": "兵", "B": "相", "A": "仕", "K": "帅"}.get(captured, pieces[captured.lower()]) if captured else None,
+        "gives_check": gives_check, "verified_labels": labels,
+    }

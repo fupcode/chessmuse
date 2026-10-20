@@ -4,7 +4,8 @@ import json
 from copy import deepcopy
 from pathlib import Path
 
-from chessmuse.game import announce_move, play
+from chessmuse.game import move_facts, play
+from chessmuse.narration import read_announcements
 from chessmuse.tts import audio_duration
 
 DATA = Path(__file__).parent / "data"
@@ -14,12 +15,17 @@ def load_script() -> dict:
     return json.loads((DATA / "demo.json").read_text(encoding="utf-8"))
 
 
-def compile_demo(script: dict | None = None, *, require_audio: bool = True) -> dict:
+def compile_demo(script: dict | None = None, *, require_audio: bool = True, require_narration: bool = True) -> dict:
+    if require_audio and not require_narration:
+        raise ValueError("Playable audio requires LLM narration")
     script = deepcopy(script if script is not None else load_script())
     snapshots = [script["initial_fen"]]
     notations = []
+    mainline_history = []
     for move in script["mainline"]:
         fen, notation = play(snapshots[-1], move)
+        facts = move_facts(snapshots[-1], move, notation)
+        mainline_history.append({"side": facts["side"], "action": facts["action"], "gives_check": facts["gives_check"]})
         snapshots.append(fen)
         notations.append(notation)
 
@@ -28,6 +34,8 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True) -> d
         raise ValueError("Duplicate paragraph IDs")
     fen, ply, branch, caption, last_move = snapshots[0], 0, None, None, None
     seen = set()
+    history = []
+    narration_inputs = []
     for event in script["events"]:
         if event["id"] in seen:
             raise ValueError(f"Duplicate event ID: {event['id']}")
@@ -40,11 +48,14 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True) -> d
                 }
                 previous_fen = fen
                 fen, event["notation"] = play(fen, event["move"])
-                text, event["gives_check"] = announce_move(previous_fen, event["move"], event["notation"])
+                facts = move_facts(previous_fen, event["move"], event["notation"])
+                event["gives_check"] = facts["gives_check"]
+                narration_inputs.append({"id": event["id"], "facts": facts, "history": history[-6:], "branch": branch})
+                history.append({"side": facts["side"], "action": facts["action"], "gives_check": facts["gives_check"]})
                 caption = f"move-{event['id']}"
                 if caption in paragraphs:
                     raise ValueError(f"Reserved move paragraph ID: {caption}")
-                paragraphs[caption] = {"id": caption, "title": event["notation"], "text": text, "kind": "move"}
+                paragraphs[caption] = {"id": caption, "title": event["notation"], "text": "", "kind": "move"}
                 event["paragraph"] = caption
                 ply += 1
                 last_move = event["move"]
@@ -55,6 +66,7 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True) -> d
                 if not 0 <= ply < len(snapshots):
                     raise ValueError("Snapshot index outside mainline")
                 fen, branch, last_move = snapshots[ply], event.get("branch"), None
+                history = mainline_history[:ply]
             case "speak":
                 caption = event["paragraph"]
                 if caption not in paragraphs:
@@ -67,6 +79,12 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True) -> d
         }
     if branch is not None or fen != snapshots[-1]:
         raise ValueError("Timeline must finish at the end of the mainline")
+    script["narration_inputs"] = narration_inputs
+    if require_narration:
+        announcements = read_announcements(DATA / "narration.json", narration_inputs)
+        for event in script["events"]:
+            if event["type"] == "move":
+                paragraphs[event["paragraph"]]["text"] = announcements[event["id"]]
     ordered_ids = dict.fromkeys(e["paragraph"] for e in script["events"] if "paragraph" in e)
     ordered_ids.update(dict.fromkeys(paragraphs))
     script["paragraphs"] = [paragraphs[key] for key in ordered_ids]

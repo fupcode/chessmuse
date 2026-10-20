@@ -12,6 +12,7 @@ from urllib.parse import urlsplit
 
 from chessmuse.demo import DATA, compile_demo
 from chessmuse.llm import ConfigurationError, DeepSeekClient, DeepSeekSettings, LLMError, Message
+from chessmuse.narration import generate_announcements
 from chessmuse.tts import DEFAULT_RATE, DEFAULT_VOICE, prepare_neural_audio
 
 PACKAGE = Path(__file__).parent
@@ -71,11 +72,25 @@ def main():
     sub.add_parser("validate", help="验证主线、分支和语音缓存")
     llm_check = sub.add_parser("llm-check", help="发送一条短请求，检查 DeepSeek 配置与连通性")
     llm_check.add_argument("--env-file", default=".env", help="环境文件路径，默认读取当前目录的 .env")
+    narrate = sub.add_parser("prepare-narration", help="用 LLM 将带上下文的走子事实压缩成自然短句")
+    narrate.add_argument("--env-file", default=".env")
     prepare = sub.add_parser("prepare-audio", help="生成中文解说缓存（默认晓晓自然女声）")
     prepare.add_argument("--provider", choices=["edge", "windows"], default="edge")
     prepare.add_argument("--voice", default=DEFAULT_VOICE, help="在线声音名称")
     prepare.add_argument("--rate", default=DEFAULT_RATE, help="在线语速，如 --rate=-5%%")
     args = parser.parse_args()
+    if args.command == "prepare-narration":
+        async def prepare_narration():
+            script = compile_demo(require_audio=False, require_narration=False)
+            async with DeepSeekClient(DeepSeekSettings.from_env(args.env_file)) as client:
+                texts = await generate_announcements(client, script["narration_inputs"], DATA / "narration.json")
+            for event_id, text in texts.items():
+                print(f"{event_id}: {text}")
+        try:
+            asyncio.run(prepare_narration())
+        except (ConfigurationError, LLMError, ValueError) as error:
+            parser.exit(1, f"{error}\n")
+        return
     if args.command == "llm-check":
         try:
             asyncio.run(check_llm(args.env_file))

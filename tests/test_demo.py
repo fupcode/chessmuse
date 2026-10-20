@@ -1,7 +1,7 @@
 import pytest
 
 from chessmuse.demo import compile_demo, load_script
-from chessmuse.game import announce_move, play
+from chessmuse.game import move_facts, play
 
 
 def test_branch_returns_to_exact_mainline_position():
@@ -17,7 +17,7 @@ def test_branch_returns_to_exact_mainline_position():
     assert all(p["duration"] > 0 for p in demo["paragraphs"])
 
 
-def test_every_move_has_a_rule_based_announcement_and_shorter_animation():
+def test_every_move_has_an_llm_announcement_and_shorter_animation():
     demo = compile_demo()
     paragraphs = {p["id"]: p for p in demo["paragraphs"]}
     assert demo["schema_version"] == 2
@@ -27,21 +27,33 @@ def test_every_move_has_a_rule_based_announcement_and_shorter_animation():
         paragraph = paragraphs[event["paragraph"]]
         assert paragraph["kind"] == "move"
         assert paragraph["text"].startswith(("红方", "黑方"))
+        assert "，" not in paragraph["text"] and "。" not in paragraph["text"]
         assert 0 < event["animation_ms"] < paragraph["duration"] * 1000
         after, _ = play(event["before_state"]["fen"], event["move"])
         assert after == event["state"]["fen"]
-    assert paragraphs["move-m1"]["text"] == "红方，当头炮。"
-    assert paragraphs["move-m2"]["text"] == "黑方，马八进七。"
+    assert "炮" in paragraphs["move-m1"]["text"]
+    assert "马" in paragraphs["move-m2"]["text"]
 
 
 def test_check_announcement_is_based_on_the_board():
     fen = "4k4/9/9/3N5/4P4/9/9/9/9/4K4 w"
     _, notation = play(fen, "d6f7")
-    text, check = announce_move(fen, "d6f7", notation)
-    assert check and "将军" in text
+    facts = move_facts(fen, "d6f7", notation)
+    assert facts["gives_check"]
     _, notation = play(fen, "e5e6")
-    text, check = announce_move(fen, "e5e6", notation)
-    assert not check and "将军" not in text
+    facts = move_facts(fen, "e5e6", notation)
+    assert not facts["gives_check"]
+
+
+def test_branch_history_is_removed_on_return_to_mainline():
+    demo = compile_demo(require_audio=False)
+    inputs = {item["id"]: item for item in demo["narration_inputs"]}
+    assert inputs["b2"]["branch"] == "先跳左马"
+    assert len(inputs["b2"]["history"]) == 5
+    assert inputs["m5"]["branch"] is None
+    assert len(inputs["m5"]["history"]) == 4
+    assert inputs["m1"]["facts"]["verified_labels"] == ["当头炮"]
+    assert inputs["m4"]["facts"]["verified_labels"] == ["屏风马"]
 
 
 @pytest.mark.parametrize("move", ["a0a9", "h9g7", "h0h2", "z9a0", "a0a0"])
