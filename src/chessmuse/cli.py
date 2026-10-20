@@ -77,7 +77,7 @@ def main():
     prepare = sub.add_parser("prepare-audio", help="生成中文解说缓存（默认晓晓自然女声）")
     prepare.add_argument("--provider", choices=["edge", "windows"], default="edge")
     prepare.add_argument("--voice", default=DEFAULT_VOICE, help="在线声音名称")
-    prepare.add_argument("--rate", default=DEFAULT_RATE, help="在线语速，如 --rate=-5%%")
+    prepare.add_argument("--rate", default=DEFAULT_RATE, help="在线语速，默认 +20%%（120%%），如 --rate=+20%%")
     args = parser.parse_args()
     if args.command == "prepare-narration":
         async def prepare_narration():
