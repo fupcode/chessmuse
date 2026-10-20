@@ -47,10 +47,49 @@ uv run chessmuse prepare-audio --voice zh-CN-XiaoxiaoNeural --rate=-5%
 
 ## 代码与下一阶段
 
+### DeepSeek 调用层
+
+从项目根目录运行。首次配置时将 `.env.example` 复制为 `.env`，填写 `DEEPSEEK_API_KEY`；已有 `.env` 时直接修改配置，无需覆盖。默认模型为 `deepseek-flash`，接口地址为 `https://api.deepseek.com`。
+
+```powershell
+uv run chessmuse llm-check
+# 也可以显式指定环境文件
+uv run chessmuse llm-check --env-file .env
+```
+
+`llm-check` 会发送一条真实的短请求并显示模型和 token 用量，需要网络及可用余额。普通 `pytest` 测试使用模拟接口，不调用收费 API。`.env` 及本地环境变体不提交 Git，`.env.example` 仅包含空密钥和默认参数。进程环境变量优先于 `.env`，配置在调用 `from_env()` 时读取，不会在模块导入时加载，也不会修改全局环境。
+
+Python 调用示例：
+
+```python
+import asyncio
+from chessmuse.llm import DeepSeekClient, DeepSeekSettings, Message
+
+async def main():
+    async with DeepSeekClient(DeepSeekSettings.from_env()) as client:
+        result = await client.complete([
+            Message("system", "只描述提供的已验证事实，缺少搜索证据时不要判断走法优劣。"),
+            Message("user", "已验证事实：标准初始局面，红炮从 h2 移至 e2。请返回 JSON 对象，text 字段描述这个事实。"),
+        ], json_mode=True)
+        print(result.data)
+        print(result.usage.total_tokens)
+
+asyncio.run(main())
+```
+
+`complete()` 默认返回文本；开启 `json_mode=True` 后会补充 JSON 指令并校验返回值为 JSON 对象，通过 `result.data` 读取。返回结果同时包含原始文本、服务返回的模型名称、请求 ID 及输入/输出/总 token 用量。JSON 模式只验证格式，后续仍需由讲解模块校验证据引用与具体业务字段。
+
+可通过 `.env.example` 中的配置调整模型、思考模式、输出 token 上限、单次请求总超时及重试次数。默认关闭思考模式、输出上限 2048 tokens、每次请求超时 60 秒，网络错误、HTTP 429 和 5xx 最多额外重试两次；其他 HTTP 错误直接返回。支持有界的 `Retry-After` 等待，不重试无效响应或被截断的内容。认证失败、余额不足、空结果和截断等会转成 `ConfigurationError` / `LLMError`，错误信息不包含密钥或服务端原始响应体。
+
+此层目前提供非流式文本和 JSON 调用，不缓存请求或回复，不会自动修改现有演示脚本，也不直接控制棋步。协议依据 [DeepSeek Chat Completions](https://api-docs.deepseek.com/api/create-chat-completion/) 和 [JSON Output](https://api-docs.deepseek.com/guides/json_mode/) 实现，并已用 `deepseek-flash` 完成真实连通性验证。
+
+### 模块说明
+
 - `src/chessmuse/game.py`：棋规库适配，验证 ICCS 走法、行棋方和自陷将军。
 - `src/chessmuse/demo.py`：脚本编译、主线核对、分支快照和音频清单校验。
 - `src/chessmuse/static/`：SVG 棋盘、统一调度器和段落字幕。
 - `src/chessmuse/cli.py`：本地服务、校验与音频生成入口。
+- `src/chessmuse/llm/`：DeepSeek 配置读取、异步调用、响应解析与错误处理。
 - [播放协议及人工验收](docs/playback.md)：验收流程与当前验证边界。
 
 棋规依赖固定为 [walker8088/cchess](https://github.com/walker8088/cchess) 的 PyPI 发行版 1.25.5（GPL-3.0），该版与仓库最新接口存在差异，已在适配层处理。后续复用或分发时需保留并遵循其许可证。当前仅验证走法级合法性，尚未处理长将、长捉与重复局面的裁决。

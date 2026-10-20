@@ -7,7 +7,9 @@ requires-python = ">=3.12"
 dependencies = [
     "cchess==1.25.5",
     "edge-tts>=7.3.1",
+    "httpx>=0.28.1",
     "mutagen>=1.48.1",
+    "python-dotenv>=1.2.4",
 ]
 
 [build-system]
