@@ -80,3 +80,38 @@ def test_only_missing_clip_is_regenerated(tmp_path, monkeypatch):
     monkeypatch.setattr("chessmuse.tts.audio_duration", duration)
     asyncio.run(prepare_neural_audio(folder, paragraphs))
     assert calls == ["二句"]
+
+
+def test_pronunciation_change_regenerates_only_rook_audio_and_preserves_captions(tmp_path, monkeypatch):
+    import json
+    from pathlib import Path
+    from conftest import write_audio_cache
+
+    monkeypatch.chdir(tmp_path)
+    paragraphs = [{"id": "rook", "text": "红方起车"}, {"id": "horse", "text": "黑方跳马"}]
+    folder = tmp_path / "audio" / "example"
+    write_audio_cache(folder, paragraphs)
+    manifest_path = folder / "audio.json"
+    old = json.loads(manifest_path.read_text(encoding="utf-8"))
+    for record in old["paragraphs"]:
+        record.pop("spoken_text")
+    manifest_path.write_text(json.dumps(old), encoding="utf-8")
+    calls = []
+
+    class Speech:
+        def __init__(self, text, *args, **kwargs):
+            calls.append(text)
+
+        async def save(self, path):
+            Path(path).write_bytes(b"generated audio")
+
+    monkeypatch.setattr("chessmuse.tts.edge_tts.Communicate", Speech)
+    monkeypatch.setattr("chessmuse.tts.audio_duration", lambda path: 1)
+    asyncio.run(prepare_neural_audio(folder, paragraphs))
+    assert calls == ["红方起居"]
+    records = json.loads(manifest_path.read_text(encoding="utf-8"))["paragraphs"]
+    assert records[0]["text"] == "红方起车"
+    assert records[0]["spoken_text"] == "红方起居"
+    assert records[1]["file"] == "horse.wav"
+    asyncio.run(prepare_neural_audio(folder, paragraphs))
+    assert calls == ["红方起居"]

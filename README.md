@@ -56,6 +56,8 @@ uv run chessmuse prepare-audio --rate=+8% --force
 
 默认使用晓晓女声 `zh-CN-XiaoxiaoNeural`，语速 108%。音频通过 [edge-tts](https://github.com/rany2/edge-tts) 联网生成。需要完全离线合成时，可执行 `prepare-audio --provider windows`，使用 Windows 自带慧慧语音；需安装对应系统声音。生成后重新选择该示例或刷新页面即可使用新清单。
 
+象棋中的「车」统一按 jū（一声）合成：仅在送给 TTS 的文本中使用同音字「居」，字幕和 LLM 原文仍保留「车」。音频清单分别记录显示原文与合成文本，发音规则变化时只重新生成受影响的片段。
+
 ## LLM 配置与播放
 
 将 `.env.example` 复制为 `.env`，填写 `LLM_API_KEY`。默认 `LLM_MODEL=deepseek-flash`、`LLM_BASE_URL=https://api.deepseek.com`。真实 `.env` 不纳入 Git，进程环境变量优先于环境文件。连通性检查会发送一条短请求：

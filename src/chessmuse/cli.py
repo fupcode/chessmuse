@@ -14,7 +14,7 @@ from chessmuse.library import GameLibrary
 from chessmuse.server import DemoHandler, ImportJobs
 from chessmuse.llm import ConfigurationError, DeepSeekClient, DeepSeekSettings, LLMError, Message
 from chessmuse.narration import generate_announcements
-from chessmuse.tts import DEFAULT_RATE, DEFAULT_VOICE, prepare_neural_audio
+from chessmuse.tts import DEFAULT_RATE, DEFAULT_VOICE, prepare_neural_audio, speech_text
 
 PACKAGE = Path(__file__).parent
 
@@ -90,6 +90,8 @@ def main():
         if args.provider == "edge":
             asyncio.run(prepare_neural_audio(audio_dir, script["paragraphs"], args.voice, args.rate, force=args.force))
         else:
+            for paragraph in script["paragraphs"]:
+                paragraph["spoken_text"] = speech_text(paragraph["text"])
             staging_root = Path(".cache") / "tts"
             staging_root.mkdir(parents=True, exist_ok=True)
             with TemporaryDirectory(prefix="windows-", dir=staging_root) as temporary:

@@ -7,7 +7,7 @@ from pathlib import Path
 
 from chessmuse.game import move_facts, play
 from chessmuse.narration import read_announcements
-from chessmuse.tts import audio_duration
+from chessmuse.tts import audio_duration, speech_text
 
 DATA = Path(__file__).parent / "data"
 AUDIO_ROOT = Path("audio")
@@ -104,6 +104,8 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
         cached_text = {p["id"]: p["text"] for p in manifest["paragraphs"]}
         if cached_text != {p["id"]: p["text"] for p in paragraphs.values()}:
             raise ValueError("Audio text is stale; run chessmuse prepare-audio")
+        if any(p.get("spoken_text", p["text"]) != speech_text(p["text"]) for p in manifest["paragraphs"]):
+            raise ValueError("Audio pronunciation is stale; run chessmuse prepare-audio")
         script["voice"] = manifest["voice"]
         cached_files = {p["id"]: p.get("file", f"{p['id']}.wav") for p in manifest["paragraphs"]}
         for paragraph in paragraphs.values():

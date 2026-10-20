@@ -12,13 +12,17 @@ try {
     foreach ($paragraph in $scriptData.paragraphs) {
         $audioPath = Join-Path $audioDirectory ($paragraph.id + '.wav')
         $speaker.SetOutputToWaveFile($audioPath)
-        $speaker.Speak($paragraph.text)
+        $spokenText = if ($null -ne $paragraph.spoken_text) { $paragraph.spoken_text } else { $paragraph.text }
+        $speaker.Speak($spokenText)
         $speaker.SetOutputToNull()
         Write-Output ('Generated: ' + $paragraph.id)
     }
     $manifest = @{
+        provider = 'windows'
         voice = 'Microsoft Huihui Desktop'
-        paragraphs = @($scriptData.paragraphs | Select-Object id,text)
+        paragraphs = @($scriptData.paragraphs | ForEach-Object {
+            @{ id = $_.id; text = $_.text; spoken_text = $_.spoken_text; file = ($_.id + '.wav') }
+        })
     }
     $manifest | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $DataDirectory 'audio.json') -Encoding UTF8
 } finally {

@@ -16,6 +16,15 @@ DEFAULT_VOICE = "zh-CN-XiaoxiaoNeural"
 DEFAULT_RATE = "+8%"
 
 
+def speech_text(text: str) -> str:
+    """Chess-only pronunciation hints; displayed/source text stays unchanged.
+
+    The current TTS provider has no per-character phoneme override, so use the
+    homophone 居 (jū) in synthesis input for the chess piece 车/車/俥.
+    """
+    return text.translate(str.maketrans({"车": "居", "車": "居", "俥": "居"}))
+
+
 def audio_duration(path: Path) -> float:
     if path.suffix == ".wav":
         with wave.open(str(path), "rb") as audio:
@@ -55,8 +64,10 @@ async def prepare_neural_audio(audio_dir: Path, paragraphs: list[dict],
             if not re.fullmatch(r"[A-Za-z0-9-]+", paragraph_id):
                 raise ValueError("Invalid paragraph ID")
             previous = cached.get(paragraph_id)
+            spoken = speech_text(paragraph["text"])
             reusable = False
-            if previous and previous.get("text") == paragraph["text"]:
+            if (previous and previous.get("text") == paragraph["text"]
+                    and previous.get("spoken_text", previous.get("text")) == spoken):
                 filename = previous.get("file", "")
                 if isinstance(filename, str) and filename and Path(filename).name == filename and "/" not in filename and "\\" not in filename:
                     try:
@@ -74,11 +85,11 @@ async def prepare_neural_audio(audio_dir: Path, paragraphs: list[dict],
             filename = f"{paragraph_id}-{voice}-{staging.name}.mp3"
             target = staging / filename
             await asyncio.wait_for(
-                edge_tts.Communicate(paragraph["text"], voice, rate=rate).save(str(target)),
+                edge_tts.Communicate(spoken, voice, rate=rate).save(str(target)),
                 timeout=90,
             )
             audio_duration(target)
-            records.append({"id": paragraph_id, "text": paragraph["text"], "file": filename})
+            records.append({"id": paragraph_id, "text": paragraph["text"], "spoken_text": spoken, "file": filename})
             print(f"Generated: {paragraph_id}", flush=True)
             if progress:
                 progress((index + 1) / len(paragraphs), f"生成语音 {index + 1}/{len(paragraphs)}")

@@ -6,6 +6,7 @@ import wave
 import pytest
 
 from chessmuse.demo import compile_demo
+from chessmuse.tts import speech_text
 
 
 def write_audio_cache(folder, paragraphs, *, voice="zh-CN-XiaoxiaoNeural", rate="+8%"):
@@ -16,7 +17,7 @@ def write_audio_cache(folder, paragraphs, *, voice="zh-CN-XiaoxiaoNeural", rate=
         with wave.open(str(folder / name), "wb") as audio:
             audio.setparams((1, 2, 8000, 0, "NONE", "not compressed"))
             audio.writeframes(b"\0\0" * 8000)
-        records.append({"id": paragraph["id"], "text": paragraph["text"], "file": name})
+        records.append({"id": paragraph["id"], "text": paragraph["text"], "spoken_text": speech_text(paragraph["text"]), "file": name})
     (folder / "audio.json").write_text(json.dumps({
         "provider": "edge-tts", "voice": voice, "rate": rate, "paragraphs": records,
     }), encoding="utf-8")
