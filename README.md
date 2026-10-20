@@ -15,7 +15,7 @@ uv run chessmuse serve
 
 打开 <http://127.0.0.1:8000>，点击「播放解说」。Ctrl+C 停止服务。端口占用时使用 `uv run chessmuse serve --port 8001`。
 
-演示音频已随项目缓存；完成依赖安装后，播放不需要网络、LLM、引擎或系统 TTS。首次点击播放后才会发声；语音加载失败会暂停并提示，可重试或关闭「中文语音」继续看字幕。
+演示采用**晓晓神经网络女声**，语速为默认的 95%，音频已随项目缓存；完成依赖安装后，播放不需要网络、LLM、引擎或系统 TTS。首次点击播放后才会发声；语音加载失败会暂停并提示，可重试或关闭「中文语音」继续看字幕。
 
 如果 uv 的默认缓存目录不可访问，可在以上 uv 命令中加入 `--cache-dir .uv-cache`，例如 `uv --cache-dir .uv-cache sync --locked`。
 
@@ -35,7 +35,15 @@ Node.js 仅用于播放调度器测试，启动演示不需要 Node 或前端构
 uv run chessmuse prepare-audio
 ```
 
-重新生成需要 Windows、Windows PowerShell 和 `Microsoft Huihui Desktop` 中文声音；使用本机 System.Speech，不调用云端服务。已有缓存可以在其他支持 Python 的系统播放。
+默认通过 [edge-tts](https://github.com/rany2/edge-tts) 调用微软在线 TTS，将讲解文本发送到服务端，生成晓晓女声 MP3。生成需要网络，无需配置 API Key；缓存后的播放仍完全离线。使用音频实际时长保持段落同步。生成失败会保留当前正在使用的缓存和清单。
+
+可以调整音色与语速，例如：
+
+```powershell
+uv run chessmuse prepare-audio --voice zh-CN-XiaoxiaoNeural --rate=-5%
+```
+
+需要完全离线生成时，可使用 `uv run chessmuse prepare-audio --provider windows`，回退到 Windows 自带的慧慧声音（需要 Windows PowerShell 和 `Microsoft Huihui Desktop`）。修改缓存后重启服务并刷新页面，新音频使用独立 URL，避免浏览器沿用旧声音。
 
 ## 代码与下一阶段
 

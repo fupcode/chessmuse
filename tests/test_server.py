@@ -24,7 +24,8 @@ def test_demo_and_cached_audio_are_served_without_exposing_source():
                 demo = json.load(response)
                 assert len(demo["events"]) == 17
             with urlopen(base + demo["paragraphs"][0]["audio"]) as response:
-                assert response.read(4) == b"RIFF"
+                assert response.headers["Content-Type"] in {"audio/wav", "audio/mpeg"}
+                assert len(response.read()) > 1000
             for path in ["/audio/../demo.json", "/demo.py"]:
                 with pytest.raises(HTTPError) as error:
                     urlopen(base + path)

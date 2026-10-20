@@ -78,6 +78,8 @@ async function start() {
   const demo=await response.json();
   $("title").textContent=demo.title;
   $("description").textContent=demo.description;
+  const voiceName={"zh-CN-XiaoxiaoNeural":"晓晓", "zh-CN-YunxiNeural":"云希", "Microsoft Huihui Desktop":"慧慧"}[demo.voice];
+  $("voice-label").textContent=voiceName ? `中文语音 · ${voiceName}` : "中文语音";
   drawGrid();
   for(const [i,p] of demo.paragraphs.entries()) {
     const article=document.createElement("article");

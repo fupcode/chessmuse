@@ -1,11 +1,11 @@
 """Compile authored events into validated, seekable board snapshots."""
 
 import json
-import wave
 from copy import deepcopy
 from pathlib import Path
 
 from chessmuse.game import play
+from chessmuse.tts import audio_duration
 
 DATA = Path(__file__).parent / "data"
 
@@ -32,12 +32,14 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True) -> d
         if cached_text != {p["id"]: p["text"] for p in paragraphs.values()}:
             raise ValueError("Audio text is stale; run chessmuse prepare-audio")
         script["voice"] = manifest["voice"]
+        cached_files = {p["id"]: p.get("file", f"{p['id']}.wav") for p in manifest["paragraphs"]}
     for paragraph in paragraphs.values():
-        path = DATA / "audio" / f"{paragraph['id']}.wav"
         if require_audio:
-            with wave.open(str(path), "rb") as audio:
-                paragraph["duration"] = audio.getnframes() / audio.getframerate()
-        paragraph["audio"] = f"/audio/{paragraph['id']}.wav"
+            filename = cached_files[paragraph["id"]]
+            if Path(filename).name != filename or "/" in filename or "\\" in filename:
+                raise ValueError("Audio file must be a simple filename")
+            paragraph["duration"] = audio_duration(DATA / "audio" / filename)
+            paragraph["audio"] = f"/audio/{filename}"
 
     fen, ply, branch, caption, last_move = snapshots[0], 0, None, None, None
     seen = set()
