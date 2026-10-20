@@ -12,7 +12,7 @@ import edge_tts
 from mutagen.mp3 import MP3
 
 DEFAULT_VOICE = "zh-CN-XiaoxiaoNeural"
-DEFAULT_RATE = "+20%"
+DEFAULT_RATE = "+8%"
 
 
 def audio_duration(path: Path) -> float:

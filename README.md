@@ -15,7 +15,7 @@ uv run chessmuse serve
 
 打开 <http://127.0.0.1:8000>，点击「播放解说」。Ctrl+C 停止服务。端口占用时使用 `uv run chessmuse serve --port 8001`。
 
-演示采用**晓晓神经网络女声**，默认语速为 120%（`--rate=+20%`），音频已随项目缓存；完成依赖安装后，播放不需要网络、LLM、引擎或系统 TTS。首次点击播放后才会发声；语音加载失败会暂停并提示，可重试或关闭「中文语音」继续看字幕。
+演示采用**晓晓神经网络女声**，默认语速为 108%（`--rate=+8%`），音频已随项目缓存；完成依赖安装后，播放不需要网络、LLM、引擎或系统 TTS。首次点击播放后才会发声；语音加载失败会暂停并提示，可重试或关闭「中文语音」继续看字幕。
 
 工具缓存统一放在项目根目录的 `.cache/`，由配置自动生效：uv 使用 `.cache/uv/`，pytest 使用 `.cache/pytest_cache/`，测试临时文件使用 `.cache/pytest-tmp/`。直接运行上述命令即可，不需要额外传入缓存路径。整个 `.cache/` 不提交 Git；测试临时目录会在下一次测试开始时重建。
 
@@ -48,7 +48,7 @@ uv run chessmuse prepare-audio
 可以调整音色与语速，例如：
 
 ```powershell
-uv run chessmuse prepare-audio --voice zh-CN-XiaoxiaoNeural --rate=+20%
+uv run chessmuse prepare-audio --voice zh-CN-XiaoxiaoNeural --rate=+8%
 ```
 
 需要完全离线生成时，可使用 `uv run chessmuse prepare-audio --provider windows`，回退到 Windows 自带的慧慧声音（需要 Windows PowerShell 和 `Microsoft Huihui Desktop`）。修改缓存后重启服务并刷新页面，新音频使用独立 URL，避免浏览器沿用旧声音。
