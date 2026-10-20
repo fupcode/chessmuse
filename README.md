@@ -49,7 +49,7 @@ uv run chessmuse prepare-audio --voice zh-CN-XiaoxiaoNeural --rate=-5%
 
 ### DeepSeek 调用层
 
-从项目根目录运行。首次配置时将 `.env.example` 复制为 `.env`，填写 `DEEPSEEK_API_KEY`；已有 `.env` 时直接修改配置，无需覆盖。默认模型为 `deepseek-flash`，接口地址为 `https://api.deepseek.com`。
+从项目根目录运行。首次配置时将 `.env.example` 复制为 `.env`，填写 `LLM_API_KEY`；已有 `.env` 时直接修改配置，无需覆盖。默认模型为 `deepseek-flash`，接口地址为 `https://api.deepseek.com`。
 
 ```powershell
 uv run chessmuse llm-check

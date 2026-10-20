@@ -20,38 +20,38 @@ def isolate_deepseek_environment(monkeypatch):
     # Tests never load the developer's .env or make real HTTP requests.
     import os
     for key in os.environ:
-        if key.startswith("DEEPSEEK_"):
+        if key.startswith("LLM_"):
             monkeypatch.delenv(key)
 
 
 def test_env_loading_and_environment_precedence(tmp_path, monkeypatch):
     path = tmp_path / ".env"
-    path.write_text('DEEPSEEK_API_KEY="file-test-secret"\nDEEPSEEK_MODEL=deepseek-flash\n', encoding="utf-8-sig")
+    path.write_text('LLM_API_KEY="file-test-secret"\nLLM_MODEL=deepseek-flash\n', encoding="utf-8-sig")
     settings = DeepSeekSettings.from_env(path)
     assert settings.api_key == "file-test-secret"
     assert settings.model == "deepseek-flash"
     assert settings.thinking == "disabled"
     assert "file-test-secret" not in repr(settings)
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "environment-test-secret")
-    monkeypatch.setenv("DEEPSEEK_MAX_TOKENS", "128")
+    monkeypatch.setenv("LLM_API_KEY", "environment-test-secret")
+    monkeypatch.setenv("LLM_MAX_TOKENS", "128")
     settings = DeepSeekSettings.from_env(path)
     assert settings.api_key == "environment-test-secret"
     assert settings.max_tokens == 128
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "")
-    with pytest.raises(ConfigurationError, match="DEEPSEEK_API_KEY"):
+    monkeypatch.setenv("LLM_API_KEY", "")
+    with pytest.raises(ConfigurationError, match="LLM_API_KEY"):
         DeepSeekSettings.from_env(path)
 
 
 @pytest.mark.parametrize("name,value", [
-    ("DEEPSEEK_MAX_TOKENS", "zero"), ("DEEPSEEK_MAX_TOKENS", "0"),
-    ("DEEPSEEK_TIMEOUT_SECONDS", "nan"), ("DEEPSEEK_TIMEOUT_SECONDS", "0"),
-    ("DEEPSEEK_MAX_RETRIES", "-1"), ("DEEPSEEK_THINKING", "yes"),
-    ("DEEPSEEK_BASE_URL", "http://example.com"),
-    ("DEEPSEEK_BASE_URL", "https://user:password@example.com"),
-    ("DEEPSEEK_BASE_URL", "https://example.com?key=test-secret"),
+    ("LLM_MAX_TOKENS", "zero"), ("LLM_MAX_TOKENS", "0"),
+    ("LLM_TIMEOUT_SECONDS", "nan"), ("LLM_TIMEOUT_SECONDS", "0"),
+    ("LLM_MAX_RETRIES", "-1"), ("LLM_THINKING", "yes"),
+    ("LLM_BASE_URL", "http://example.com"),
+    ("LLM_BASE_URL", "https://user:password@example.com"),
+    ("LLM_BASE_URL", "https://example.com?key=test-secret"),
 ])
 def test_invalid_configuration_is_actionable_and_redacted(tmp_path, monkeypatch, name, value):
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "configuration-test-secret")
+    monkeypatch.setenv("LLM_API_KEY", "configuration-test-secret")
     monkeypatch.setenv(name, value)
     with pytest.raises(ConfigurationError) as error:
         DeepSeekSettings.from_env(tmp_path / "absent.env")
@@ -61,7 +61,7 @@ def test_invalid_configuration_is_actionable_and_redacted(tmp_path, monkeypatch,
 
 
 def test_missing_key_fails_without_network(tmp_path):
-    with pytest.raises(ConfigurationError, match="DEEPSEEK_API_KEY"):
+    with pytest.raises(ConfigurationError, match="LLM_API_KEY"):
         DeepSeekSettings.from_env(tmp_path / "absent.env")
 
 

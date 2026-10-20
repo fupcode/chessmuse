@@ -26,7 +26,7 @@ class DeepSeekSettings:
 
     def __post_init__(self):
         if not self.api_key or not self.api_key.isascii() or any(c.isspace() for c in self.api_key):
-            raise ConfigurationError("请在 .env 或环境变量中设置有效的 DEEPSEEK_API_KEY")
+            raise ConfigurationError("请在 .env 或环境变量中设置有效的 LLM_API_KEY")
         try:
             url = urlsplit(self.base_url)
             valid_url = (url.scheme == "https" and url.hostname and url.port != 0
@@ -35,17 +35,17 @@ class DeepSeekSettings:
         except ValueError:
             valid_url = False
         if not valid_url:
-            raise ConfigurationError("DEEPSEEK_BASE_URL 必须是无凭据和查询参数的 HTTPS 地址")
+            raise ConfigurationError("LLM_BASE_URL 必须是无凭据和查询参数的 HTTPS 地址")
         if not re.fullmatch(r"[A-Za-z0-9._-]+", self.model):
-            raise ConfigurationError("DEEPSEEK_MODEL 必须是有效的模型名称")
+            raise ConfigurationError("LLM_MODEL 必须是有效的模型名称")
         if self.thinking not in {"enabled", "disabled"}:
-            raise ConfigurationError("DEEPSEEK_THINKING 只能是 enabled 或 disabled")
+            raise ConfigurationError("LLM_THINKING 只能是 enabled 或 disabled")
         if not 1 <= self.max_tokens <= 393216:
-            raise ConfigurationError("DEEPSEEK_MAX_TOKENS 必须在 1 到 393216 之间")
+            raise ConfigurationError("LLM_MAX_TOKENS 必须在 1 到 393216 之间")
         if not math.isfinite(self.timeout_seconds) or self.timeout_seconds <= 0:
-            raise ConfigurationError("DEEPSEEK_TIMEOUT_SECONDS 必须是有限的正数")
+            raise ConfigurationError("LLM_TIMEOUT_SECONDS 必须是有限的正数")
         if not 0 <= self.max_retries <= 5:
-            raise ConfigurationError("DEEPSEEK_MAX_RETRIES 必须在 0 到 5 之间")
+            raise ConfigurationError("LLM_MAX_RETRIES 必须在 0 到 5 之间")
 
     @classmethod
     def from_env(cls, env_file: str | Path = ".env") -> "DeepSeekSettings":
@@ -67,11 +67,11 @@ class DeepSeekSettings:
                 raise ConfigurationError(f"{name} 的数值格式无效") from None
 
         return cls(
-            api_key=value("DEEPSEEK_API_KEY", ""),
-            base_url=value("DEEPSEEK_BASE_URL", "https://api.deepseek.com").rstrip("/"),
-            model=value("DEEPSEEK_MODEL", "deepseek-flash"),
-            thinking=value("DEEPSEEK_THINKING", "disabled"),
-            max_tokens=number("DEEPSEEK_MAX_TOKENS", "2048", int),
-            timeout_seconds=number("DEEPSEEK_TIMEOUT_SECONDS", "60", float),
-            max_retries=number("DEEPSEEK_MAX_RETRIES", "2", int),
+            api_key=value("LLM_API_KEY", ""),
+            base_url=value("LLM_BASE_URL", "https://api.deepseek.com").rstrip("/"),
+            model=value("LLM_MODEL", "deepseek-flash"),
+            thinking=value("LLM_THINKING", "disabled"),
+            max_tokens=number("LLM_MAX_TOKENS", "2048", int),
+            timeout_seconds=number("LLM_TIMEOUT_SECONDS", "60", float),
+            max_retries=number("LLM_MAX_RETRIES", "2", int),
         )
