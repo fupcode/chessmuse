@@ -1,4 +1,5 @@
 import { Player } from "./player.js";
+import { BoardMotion } from "./motion.js";
 
 const $ = id => document.getElementById(id);
 const NS = "http://www.w3.org/2000/svg";
@@ -13,6 +14,8 @@ const x = file => 46 + file * 56;
 const y = rank => 48 + rank * 56;
 let pieces = [];
 let previousFen = null;
+const motion = new BoardMotion();
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
 function drawGrid() {
   const board = $("board");
@@ -30,7 +33,7 @@ function drawGrid() {
   board.append(svg("g",{id:"pieces"}));
 }
 
-function drawPosition(state) {
+function drawPosition(state, duration = 0) {
   const wanted = [];
   state.fen.split(" ")[0].split("/").forEach((row,rank) => {
     let file=0;
@@ -57,7 +60,10 @@ function drawPosition(state) {
         p.el.append(svg("text",{y:8,"text-anchor":"middle",fill:red?"#aa4032":"#354c3f","font-size":25,"font-family":"KaiTi, STKaiti, serif"},names[p.code]));
         $("pieces").append(p.el);
       }
-      p.el.style.transform=`translate(${x(p.file)}px,${y(p.rank)}px)`;
+      const target = `translate(${x(p.file)}px,${y(p.rank)}px)`;
+      const origin = p.el.style.transform;
+      p.el.style.transform=target;
+      if (moved && duration > 0 && !reducedMotion.matches) motion.start(p.el, origin, target, duration);
     }
     unused.forEach(p=>p.el.remove());
     pieces=wanted;
@@ -83,20 +89,21 @@ async function start() {
   drawGrid();
   for(const [i,p] of demo.paragraphs.entries()) {
     const article=document.createElement("article");
-    article.className="caption";article.id=`caption-${p.id}`;
-    const title=document.createElement("h3");title.textContent=`0${i+1}  ${p.title}`;
+    article.className=p.kind==="move" ? "caption move-caption" : "caption";article.id=`caption-${p.id}`;
+    const title=document.createElement("h3");title.textContent=`${String(i+1).padStart(2,"0")}  ${p.title}`;
     const text=document.createElement("p");text.textContent=p.text;
     article.append(title,text);$("captions").append(article);
   }
   let caption=null;
   const chapterButtons=[];
-  const render=(event,index,playing)=>{
-    drawPosition(event.state);
-    $("line").textContent=event.state.branch ? `推演 · ${event.state.branch}` : "实战主线";
-    $("turn").textContent=`第 ${event.state.ply} 半回合 · ${event.state.fen.endsWith(" w")?"红":"黑"}方行棋`;
+  const render=(event,index,playing,frame)=>{
+    const state=frame.state;
+    drawPosition(state,frame.animate ? event.animation_ms : 0);
+    $("line").textContent=state.branch ? `推演 · ${state.branch}` : "实战主线";
+    $("turn").textContent=`第 ${state.ply} 半回合 · ${state.fen.endsWith(" w")?"红":"黑"}方行棋`;
     $("move-label").textContent=event.notation || (event.type==="set_position" ? "已切换局面" : "听解说 · 看局面");
     $("play").textContent=playing ? "暂停" : "播放解说";
-    $("mainline").disabled=!event.state.branch;
+    $("mainline").disabled=!state.branch;
     $("progress").value=index;
     $("counter").textContent=`${index+1} / ${demo.events.length}`;
     const activeChapter=demo.events.slice(0,index+1).findLast(e=>e.chapter)?.id;
@@ -105,8 +112,8 @@ async function start() {
       if(id===activeChapter) button.setAttribute("aria-current","step");
       else button.removeAttribute("aria-current");
     }
-    if(caption!==event.state.caption) {
-      caption=event.state.caption;
+    if(caption!==state.caption) {
+      caption=state.caption;
       for(const p of demo.paragraphs) $("caption-"+p.id).classList.toggle("active",p.id===caption);
       if(caption) {
         const article=$("caption-"+caption);
@@ -114,7 +121,7 @@ async function start() {
       }
     }
   };
-  const player=new Player(demo,render,message=>$("status").textContent=message);
+  const player=new Player(demo,render,message=>$("status").textContent=message,new Audio(),globalThis,motion);
   demo.events.forEach((event,index)=>{
     if(!event.chapter) return;
     const button=document.createElement("button");button.textContent=event.chapter;

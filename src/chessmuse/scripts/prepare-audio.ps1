@@ -1,7 +1,8 @@
-param([Parameter(Mandatory=$true)][string]$DataDirectory)
+param([Parameter(Mandatory=$true)][string]$DataDirectory, [string]$ScriptPath = '')
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Speech
-$scriptData = Get-Content -LiteralPath (Join-Path $DataDirectory 'demo.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+if (-not $ScriptPath) { $ScriptPath = Join-Path $DataDirectory 'demo.json' }
+$scriptData = Get-Content -LiteralPath $ScriptPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $audioDirectory = Join-Path $DataDirectory 'audio'
 New-Item -ItemType Directory -Path $audioDirectory -Force | Out-Null
 $speaker = New-Object System.Speech.Synthesis.SpeechSynthesizer

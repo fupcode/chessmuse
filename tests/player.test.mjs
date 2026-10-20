@@ -24,14 +24,15 @@ function setup() {
     now+=ms;
     for (const [id,job] of [...jobs]) if(job.at<=now) {jobs.delete(id);job.fn();}
   };
-  const demo={paragraphs:[{id:'one',audio:'/one.wav',duration:5}],events:[
+  const demo={paragraphs:[{id:'one',audio:'/one.wav',duration:5},{id:'move',audio:'/move.mp3',duration:2}],events:[
     {type:'speak',paragraph:'one',state:{fen:'initial'}},
-    {type:'move',state:{fen:'branch'}},
+    {type:'move',paragraph:'move',animation_ms:550,before_state:{fen:'initial'},state:{fen:'branch'}},
     {type:'set_position',state:{fen:'mainline'}},
   ]};
   const renders=[];
-  const player=new Player(demo,(event,index,playing)=>renders.push({fen:event.state.fen,index,playing}),()=>{},audio,clock);
-  return {player,audio,tick,jobs,renders};
+  const motion={paused:0,played:0,cancelled:0,pause(){this.paused++;},play(){this.played++;},cancel(){this.cancelled++;}};
+  const player=new Player(demo,(event,index,playing,frame)=>renders.push({fen:frame.state.fen,index,playing,animate:frame.animate}),()=>{},audio,clock,motion);
+  return {player,audio,tick,jobs,renders,motion};
 }
 
 test('speech completion gates subsequent moves; pause resumes same audio',async()=>{
@@ -44,11 +45,11 @@ test('speech completion gates subsequent moves; pause resumes same audio',async(
   audio.onended();assert.equal(player.index,1);
 });
 
-test('pause preserves remaining move delay and seek clears pending work',async()=>{
+test('muted move pause preserves remaining announcement time; seek clears pending work',async()=>{
   const {player,tick,jobs,renders}=setup();
-  player.seek(1);await player.play();tick(400);player.pause();
+  player.setVoice(false);player.seek(1);await player.play();tick(400);player.pause();
   tick(10000);assert.equal(player.index,1);
-  await player.play();tick(449);assert.equal(player.index,1);
+  await player.play();tick(1599);assert.equal(player.index,1);
   tick(1);assert.equal(player.index,2);
   player.seek(0);tick(10000);
   assert.equal(player.index,0);assert.equal(jobs.size,0);
@@ -68,11 +69,82 @@ test('muted paragraphs use cached duration and complete without audio',async()=>
   const {player,audio,tick}=setup();player.setVoice(false);
   await player.play();tick(4999);assert.equal(player.index,0);
   tick(1);assert.equal(player.index,1);assert.equal(audio.calls,0);
-  tick(850);tick(850);assert.equal(player.playing,false);
+  tick(2000);tick(0);assert.equal(player.playing,false);
 });
 
 test('audio failure pauses instead of silently skipping commentary',async()=>{
   const {player,audio,tick}=setup();await player.play();
   audio.onerror();tick(10000);
   assert.equal(player.playing,false);assert.equal(player.index,0);
+});
+
+test('move waits for audio to actually start and finishes before optional explanation',async()=>{
+  const {player,audio,renders,tick}=setup();
+  player.demo.events.push({type:'speak',paragraph:'one',state:{fen:'mainline'}});
+  let startAudio;
+  audio.play=function(){this.calls++;return new Promise(resolve=>{startAudio=resolve;});};
+  player.seek(1);
+  const pending=player.play();
+  assert.equal(renders.at(-1).fen,'initial');
+  assert.equal(renders.filter(frame=>frame.animate).length,0);
+  startAudio();await pending;
+  assert.equal(renders.at(-1).fen,'branch');
+  assert.equal(renders.at(-1).animate,true);
+  assert.ok(player.event.animation_ms < player.paragraph.duration*1000);
+  tick(10000);assert.equal(player.index,1);
+  audio.play=function(){return Promise.resolve();};
+  audio.onended();tick(0);await Promise.resolve();
+  assert.equal(player.index,3);
+  assert.equal(player.event.type,'speak');
+});
+
+test('pause, buffering and resume control animation without starting a second move',async()=>{
+  const {player,audio,renders,motion}=setup();player.seek(1);await player.play();
+  assert.equal(renders.filter(frame=>frame.animate).length,1);
+  const pausedBefore=motion.paused;
+  audio.onwaiting();assert.equal(motion.paused,pausedBefore+1);
+  audio.onplaying();
+  audio.currentTime=.2;player.pause();
+  assert.equal(motion.paused,pausedBefore+2);
+  const playedBefore=motion.played;
+  await player.play();
+  assert.ok(motion.played>playedBefore);
+  assert.equal(audio.currentTime,.2);
+  assert.equal(renders.filter(frame=>frame.animate).length,1);
+});
+
+test('seeking during pending audio blocks late playback and old ended callbacks',async()=>{
+  const {player,audio,renders}=setup();let resolve;
+  player.seek(1);
+  audio.play=()=>new Promise(done=>{resolve=done;});
+  const pending=player.play();const ended=audio.onended;
+  player.seek(2);resolve();await pending;ended();
+  assert.equal(player.index,2);
+  assert.equal(renders.at(-1).fen,'mainline');
+  assert.equal(renders.filter(frame=>frame.animate).length,0);
+});
+
+test('unavailable move audio keeps the board at its starting position',async()=>{
+  const {player,audio,renders}=setup();player.seek(1);
+  audio.play=()=>Promise.reject(new Error('blocked'));
+  await player.play();
+  assert.equal(player.playing,false);
+  assert.equal(renders.at(-1).fen,'initial');
+  assert.equal(renders.filter(frame=>frame.animate).length,0);
+  audio.play=()=>Promise.resolve();
+  await player.play();
+  assert.equal(player.playing,true);
+  assert.equal(renders.at(-1).fen,'branch');
+  assert.equal(renders.filter(frame=>frame.animate).length,1);
+});
+
+test('a move without further explanation goes straight to the next spoken move',async()=>{
+  const {player,audio,renders}=setup();
+  player.demo.events[2]={type:'move',paragraph:'move',animation_ms:550,
+    before_state:{fen:'branch'},state:{fen:'next-move'}};
+  player.seek(1);await player.play();audio.onended();await Promise.resolve();
+  assert.equal(player.index,2);
+  assert.equal(player.playing,true);
+  assert.equal(renders.at(-1).fen,'next-move');
+  assert.equal(renders.filter(frame=>frame.animate).length,2);
 });

@@ -1,7 +1,7 @@
 import pytest
 
 from chessmuse.demo import compile_demo, load_script
-from chessmuse.game import play
+from chessmuse.game import announce_move, play
 
 
 def test_branch_returns_to_exact_mainline_position():
@@ -14,7 +14,34 @@ def test_branch_returns_to_exact_mainline_position():
     assert returned["branch"] is None
     assert events["b2"]["state"]["fen"] != returned["fen"]
     assert demo["events"][-1]["state"]["ply"] == 8
-    assert all(p["duration"] > 1 for p in demo["paragraphs"])
+    assert all(p["duration"] > 0 for p in demo["paragraphs"])
+
+
+def test_every_move_has_a_rule_based_announcement_and_shorter_animation():
+    demo = compile_demo()
+    paragraphs = {p["id"]: p for p in demo["paragraphs"]}
+    assert demo["schema_version"] == 2
+    moves = [e for e in demo["events"] if e["type"] == "move"]
+    assert len(moves) == 10
+    for event in moves:
+        paragraph = paragraphs[event["paragraph"]]
+        assert paragraph["kind"] == "move"
+        assert paragraph["text"].startswith(("红方", "黑方"))
+        assert 0 < event["animation_ms"] < paragraph["duration"] * 1000
+        after, _ = play(event["before_state"]["fen"], event["move"])
+        assert after == event["state"]["fen"]
+    assert paragraphs["move-m1"]["text"] == "红方，当头炮。"
+    assert paragraphs["move-m2"]["text"] == "黑方，马八进七。"
+
+
+def test_check_announcement_is_based_on_the_board():
+    fen = "4k4/9/9/3N5/4P4/9/9/9/9/4K4 w"
+    _, notation = play(fen, "d6f7")
+    text, check = announce_move(fen, "d6f7", notation)
+    assert check and "将军" in text
+    _, notation = play(fen, "e5e6")
+    text, check = announce_move(fen, "e5e6", notation)
+    assert not check and "将军" not in text
 
 
 @pytest.mark.parametrize("move", ["a0a9", "h9g7", "h0h2", "z9a0", "a0a0"])

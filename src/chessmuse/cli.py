@@ -7,6 +7,7 @@ import subprocess
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from urllib.parse import urlsplit
 
 from chessmuse.demo import DATA, compile_demo
@@ -86,11 +87,16 @@ def main():
         if args.provider == "edge":
             asyncio.run(prepare_neural_audio(DATA, script["paragraphs"], args.voice, args.rate))
         else:
-            subprocess.run([
-                "powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
-                "-File", str(PACKAGE / "scripts" / "prepare-audio.ps1"),
-                "-DataDirectory", str(DATA.resolve()),
-            ], check=True)
+            staging_root = Path(".cache") / "tts"
+            staging_root.mkdir(parents=True, exist_ok=True)
+            with TemporaryDirectory(prefix="windows-", dir=staging_root) as temporary:
+                script_path = Path(temporary).resolve() / "script.json"
+                script_path.write_text(json.dumps(script, ensure_ascii=False), encoding="utf-8")
+                subprocess.run([
+                    "powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
+                    "-File", str(PACKAGE / "scripts" / "prepare-audio.ps1"),
+                    "-DataDirectory", str(DATA.resolve()), "-ScriptPath", str(script_path),
+                ], check=True)
     demo = compile_demo()
     if args.command != "serve":
         print(f"验证通过：{len(demo['mainline'])} 个主线半回合，"

@@ -37,7 +37,9 @@ async def prepare_neural_audio(data: Path, paragraphs: list[dict],
     records = []
     audio_dir = data / "audio"
     audio_dir.mkdir(exist_ok=True)
-    with TemporaryDirectory(prefix="tts-", dir=data) as temporary:
+    staging_root = Path(".cache") / "tts"
+    staging_root.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(prefix="tts-", dir=staging_root) as temporary:
         staging = Path(temporary)
         for paragraph in paragraphs:
             paragraph_id = paragraph["id"]

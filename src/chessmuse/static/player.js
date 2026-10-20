@@ -1,19 +1,22 @@
-// One scheduler owns the timer, audio, cursor, and pause state.
+// A move is one event: its short announcement and animation run together.
 export class Player {
-  constructor(demo, render, status, audio = new Audio(), clock = globalThis) {
+  constructor(demo, render, status, audio = new Audio(), clock = globalThis,
+              motion = {pause(){}, play(){}, cancel(){}}) {
     this.demo = demo;
     this.render = render;
     this.status = status;
     this.audio = audio;
     this.clock = clock;
+    this.motion = motion;
     this.index = 0;
     this.playing = false;
     this.voice = true;
     this.timer = null;
     this.remaining = null;
     this.readyAudio = false;
+    this.started = false;
+    this.failed = false;
     this.revision = 0;
-    audio.onended = () => { if (this.playing) this.advance(); };
     audio.onerror = () => {
       if (this.playing && this.voice) this.fail("语音加载失败，请重试或关闭中文语音");
     };
@@ -21,6 +24,7 @@ export class Player {
   }
 
   get event() { return this.demo.events[this.index]; }
+  get paragraph() { return this.demo.paragraphs.find(p => p.id === this.event.paragraph); }
   now() { return this.clock.performance.now(); }
 
   clearTimer() {
@@ -28,12 +32,25 @@ export class Player {
     this.timer = null;
   }
 
-  paint() { this.render(this.event, this.index, this.playing); }
+  paint(animate = false) {
+    const state = this.event.type === "move" && !this.started
+      ? {...this.event.before_state, caption:this.event.paragraph} : this.event.state;
+    this.render(this.event, this.index, this.playing, {state, animate});
+  }
+
+  startMove() {
+    if (this.event.type === "move" && !this.started) {
+      this.started = true;
+      this.paint(true);
+    }
+    this.motion.play();
+  }
 
   pause() {
     if (this.timer !== null) this.remaining = Math.max(0, this.deadline - this.now());
     this.clearTimer();
     this.audio.pause();
+    this.motion.pause();
     this.playing = false;
     this.revision++;
     this.paint();
@@ -42,10 +59,14 @@ export class Player {
 
   seek(index) {
     this.pause();
+    this.motion.cancel();
     this.index = Math.max(0, Math.min(index, this.demo.events.length - 1));
+    this.audio.onended = this.audio.onplaying = this.audio.onwaiting = null;
     this.audio.removeAttribute("src");
     this.audio.load();
     this.readyAudio = false;
+    this.started = false;
+    this.failed = false;
     this.remaining = null;
     this.paint();
     this.status("已定位，点击播放继续");
@@ -60,32 +81,34 @@ export class Player {
 
   async play() {
     if (this.playing) return;
+    if (this.failed) this.seek(this.index);
     this.playing = true;
     this.paint();
     this.status(this.voice ? "播放中 · 中文语音" : "播放中 · 静音字幕");
-    if (this.event.type === "speak" && this.voice) {
-      const paragraph = this.demo.paragraphs.find(p => p.id === this.event.paragraph);
+    if (this.paragraph && this.voice) {
       if (!this.readyAudio) {
-        this.audio.src = paragraph.audio;
+        this.audio.src = this.paragraph.audio;
         this.audio.load();
         this.readyAudio = true;
       }
       const revision = this.revision;
+      const active = () => this.revision === revision && this.playing;
+      this.audio.onplaying = () => { if (active()) this.startMove(); };
+      this.audio.onwaiting = () => { if (active()) this.motion.pause(); };
+      this.audio.onended = () => { if (active()) this.advance(); };
       try {
         await this.audio.play();
+        // Resolve only when audio starts, including after buffering.
+        if (active()) this.startMove();
       } catch {
         // A seek or pause can intentionally interrupt a pending play() request.
-        if (this.revision === revision && this.playing) {
+        if (active()) {
           this.fail("语音未能播放，请点击播放重试，或关闭中文语音");
         }
       }
     } else {
-      let delay = 850;
-      if (this.event.type === "speak") {
-        const paragraph = this.demo.paragraphs.find(p => p.id === this.event.paragraph);
-        delay = paragraph.duration * 1000;
-      }
-      delay = this.remaining ?? delay;
+      this.startMove();
+      const delay = this.remaining ?? (this.paragraph ? this.paragraph.duration * 1000 : 0);
       this.deadline = this.now() + delay;
       this.timer = this.clock.setTimeout(() => {
         this.timer = null;
@@ -97,6 +120,7 @@ export class Player {
   advance() {
     this.clearTimer();
     this.audio.pause();
+    this.motion.cancel();
     this.playing = false;
     this.revision++;
     this.remaining = null;
@@ -107,12 +131,13 @@ export class Player {
       return;
     }
     this.index++;
+    this.started = false;
     this.play();
   }
 
   fail(message) {
     this.pause();
-    this.readyAudio = false;
+    this.failed = true;
     this.status(message);
   }
 }
