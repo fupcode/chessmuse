@@ -11,7 +11,7 @@ uv sync --locked
 uv run chessmuse serve
 ```
 
-打开 <http://127.0.0.1:8000>。可选择「中炮对屏风马」和「双方起马」示例，或导入自己的 JSON 棋谱。服务启动不要求已存在音频；选择棋谱后，页面显示校验、短句生成、语音准备和完成的真实进度。首次生成需要网络及 `.env` 中可用的 LLM 配置，已有有效缓存时直接复用。
+打开 <http://127.0.0.1:8000>。页面会自动准备第一个示例，也可选择「双方起马」或导入自己的 JSON 棋谱。服务启动不要求已存在音频；选择棋谱后，页面显示校验、短句生成、语音准备和完成的真实进度。缺少短句缓存时需要 `.env` 中可用的 LLM 配置；默认「中炮对屏风马」随代码附带短句，可直接复用。默认 TTS 首次生成需要联网，已有有效缓存时直接复用。
 
 ## 导入棋谱
 
@@ -46,15 +46,20 @@ uv run chessmuse prepare-example --example horse-opening
 # 强制重新生成该示例的 LLM 短句和全部音频
 uv run chessmuse prepare-example --example opening-v1 --force
 
-# 只重新生成短句或语音
+# 重新生成短句后，再准备与新文本匹配的音频
 uv run chessmuse prepare-narration --example opening-v1
+uv run chessmuse prepare-audio --example opening-v1
+
+# 只强制重新合成音频，保留已有短句
 uv run chessmuse prepare-audio --example opening-v1 --force
 
-# 自定义音色或语速
-uv run chessmuse prepare-audio --rate=+8% --force
+# 命令行试用其他语速（网页仍使用默认配置，见下文）
+uv run chessmuse prepare-audio --rate=+12% --force
 ```
 
-默认使用晓晓女声 `zh-CN-XiaoxiaoNeural`，语速 108%。音频通过 [edge-tts](https://github.com/rany2/edge-tts) 联网生成。需要完全离线合成时，可执行 `prepare-audio --provider windows`，使用 Windows 自带慧慧语音；需安装对应系统声音。生成后重新选择该示例或刷新页面即可使用新清单。
+默认使用晓晓女声 `zh-CN-XiaoxiaoNeural`，语速 108%。音频通过 [edge-tts](https://github.com/rany2/edge-tts) 联网生成。已有有效短句缓存时，可执行 `prepare-audio --provider windows` 离线合成慧慧 WAV，需安装对应系统声音；此后端使用脚本固定语速，不应用 `--voice`、`--rate`，每次执行均重新合成。
+
+网页每次准备棋谱都按默认晓晓、108% 检查缓存。因此命令行使用其他音色、语速或 Windows 合成后，再在网页选择该棋谱，会重新生成默认配置的音频。当前尚无网页音色/语速设置；若要持久切换，需要先改默认配置并验收。
 
 象棋中的「车」统一按 jū（一声）合成：仅在送给 TTS 的文本中使用同音字「居」，字幕和 LLM 原文仍保留「车」。音频清单分别记录显示原文与合成文本，发音规则变化时只重新生成受影响的片段。
 
@@ -83,5 +88,13 @@ uv run chessmuse validate
 自动化测试使用模拟 LLM 与生成的微型 WAV，不需要真实 API 密钥或本地音频，不调用收费服务。`validate` 验证实际默认示例缓存，需要先准备音频。Node.js 仅用于前端模块测试，启动不需要前端构建工具。
 
 Python 源码采用 `src/chessmuse/` 布局：`game.py` 负责棋规边界，`demo.py` 编译播放快照，`library.py` 管理棋谱与缓存，`server.py` 提供异步导入任务和进度，`static/` 为播放器页面。
+
+## 当前交接状态（2026-10-20）
+
+已实现棋规校验、分支回放、LLM 走子短句、晓晓 108% 语音、音画同步、JSON 导入和缓存复用。最近代码验证通过 78 项 Python 测试及 13 项前端测试，并检查过真实 HTTP 导入和音频访问；这些不能替代浏览器画面、听音与完整交互验收。
+
+下一上下文先读 [项目总纲](docs/overview.md)、本 README 和 [播放协议及验收清单](docs/playback.md)，按清单记录人工验收结果。基础闭环验收后，按总纲推进 Pikafish 指定候选搜索与原始分析记录，再建立直觉模型对照。专家引擎、真实优劣分析及完整复盘讲解尚未实现，当前 LLM 主要负责走子短句。
+
+服务需在新会话中确认或重新启动，不依赖上一个会话的后台进程。导入任务和进度只保存在服务内存中；重启后需重新选择或导入，磁盘中有效的棋谱、短句和音频仍可复用。旧音频文件暂不自动清理，HTTP 仅提供当前清单引用的文件。
 
 棋规依赖 [walker8088/cchess](https://github.com/walker8088/cchess) 的 PyPI 1.25.5 发行版（GPL-3.0），分发时需遵循其许可证。当前处理走法级合法性，尚未实现长将、长捉和重复局面裁决。
