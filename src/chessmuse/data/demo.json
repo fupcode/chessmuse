@@ -1,0 +1,33 @@
+{
+  "id": "opening-v1",
+  "title": "中炮对屏风马 · 开局教学片段",
+  "description": "手写脚本 · 播放器验证示例 · 无引擎评价",
+  "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+  "mainline": ["h2e2", "h9g7", "h0g2", "b9c7", "a0a1", "a9a8", "b0c2", "h7h5"],
+  "paragraphs": [
+    {"id": "intro", "title": "从开局出发", "text": "欢迎来到棋妙。这是一段手写的开局教学片段，用来演示棋盘、语音和字幕的同步。红方先走中炮，黑方以屏风马应对。"},
+    {"id": "formation", "title": "中炮与屏风马", "text": "现在，红炮已经移到中路，黑方两匹马分别跳到三路和七路，形成屏风马的基本形状。这里先观察双方的出子顺序，不对局势优劣作引擎判断。"},
+    {"id": "branch", "title": "换一个出子顺序", "text": "在双方各走两步之后，我们先看一条变化。红方也可以先跳左马，黑方再把右车提起。这是合法的出子顺序示例，不代表它比实战更好。"},
+    {"id": "return", "title": "返回实战主线", "text": "推演结束。棋盘回到双方各走两步的局面。现在返回示例主线，红方先起左车，再补跳左马。注意，变化里的走子不会留在主线棋盘上。"},
+    {"id": "finish", "title": "比较局面，理解顺序", "text": "主线回放到这里结束。两个顺序都展示了出动大子，但黑方在主线中还多走了一步炮。这个示例只验证合法走子和播放流程。后续接入专家引擎后，再用搜索证据解释具体的优劣。"}
+  ],
+  "events": [
+    {"id": "start", "type": "speak", "paragraph": "intro", "chapter": "开局"},
+    {"id": "m1", "type": "move", "move": "h2e2"},
+    {"id": "m2", "type": "move", "move": "h9g7"},
+    {"id": "m3", "type": "move", "move": "h0g2"},
+    {"id": "m4", "type": "move", "move": "b9c7"},
+    {"id": "formation", "type": "speak", "paragraph": "formation", "chapter": "基本阵形"},
+    {"id": "branch-position", "type": "set_position", "mainline_ply": 4, "branch": "先跳左马"},
+    {"id": "branch-intro", "type": "speak", "paragraph": "branch", "chapter": "推演变化"},
+    {"id": "b1", "type": "move", "move": "b0c2"},
+    {"id": "b2", "type": "move", "move": "a9a8"},
+    {"id": "return-position", "type": "set_position", "mainline_ply": 4},
+    {"id": "return", "type": "speak", "paragraph": "return", "chapter": "回到主线"},
+    {"id": "m5", "type": "move", "move": "a0a1"},
+    {"id": "m6", "type": "move", "move": "a9a8"},
+    {"id": "m7", "type": "move", "move": "b0c2"},
+    {"id": "m8", "type": "move", "move": "h7h5"},
+    {"id": "finish", "type": "speak", "paragraph": "finish", "chapter": "片段总结"}
+  ]
+}

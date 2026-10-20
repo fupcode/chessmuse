@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>棋妙 ChessMuse · 复盘演示</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header><a class="brand" href="/">棋妙 <span>CHESSMUSE</span></a><span class="edition">第一阶段 · 播放演示</span></header>
+  <main>
+    <div class="intro"><p class="eyebrow">一盘棋，一步步看懂</p><h1 id="title">正在载入示例…</h1><p id="description">本地棋盘与中文解说</p></div>
+    <div class="layout">
+      <section class="board-panel" aria-label="棋盘和播放控制">
+        <div class="board-meta"><span id="line">实战主线</span><span id="turn">红方先行</span></div>
+        <svg id="board" viewBox="0 0 540 600" role="img" aria-label="中国象棋棋盘，红方在下"></svg>
+        <div id="move-label" aria-live="polite">初始局面</div>
+        <div class="transport">
+          <button id="replay" title="从头重播" disabled>↺ 重播</button>
+          <button id="play" class="primary" disabled>播放解说</button>
+          <button id="mainline" disabled>回到主线</button>
+        </div>
+        <label class="progress-label" for="progress"><span>播放进度</span><span id="counter">0 / 0</span></label>
+        <input id="progress" type="range" min="0" max="0" value="0" disabled>
+        <div class="playback-meta"><label><input id="voice" type="checkbox" checked> 中文语音</label><span id="status" role="status">正在加载</span></div>
+      </section>
+      <aside>
+        <section class="chapters"><h2>关键节点 <span>点击跳转</span></h2><nav id="chapters" aria-label="关键节点"></nav></section>
+        <section class="commentary"><h2>随棋讲解 <span>段落同步</span></h2><div id="captions" tabindex="0" aria-label="解说字幕"></div></section>
+        <p class="note">本片段为手写教学脚本，无引擎评分。用于验证合法走子、分支推演与语音同步。</p>
+      </aside>
+    </div>
+  </main>
+  <footer>棋妙 · 从具体变化里理解每一步</footer>
+</body>
+</html>

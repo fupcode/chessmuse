@@ -1,7 +1,29 @@
 [project]
 name = "chessmuse"
 version = "0.1.0"
-description = "chessmuse"
+description = "棋妙：中国象棋复盘与解说"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = ["cchess==1.25.5"]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+chessmuse = "chessmuse.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+chessmuse = ["static/*", "data/*.json", "data/audio/*.wav", "scripts/*.ps1"]
+
+[tool.pytest.ini_options]
+addopts = "-p no:cacheprovider"
+testpaths = ["tests"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
