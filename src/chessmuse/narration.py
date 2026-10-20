@@ -69,29 +69,34 @@ def read_announcements(path: Path, inputs: list[dict]) -> dict[str, str]:
     return validate_announcements(inputs, cache)
 
 
-async def generate_announcements(client: DeepSeekClient, inputs: list[dict], path: Path) -> dict[str, str]:
-    messages = [Message("system", SYSTEM_PROMPT), Message("user", json.dumps({"moves": inputs}, ensure_ascii=False))]
-    for attempt in range(2):
-        completion = await client.complete(messages, json_mode=True, max_tokens=2048)
-        try:
-            result = validate_announcements(inputs, completion.data)
-        except ValueError as error:
-            if attempt:
-                raise LLMError(f"LLM 短句校验失败：{error}", kind="narration") from None
-            messages.extend([Message("assistant", completion.text), Message("user", f"请修正全部短句并重新返回 JSON：{error}")])
-            continue
-        cache = {
-            "prompt_version": PROMPT_VERSION, "model": completion.model,
-            "request_id": completion.request_id, "usage": asdict(completion.usage),
-            "inputs": inputs, "announcements": [{"id": key, "text": value} for key, value in result.items()],
-        }
-        staging_root = Path(".cache") / "narration"
-        staging_root.mkdir(parents=True, exist_ok=True)
-        staging = staging_root / f"{uuid4().hex}.json"
-        try:
-            staging.write_text(json.dumps(cache, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-            staging.replace(path)
-        finally:
-            staging.unlink(missing_ok=True)
-        return result
-    raise AssertionError("Unreachable generation state")
+async def generate_announcements(client: DeepSeekClient, inputs: list[dict], path: Path, *, progress=None) -> dict[str, str]:
+    result, requests = {}, []
+    for offset in range(0, len(inputs), 16):
+        batch = inputs[offset:offset + 16]
+        messages = [Message("system", SYSTEM_PROMPT), Message("user", json.dumps({"moves": batch}, ensure_ascii=False))]
+        for attempt in range(2):
+            completion = await client.complete(messages, json_mode=True, max_tokens=2048)
+            requests.append({"id": completion.request_id, "model": completion.model, "usage": asdict(completion.usage)})
+            try:
+                result.update(validate_announcements(batch, completion.data))
+                break
+            except ValueError as error:
+                if attempt:
+                    raise LLMError(f"LLM 短句校验失败：{error}", kind="narration") from None
+                messages.extend([Message("assistant", completion.text), Message("user", f"请修正全部短句并重新返回 JSON：{error}")])
+        if progress:
+            progress(min(offset + len(batch), len(inputs)) / len(inputs), "生成走子短句")
+    cache = {
+        "prompt_version": PROMPT_VERSION, "requests": requests,
+        "inputs": inputs, "announcements": [{"id": key, "text": value} for key, value in result.items()],
+    }
+    staging_root = Path(".cache") / "narration"
+    staging_root.mkdir(parents=True, exist_ok=True)
+    staging = staging_root / f"{uuid4().hex}.json"
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        staging.write_text(json.dumps(cache, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        staging.replace(path)
+    finally:
+        staging.unlink(missing_ok=True)
+    return result

@@ -79,3 +79,21 @@ def test_no_mechanical_fallback_without_llm_cache(tmp_path, monkeypatch):
     monkeypatch.setattr("chessmuse.demo.read_announcements", lambda path, inputs: read_announcements(tmp_path / "missing.json", inputs))
     with pytest.raises(ValueError, match="prepare-narration"):
         compile_demo(require_audio=False)
+
+
+def test_long_games_generate_in_bounded_batches(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    inputs = []
+    for index in range(33):
+        item = move_input()
+        item["id"] = f"move-{index}"
+        inputs.append(item)
+    outputs = [{"announcements": [{"id": item["id"], "text": "红方跳马"} for item in inputs[offset:offset + 16]]}
+               for offset in range(0, 33, 16)]
+    client = FakeClient(outputs)
+    progress = []
+    result = asyncio.run(generate_announcements(client, inputs, tmp_path / "narration.json",
+                                                progress=lambda value, text: progress.append(value)))
+    assert len(client.calls) == 3
+    assert len(result) == 33
+    assert progress[-1] == 1

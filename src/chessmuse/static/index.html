@@ -10,7 +10,21 @@
 <body>
   <header><a class="brand" href="/">棋妙 <span>CHESSMUSE</span></a><span class="edition">第一阶段 · 播放演示</span></header>
   <main>
-    <div class="intro"><p class="eyebrow">一盘棋，一步步看懂</p><h1 id="title">正在载入示例…</h1><p id="description">本地棋盘与中文解说</p></div>
+    <div class="intro"><p class="eyebrow">一盘棋，一步步看懂</p><h1 id="title">选择一局棋开始</h1><p id="description">导入棋谱，让棋妙边讲边走</p></div>
+    <section class="game-picker" aria-label="导入棋谱">
+      <div class="import-controls">
+        <label for="example-select">示例棋谱</label>
+        <select id="example-select" disabled><option>正在加载示例…</option></select>
+        <button id="load-example" disabled>打开示例</button>
+        <label class="file-button" for="game-file">导入棋谱<input id="game-file" type="file" accept=".json,application/json" disabled></label>
+        <a id="download-example" href="#" download>下载示例 JSON</a>
+      </div>
+      <p class="import-hint">支持 JSON 棋谱，moves 填写 ICCS 走法，如 h2e2。最多 200 个半回合；标准开局。首次生成需要网络，已有有效语音将直接复用。</p>
+      <div id="import-progress-panel" class="import-progress" hidden>
+        <div class="import-progress-label"><span id="import-message" role="status">准备导入</span><span id="import-percent">0%</span></div>
+        <div id="import-track" class="import-track" role="progressbar" aria-label="棋谱准备进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="import-fill"></div></div>
+      </div>
+    </section>
     <div class="layout">
       <section class="board-panel" aria-label="棋盘和播放控制">
         <div class="board-meta"><span id="line">实战主线</span><span id="turn">红方先行</span></div>
@@ -28,7 +42,7 @@
       <aside>
         <section class="chapters"><h2>关键节点 <span>点击跳转</span></h2><nav id="chapters" aria-label="关键节点"></nav></section>
         <section class="commentary"><h2>随棋讲解 <span>段落同步</span></h2><div id="captions" tabindex="0" aria-label="解说字幕"></div></section>
-        <p class="note">本片段为手写教学脚本，无引擎评分。用于验证合法走子、分支推演与语音同步。</p>
+        <p class="note">短句基于已验证走子生成，详细解释仅示例提供。当前没有专家引擎评分。</p>
       </aside>
     </div>
   </main>

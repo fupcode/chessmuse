@@ -3,6 +3,8 @@ import pytest
 from chessmuse.demo import compile_demo, load_script
 from chessmuse.game import move_facts, play
 
+pytestmark = pytest.mark.usefixtures("demo_audio")
+
 
 def test_branch_returns_to_exact_mainline_position():
     demo = compile_demo()

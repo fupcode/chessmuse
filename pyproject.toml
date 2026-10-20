@@ -23,7 +23,7 @@ chessmuse = "chessmuse.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-chessmuse = ["static/*", "data/*.json", "data/audio/*.wav", "data/audio/*.mp3", "scripts/*.ps1"]
+chessmuse = ["static/*", "data/*.json", "scripts/*.ps1"]
 
 [tool.pytest.ini_options]
 cache_dir = ".cache/pytest_cache"

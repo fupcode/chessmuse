@@ -9,10 +9,11 @@ import pytest
 
 from chessmuse.cli import DemoHandler
 from chessmuse.demo import compile_demo
+from chessmuse.library import GameLibrary
 
 
-def test_demo_and_cached_audio_are_served_without_exposing_source():
-    handler = partial(DemoHandler, demo=json.dumps(compile_demo()).encode())
+def test_demo_and_cached_audio_are_served_without_exposing_source(demo_audio):
+    handler = partial(DemoHandler, demo=json.dumps(compile_demo()).encode(), library=GameLibrary(demo_audio))
     with ThreadingHTTPServer(("127.0.0.1", 0), handler) as server:
         thread = Thread(target=server.serve_forever, daemon=True)
         thread.start()

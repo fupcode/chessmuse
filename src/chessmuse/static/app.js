@@ -1,5 +1,6 @@
 import { Player } from "./player.js";
 import { BoardMotion } from "./motion.js";
+import { prepareGame } from "./import.js";
 
 const $ = id => document.getElementById(id);
 const NS = "http://www.w3.org/2000/svg";
@@ -16,9 +17,11 @@ let pieces = [];
 let previousFen = null;
 const motion = new BoardMotion();
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+let currentPlayer = null;
 
 function drawGrid() {
   const board = $("board");
+  board.replaceChildren();
   const line = (x1,y1,x2,y2) => board.append(svg("line",{x1,y1,x2,y2,stroke:"#8d7752","stroke-width":1.3}));
   for (let row=0; row<10; row++) line(x(0),y(row),x(8),y(row));
   for (let col=0; col<9; col++) {
@@ -78,10 +81,12 @@ function drawPosition(state, duration = 0) {
   $("board").setAttribute("aria-label",`${state.branch ? "推演变化" : "实战主线"}，第${state.ply}半回合，${state.fen.endsWith(" w") ? "红" : "黑"}方行棋`);
 }
 
-async function start() {
-  const response=await fetch("/api/demo");
-  if(!response.ok) throw new Error("示例加载失败");
-  const demo=await response.json();
+function mountDemo(demo) {
+  currentPlayer?.pause();
+  motion.cancel();
+  pieces=[];previousFen=null;
+  $("captions").replaceChildren();
+  $("chapters").replaceChildren();
   $("title").textContent=demo.title;
   $("description").textContent=demo.description;
   const voiceName={"zh-CN-XiaoxiaoNeural":"晓晓", "zh-CN-YunxiNeural":"云希", "Microsoft Huihui Desktop":"慧慧"}[demo.voice];
@@ -122,6 +127,8 @@ async function start() {
     }
   };
   const player=new Player(demo,render,message=>$("status").textContent=message,new Audio(),globalThis,motion);
+  currentPlayer=player;
+  $("voice").checked=true;
   demo.events.forEach((event,index)=>{
     if(!event.chapter) return;
     const button=document.createElement("button");button.textContent=event.chapter;
@@ -135,9 +142,71 @@ async function start() {
   $("progress").oninput=e=>player.seek(Number(e.target.value));
   $("voice").onchange=e=>player.setVoice(e.target.checked);
   $("mainline").onclick=()=>player.seek(demo.events.findIndex(e=>e.id==="return"));
-  window.addEventListener("pagehide",()=>player.pause());
   player.paint();
   $("status").textContent="准备就绪 · 点击播放开始";
+}
+
+function reportProgress(value,message) {
+  const progress=Math.max(0,Math.min(100,Number(value)||0));
+  $("import-progress-panel").hidden=false;
+  $("import-message").textContent=message;
+  $("import-percent").textContent=`${progress}%`;
+  $("import-track").setAttribute("aria-valuenow",progress);
+  $("import-fill").style.width=`${progress}%`;
+}
+
+async function openGame(payload) {
+  const previous=currentPlayer;
+  previous?.pause();
+  $("import-progress-panel").classList.add("loading");
+  $("import-progress-panel").setAttribute("aria-busy","true");
+  $("import-progress-panel").classList.remove("error");
+  for (const id of ["load-example","example-select","game-file","play","replay","progress","mainline","voice"]) $(id).disabled=true;
+  $("chapters").inert=true;
+  try {
+    const demo=await prepareGame(payload,reportProgress);
+    mountDemo(demo);
+  } catch(error) {
+    $("import-message").textContent=error.message;
+    $("import-progress-panel").classList.add("error");
+    if(previous) previous.paint();
+    $("status").textContent="导入未完成，可重试或选择其他棋谱";
+  } finally {
+    $("import-progress-panel").classList.remove("loading");
+    $("import-progress-panel").setAttribute("aria-busy","false");
+    for (const id of ["load-example","example-select","game-file","voice"]) $(id).disabled=false;
+    for (const id of ["play","replay","progress"]) $(id).disabled=!currentPlayer;
+    $("chapters").inert=false;
+    $("game-file").value="";
+  }
+}
+
+async function start() {
+  const response=await fetch("/api/examples");
+  if(!response.ok) throw new Error("无法读取示例棋谱");
+  const catalog=await response.json();
+  $("example-select").replaceChildren();
+  for (const example of catalog.examples) {
+    const option=document.createElement("option");option.value=example.id;option.textContent=example.title;
+    $("example-select").append(option);
+  }
+  const updateDownload=()=>$("download-example").href=`/api/examples/${$("example-select").value}/download`;
+  $("example-select").onchange=updateDownload;updateDownload();
+  $("load-example").onclick=()=>openGame({example_id:$("example-select").value});
+  $("game-file").onchange=async event=>{
+    const file=event.target.files[0];if(!file)return;
+    try {
+      if(file.size>256*1024)throw new Error("棋谱文件最大256KB");
+      const game=JSON.parse((await file.text()).replace(/^\uFEFF/,""));
+      await openGame({game});
+    } catch(error) {
+      reportProgress(0,error instanceof SyntaxError ? "JSON 格式不正确，请参考下载的示例" : error.message);
+      $("import-progress-panel").classList.add("error");
+      $("game-file").value="";
+    }
+  };
+  window.addEventListener("pagehide",()=>currentPlayer?.pause());
+  await openGame({example_id:catalog.examples[0].id});
 }
 
 start().catch(error=>{

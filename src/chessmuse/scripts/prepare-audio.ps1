@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Speech
 if (-not $ScriptPath) { $ScriptPath = Join-Path $DataDirectory 'demo.json' }
 $scriptData = Get-Content -LiteralPath $ScriptPath -Raw -Encoding UTF8 | ConvertFrom-Json
-$audioDirectory = Join-Path $DataDirectory 'audio'
+$audioDirectory = $DataDirectory
 New-Item -ItemType Directory -Path $audioDirectory -Force | Out-Null
 $speaker = New-Object System.Speech.Synthesis.SpeechSynthesizer
 try {

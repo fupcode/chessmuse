@@ -1,6 +1,7 @@
 """Compile authored events into validated, seekable board snapshots."""
 
 import json
+import re
 from copy import deepcopy
 from pathlib import Path
 
@@ -9,16 +10,26 @@ from chessmuse.narration import read_announcements
 from chessmuse.tts import audio_duration
 
 DATA = Path(__file__).parent / "data"
+AUDIO_ROOT = Path("audio")
+
+
+def default_narration_path() -> Path:
+    local = Path(".cache/games/opening-v1/narration.json")
+    return local if local.exists() else DATA / "narration.json"
 
 
 def load_script() -> dict:
     return json.loads((DATA / "demo.json").read_text(encoding="utf-8"))
 
 
-def compile_demo(script: dict | None = None, *, require_audio: bool = True, require_narration: bool = True) -> dict:
+def compile_demo(script: dict | None = None, *, require_audio: bool = True, require_narration: bool = True,
+                 narration_path: Path | None = None, audio_dir: Path | None = None) -> dict:
     if require_audio and not require_narration:
         raise ValueError("Playable audio requires LLM narration")
     script = deepcopy(script if script is not None else load_script())
+    if not isinstance(script.get("id"), str) or not re.fullmatch(r"[a-zA-Z0-9-]+", script["id"]):
+        raise ValueError("Invalid game ID")
+    audio_dir = audio_dir if audio_dir is not None else AUDIO_ROOT / script["id"]
     snapshots = [script["initial_fen"]]
     notations = []
     mainline_history = []
@@ -81,7 +92,7 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
         raise ValueError("Timeline must finish at the end of the mainline")
     script["narration_inputs"] = narration_inputs
     if require_narration:
-        announcements = read_announcements(DATA / "narration.json", narration_inputs)
+        announcements = read_announcements(narration_path if narration_path is not None else default_narration_path(), narration_inputs)
         for event in script["events"]:
             if event["type"] == "move":
                 paragraphs[event["paragraph"]]["text"] = announcements[event["id"]]
@@ -89,7 +100,7 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
     ordered_ids.update(dict.fromkeys(paragraphs))
     script["paragraphs"] = [paragraphs[key] for key in ordered_ids]
     if require_audio:
-        manifest = json.loads((DATA / "audio.json").read_text(encoding="utf-8-sig"))
+        manifest = json.loads((audio_dir / "audio.json").read_text(encoding="utf-8-sig"))
         cached_text = {p["id"]: p["text"] for p in manifest["paragraphs"]}
         if cached_text != {p["id"]: p["text"] for p in paragraphs.values()}:
             raise ValueError("Audio text is stale; run chessmuse prepare-audio")
@@ -99,8 +110,8 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
             filename = cached_files[paragraph["id"]]
             if Path(filename).name != filename or "/" in filename or "\\" in filename:
                 raise ValueError("Audio file must be a simple filename")
-            paragraph["duration"] = audio_duration(DATA / "audio" / filename)
-            paragraph["audio"] = f"/audio/{filename}"
+            paragraph["duration"] = audio_duration(audio_dir / filename)
+            paragraph["audio"] = f"/audio/{script['id']}/{filename}"
         for event in script["events"]:
             if event["type"] == "move":
                 event["animation_ms"] = min(550, paragraphs[event["paragraph"]]["duration"] * 600)
