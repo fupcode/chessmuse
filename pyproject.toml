@@ -1,0 +1,7 @@
+[project]
+name = "chessmuse"
+version = "0.1.0"
+description = "chessmuse"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []

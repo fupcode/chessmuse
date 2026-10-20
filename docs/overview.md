@@ -2,7 +2,7 @@
 
 > 版本：v0.4（MVP：核心讲解质量优先）  
 > 项目目录：`chessmuse`  
-> 文档位置：`docs/project-overview.md`  
+> 文档位置：`docs/overview.md`  
 > 当前目标：构建一个能动态演示、且讲解内容有实质分析价值的中国象棋 AI 复盘 MVP。开发按依赖关系与验收条件推进，而非按固定天数划分。
 
 
