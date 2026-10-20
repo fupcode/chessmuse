@@ -1,6 +1,6 @@
 # 棋妙 ChessMuse
 
-中国象棋 AI 复盘项目，目标与优先级见 [项目总纲](docs/overview.md)。目前支持网页选择示例、导入棋谱、LLM 自然走子短句、中文语音与同步棋盘动画。专家引擎及完整复盘分析尚未接入，页面不提供引擎优劣判断。
+中国象棋 AI 复盘项目，目标与优先级见 [项目总纲](docs/overview.md)。目前支持网页选择示例、导入棋谱、LLM 自然走子短句、中文语音与同步棋盘动画；命令行已接入 Pikafish 专家搜索、指定候选分析及棋谱浅扫/复查。网页尚未接入专家评价，直觉模型及完整复盘分析尚未实现。
 
 ## 启动
 
@@ -89,11 +89,22 @@ uv run chessmuse validate
 
 Python 源码采用 `src/chessmuse/` 布局：`game.py` 负责棋规边界，`demo.py` 编译播放快照，`library.py` 管理棋谱与缓存，`server.py` 提供异步导入任务和进度，`static/` 为播放器页面。
 
+## 专家分析（命令行）
+
+先从 [Pikafish 官方发行版](https://github.com/official-pikafish/Pikafish/releases/tag/Pikafish-2026-09-06)解压引擎和 `pikafish.nnue` 到 `.cache/pikafish/`。本机本次开发已准备好 Windows 版本：
+
+```powershell
+uv run chessmuse analyze-game --engine .cache/pikafish/Pikafish-Windows-x86-64-universal.exe --review-ply 5
+uv run chessmuse analyze-suite --engine .cache/pikafish/Pikafish-Windows-x86-64-universal.exe
+```
+
+默认示例全局 depth 6，最多 3 处 depth 10 复查，每步实战走法独立搜索；`analyze-position` 支持任意合法 FEN 和多个指定候选。原始 UCI、评分、合法 PV 和逐步吃子/将军证据保存在 `.cache/analysis/`。这不会调用 LLM 或生成语音。详情、评分限制与真实实验见 [专家分析阶段交付](docs/expert-analysis.md)。引擎源码 GPLv3，发行版权重另有限制商用的许可，当前不打包分发。
+
 ## 当前交接状态（2026-10-20）
 
-已实现棋规校验、分支回放、LLM 走子短句、晓晓 108% 语音、音画同步、JSON 导入和缓存复用。最近代码验证通过 78 项 Python 测试及 13 项前端测试，并检查过真实 HTTP 导入和音频访问；这些不能替代浏览器画面、听音与完整交互验收。
+已实现棋规校验、分支回放、LLM 走子短句、晓晓 108% 语音、音画同步、JSON 导入和缓存复用；新增独立的专家分析模块 `engine.py`、`analysis.py` 和 10 个实验局面。专家搜索已在真实 Pikafish 上运行，指定候选、PV 与缓存经过验证；这些不能替代浏览器画面、听音与完整交互验收。
 
-下一上下文先读 [项目总纲](docs/overview.md)、本 README 和 [播放协议及验收清单](docs/playback.md)，按清单记录人工验收结果。基础闭环验收后，按总纲推进 Pikafish 指定候选搜索与原始分析记录，再建立直觉模型对照。专家引擎、真实优劣分析及完整复盘讲解尚未实现，当前 LLM 主要负责走子短句。
+下一上下文先读 [项目总纲](docs/overview.md)、本 README 和 [专家分析阶段交付](docs/expert-analysis.md)。本次因浏览器/桌面连接清单为空，播放体验验收仍待完成；独立专家分析已推进至步骤 2 的可复现交付。下一开发边界是步骤 3 的 ElephantEye 定向调研与可运行直觉模型对照。网页完整复盘讲解尚未实现，当前 LLM 主要负责走子短句。
 
 服务需在新会话中确认或重新启动，不依赖上一个会话的后台进程。导入任务和进度只保存在服务内存中；重启后需重新选择或导入，磁盘中有效的棋谱、短句和音频仍可复用。旧音频文件暂不自动清理，HTTP 仅提供当前清单引用的文件。
 

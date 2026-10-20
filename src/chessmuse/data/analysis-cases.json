@@ -1,0 +1,52 @@
+[
+  {
+    "id": "opening-red-cannon", "purpose": "标准初始局面与红方评分视角",
+    "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+    "moves": [], "candidate": "h2e2"
+  },
+  {
+    "id": "opening-black-horse", "purpose": "保留一手历史与黑方评分视角",
+    "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+    "moves": ["h2e2"], "candidate": "h9g7"
+  },
+  {
+    "id": "opening-red-horse", "purpose": "普通出子候选及浅搜波动",
+    "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+    "moves": ["h2e2", "h9g7"], "candidate": "h0g2"
+  },
+  {
+    "id": "opening-screen-horses", "purpose": "屏风马事实与专家判断分开记录",
+    "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+    "moves": ["h2e2", "h9g7", "h0g2"], "candidate": "b9c7"
+  },
+  {
+    "id": "opening-red-rook", "purpose": "教学主线不预设为最佳走法",
+    "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+    "moves": ["h2e2", "h9g7", "h0g2", "b9c7"], "candidate": "a0a1"
+  },
+  {
+    "id": "opening-black-rook", "purpose": "浅扫较大分差的深度复查入口",
+    "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+    "moves": ["h2e2", "h9g7", "h0g2", "b9c7", "a0a1"], "candidate": "a9a8"
+  },
+  {
+    "id": "opening-second-horse", "purpose": "多手历史与完整PV核验",
+    "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+    "moves": ["h2e2", "h9g7", "h0g2", "b9c7", "a0a1", "a9a8"], "candidate": "b0c2"
+  },
+  {
+    "id": "rook-giveaway", "purpose": "人工构造的明显丢车反例，非历史实战",
+    "initial_fen": "r3k4/9/9/9/4p4/9/9/9/9/R3K4 w",
+    "moves": [], "candidate": "a0a8"
+  },
+  {
+    "id": "knight-check", "purpose": "人工构造的马将军，只核验事件，不预设妙手",
+    "initial_fen": "4k4/9/9/3N5/4P4/9/9/9/9/4K4 w",
+    "moves": [], "candidate": "d6f7"
+  },
+  {
+    "id": "cannon-capture-invitation", "purpose": "隔炮吃马后对方可用车回吃，不凭吃子或表面弃子判妙手",
+    "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+    "moves": [], "candidate": "h2h9"
+  }
+]

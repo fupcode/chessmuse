@@ -1,0 +1,2029 @@
+{
+  "date": "2026-10-20",
+  "engine": "Pikafish 2026-09-06",
+  "release_url": "https://github.com/official-pikafish/Pikafish/releases/tag/Pikafish-2026-09-06",
+  "network": {
+    "file": "pikafish.nnue",
+    "size": 50706378
+  },
+  "options": {
+    "Threads": 1,
+    "Hash": 32
+  },
+  "note": "本地真实运行摘要；完整双向UCI记录与逐步事件保存在.cache/analysis/。这不是人类直觉或妙手检测实验。",
+  "suite_depth": 8,
+  "cases": [
+    {
+      "id": "opening-red-cannon",
+      "purpose": "标准初始局面与红方评分视角",
+      "candidate_move": "h2e2",
+      "candidate_facts": {
+        "action": "炮二平五",
+        "capture": null,
+        "gives_check": false
+      },
+      "loss_cp": -2,
+      "best": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [],
+          "depth": 8,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+        "score_pov": "side_to_move",
+        "bestmove": "b2e2",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 30,
+              "bound": "exact"
+            },
+            "pv": [
+              "b2e2",
+              "b9c7",
+              "c3c4",
+              "a9b9",
+              "b0c2",
+              "b7a7",
+              "g3g4",
+              "h7e7"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": 25,
+              "bound": "exact"
+            },
+            "pv": [
+              "c3c4",
+              "c9e7",
+              "b0c2",
+              "g6g5",
+              "h0i2",
+              "h9g7",
+              "c0e2",
+              "h7i7"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": 22,
+              "bound": "exact"
+            },
+            "pv": [
+              "h2e2",
+              "h9g7",
+              "h0g2",
+              "g6g5",
+              "i0h0",
+              "i9h9",
+              "h0h6",
+              "b9c7",
+              "c3c4",
+              "h7i7",
+              "h6h9",
+              "g7h9",
+              "b0c2"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "go depth 8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 11 multipv 1 score cp 30 nodes 15037 nps 1074071 hashfull 0 tbhits 0 time 14 pv b2e2 b9c7 c3c4 a9b9 b0c2 b7a7 g3g4 h7e7",
+          "info depth 8 seldepth 12 multipv 2 score cp 25 nodes 15037 nps 1074071 hashfull 0 tbhits 0 time 14 pv c3c4 c9e7 b0c2 g6g5 h0i2 h9g7 c0e2 h7i7",
+          "info depth 8 seldepth 14 multipv 3 score cp 22 nodes 15037 nps 1074071 hashfull 0 tbhits 0 time 14 pv h2e2 h9g7 h0g2 g6g5 i0h0 i9h9 h0h6 b9c7 c3c4 h7i7 h6h9 g7h9 b0c2"
+        ],
+        "raw_bestmove": [
+          "bestmove b2e2 ponder b9c7"
+        ]
+      },
+      "candidate": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [],
+          "depth": 8,
+          "multipv": 1,
+          "searchmoves": [
+            "h2e2"
+          ]
+        },
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+        "score_pov": "side_to_move",
+        "bestmove": "h2e2",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 32,
+              "bound": "exact"
+            },
+            "pv": [
+              "h2e2",
+              "h9g7",
+              "g3g4",
+              "h7i7",
+              "h0g2",
+              "i9h9",
+              "c3c4"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "go depth 8 searchmoves h2e2"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 12 multipv 1 score cp 32 nodes 3125 nps 625000 hashfull 0 tbhits 0 time 5 pv h2e2 h9g7 g3g4 h7i7 h0g2 i9h9 c3c4"
+        ],
+        "raw_bestmove": [
+          "bestmove h2e2 ponder h9g7"
+        ]
+      }
+    },
+    {
+      "id": "opening-black-horse",
+      "purpose": "保留一手历史与黑方评分视角",
+      "candidate_move": "h9g7",
+      "candidate_facts": {
+        "action": "马八进七",
+        "capture": null,
+        "gives_check": false
+      },
+      "loss_cp": -1,
+      "best": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2"
+          ],
+          "depth": 8,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C4/9/RNBAKABNR b",
+        "score_pov": "side_to_move",
+        "bestmove": "h9g7",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -28,
+              "bound": "exact"
+            },
+            "pv": [
+              "h9g7",
+              "h0g2",
+              "g6g5",
+              "i0h0",
+              "i9h9",
+              "b0c2"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": -36,
+              "bound": "exact"
+            },
+            "pv": [
+              "b7e7",
+              "h0g2",
+              "h9g7",
+              "b0c2",
+              "b9c7"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": -38,
+              "bound": "exact"
+            },
+            "pv": [
+              "b9c7",
+              "h0g2",
+              "h7f7",
+              "c3c4",
+              "h9g7",
+              "i0h0",
+              "g6g5",
+              "b2d2",
+              "a9b9",
+              "b0c2"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2",
+          "go depth 8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 11 multipv 1 score cp -28 nodes 8307 nps 1186714 hashfull 1 tbhits 0 time 7 pv h9g7 h0g2 g6g5 i0h0 i9h9 b0c2",
+          "info depth 8 seldepth 13 multipv 2 score cp -36 nodes 8307 nps 1186714 hashfull 1 tbhits 0 time 7 pv b7e7 h0g2 h9g7 b0c2 b9c7",
+          "info depth 8 seldepth 13 multipv 3 score cp -38 nodes 8307 nps 1186714 hashfull 1 tbhits 0 time 7 pv b9c7 h0g2 h7f7 c3c4 h9g7 i0h0 g6g5 b2d2 a9b9 b0c2"
+        ],
+        "raw_bestmove": [
+          "bestmove h9g7 ponder h0g2"
+        ]
+      },
+      "candidate": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2"
+          ],
+          "depth": 8,
+          "multipv": 1,
+          "searchmoves": [
+            "h9g7"
+          ]
+        },
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C4/9/RNBAKABNR b",
+        "score_pov": "side_to_move",
+        "bestmove": "h9g7",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -27,
+              "bound": "exact"
+            },
+            "pv": [
+              "h9g7",
+              "h0g2",
+              "i9h9",
+              "b0c2",
+              "b9c7",
+              "i0h0"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2",
+          "go depth 8 searchmoves h9g7"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 9 multipv 1 score cp -27 nodes 1330 nps 1330000 hashfull 0 tbhits 0 time 1 pv h9g7 h0g2 i9h9 b0c2 b9c7 i0h0"
+        ],
+        "raw_bestmove": [
+          "bestmove h9g7 ponder h0g2"
+        ]
+      }
+    },
+    {
+      "id": "opening-red-horse",
+      "purpose": "普通出子候选及浅搜波动",
+      "candidate_move": "h0g2",
+      "candidate_facts": {
+        "action": "马二进三",
+        "capture": null,
+        "gives_check": false
+      },
+      "loss_cp": 7,
+      "best": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7"
+          ],
+          "depth": 8,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "rnbakab1r/9/1c4nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C4/9/RNBAKABNR w",
+        "score_pov": "side_to_move",
+        "bestmove": "h0g2",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 35,
+              "bound": "exact"
+            },
+            "pv": [
+              "h0g2",
+              "i9h9",
+              "i0h0",
+              "c6c5",
+              "b0a2",
+              "b9c7",
+              "g3g4",
+              "h7h3",
+              "b2c2",
+              "c7b5"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": 26,
+              "bound": "exact"
+            },
+            "pv": [
+              "b2d2",
+              "g6g5"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": 24,
+              "bound": "exact"
+            },
+            "pv": [
+              "g3g4",
+              "i9h9",
+              "h0g2",
+              "c6c5",
+              "i0h0",
+              "b9c7",
+              "b2c2"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7",
+          "go depth 8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 13 multipv 1 score cp 35 nodes 9433 nps 1179125 hashfull 1 tbhits 0 time 8 pv h0g2 i9h9 i0h0 c6c5 b0a2 b9c7 g3g4 h7h3 b2c2 c7b5",
+          "info depth 8 seldepth 10 multipv 2 score cp 26 nodes 9433 nps 1179125 hashfull 1 tbhits 0 time 8 pv b2d2 g6g5",
+          "info depth 8 seldepth 12 multipv 3 score cp 24 nodes 9433 nps 1179125 hashfull 1 tbhits 0 time 8 pv g3g4 i9h9 h0g2 c6c5 i0h0 b9c7 b2c2"
+        ],
+        "raw_bestmove": [
+          "bestmove h0g2 ponder i9h9"
+        ]
+      },
+      "candidate": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7"
+          ],
+          "depth": 8,
+          "multipv": 1,
+          "searchmoves": [
+            "h0g2"
+          ]
+        },
+        "fen": "rnbakab1r/9/1c4nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C4/9/RNBAKABNR w",
+        "score_pov": "side_to_move",
+        "bestmove": "h0g2",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 28,
+              "bound": "exact"
+            },
+            "pv": [
+              "h0g2",
+              "g6g5",
+              "i0h0",
+              "i9h9",
+              "h0h6",
+              "b9c7",
+              "c3c4",
+              "c9e7"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7",
+          "go depth 8 searchmoves h0g2"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 13 multipv 1 score cp 28 nodes 4680 nps 936000 hashfull 1 tbhits 0 time 5 pv h0g2 g6g5 i0h0 i9h9 h0h6 b9c7 c3c4 c9e7"
+        ],
+        "raw_bestmove": [
+          "bestmove h0g2 ponder g6g5"
+        ]
+      }
+    },
+    {
+      "id": "opening-screen-horses",
+      "purpose": "屏风马事实与专家判断分开记录",
+      "candidate_move": "b9c7",
+      "candidate_facts": {
+        "action": "马二进三",
+        "capture": null,
+        "gives_check": false
+      },
+      "loss_cp": 19,
+      "best": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2"
+          ],
+          "depth": 8,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "rnbakab1r/9/1c4nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/9/RNBAKAB1R b",
+        "score_pov": "side_to_move",
+        "bestmove": "g6g5",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -30,
+              "bound": "exact"
+            },
+            "pv": [
+              "g6g5",
+              "i0h0",
+              "i9h9",
+              "h0h6",
+              "c6c5",
+              "b0a2"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": -32,
+              "bound": "exact"
+            },
+            "pv": [
+              "i9h9",
+              "i0h0",
+              "g6g5",
+              "h0h6",
+              "c6c5",
+              "b2c2"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": -54,
+              "bound": "exact"
+            },
+            "pv": [
+              "c9e7",
+              "g3g4",
+              "i9h9",
+              "i0h0",
+              "c6c5",
+              "b0a2"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2",
+          "go depth 8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 11 multipv 1 score cp -30 nodes 14603 nps 1123307 hashfull 3 tbhits 0 time 13 pv g6g5 i0h0 i9h9 h0h6 c6c5 b0a2",
+          "info depth 8 seldepth 12 multipv 2 score cp -32 nodes 14603 nps 1123307 hashfull 3 tbhits 0 time 13 pv i9h9 i0h0 g6g5 h0h6 c6c5 b2c2",
+          "info depth 8 seldepth 12 multipv 3 score cp -54 nodes 14603 nps 1123307 hashfull 3 tbhits 0 time 13 pv c9e7 g3g4 i9h9 i0h0 c6c5 b0a2"
+        ],
+        "raw_bestmove": [
+          "bestmove g6g5 ponder i0h0"
+        ]
+      },
+      "candidate": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2"
+          ],
+          "depth": 8,
+          "multipv": 1,
+          "searchmoves": [
+            "b9c7"
+          ]
+        },
+        "fen": "rnbakab1r/9/1c4nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/9/RNBAKAB1R b",
+        "score_pov": "side_to_move",
+        "bestmove": "b9c7",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -49,
+              "bound": "exact"
+            },
+            "pv": [
+              "b9c7",
+              "i0h0",
+              "i9h9",
+              "c3c4"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2",
+          "go depth 8 searchmoves b9c7"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 13 multipv 1 score cp -49 nodes 2979 nps 744750 hashfull 0 tbhits 0 time 4 pv b9c7 i0h0 i9h9 c3c4"
+        ],
+        "raw_bestmove": [
+          "bestmove b9c7 ponder i0h0"
+        ]
+      }
+    },
+    {
+      "id": "opening-red-rook",
+      "purpose": "教学主线不预设为最佳走法",
+      "candidate_move": "a0a1",
+      "candidate_facts": {
+        "action": "车九进一",
+        "capture": null,
+        "gives_check": false
+      },
+      "loss_cp": 148,
+      "best": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7"
+          ],
+          "depth": 8,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "r1bakab1r/9/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/9/RNBAKAB1R w",
+        "score_pov": "side_to_move",
+        "bestmove": "c3c4",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 37,
+              "bound": "exact"
+            },
+            "pv": [
+              "c3c4",
+              "g6g5",
+              "i0h0",
+              "i9h9",
+              "h0h6",
+              "h7i7",
+              "h6g6",
+              "i7i8"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": 34,
+              "bound": "exact"
+            },
+            "pv": [
+              "i0h0",
+              "i9h9",
+              "g3g4",
+              "c6c5",
+              "b2c2",
+              "c9e7",
+              "c3c4",
+              "c7b5",
+              "c4c5",
+              "e7c5",
+              "c2c1",
+              "c5e7"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": 29,
+              "bound": "exact"
+            },
+            "pv": [
+              "g3g4",
+              "c6c5",
+              "i0h0",
+              "i9h9",
+              "b2c2",
+              "c7b5",
+              "b0a2"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7",
+          "go depth 8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 9 multipv 1 score cp 37 nodes 20426 nps 1075052 hashfull 2 tbhits 0 time 19 pv c3c4 g6g5 i0h0 i9h9 h0h6 h7i7 h6g6 i7i8",
+          "info depth 8 seldepth 15 multipv 2 score cp 34 nodes 20426 nps 1075052 hashfull 2 tbhits 0 time 19 pv i0h0 i9h9 g3g4 c6c5 b2c2 c9e7 c3c4 c7b5 c4c5 e7c5 c2c1 c5e7",
+          "info depth 8 seldepth 15 multipv 3 score cp 29 nodes 20426 nps 1075052 hashfull 2 tbhits 0 time 19 pv g3g4 c6c5 i0h0 i9h9 b2c2 c7b5 b0a2"
+        ],
+        "raw_bestmove": [
+          "bestmove c3c4 ponder g6g5"
+        ]
+      },
+      "candidate": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7"
+          ],
+          "depth": 8,
+          "multipv": 1,
+          "searchmoves": [
+            "a0a1"
+          ]
+        },
+        "fen": "r1bakab1r/9/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/9/RNBAKAB1R w",
+        "score_pov": "side_to_move",
+        "bestmove": "a0a1",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -111,
+              "bound": "exact"
+            },
+            "pv": [
+              "a0a1",
+              "b7b0",
+              "a1a0",
+              "b0d0",
+              "e0d0",
+              "a9b9",
+              "b2d2",
+              "i9h9"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7",
+          "go depth 8 searchmoves a0a1"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 12 multipv 1 score cp -111 nodes 1534 nps 767000 hashfull 0 tbhits 0 time 2 pv a0a1 b7b0 a1a0 b0d0 e0d0 a9b9 b2d2 i9h9"
+        ],
+        "raw_bestmove": [
+          "bestmove a0a1 ponder b7b0"
+        ]
+      }
+    },
+    {
+      "id": "opening-black-rook",
+      "purpose": "浅扫较大分差的深度复查入口",
+      "candidate_move": "a9a8",
+      "candidate_facts": {
+        "action": "车一进一",
+        "capture": null,
+        "gives_check": false
+      },
+      "loss_cp": 187,
+      "best": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7",
+            "a0a1"
+          ],
+          "depth": 8,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "r1bakab1r/9/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/R8/1NBAKAB1R b",
+        "score_pov": "side_to_move",
+        "bestmove": "b7b0",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 124,
+              "bound": "exact"
+            },
+            "pv": [
+              "b7b0",
+              "a1a0",
+              "b0d0",
+              "e0d0",
+              "g6g5",
+              "i0h0",
+              "i9h9",
+              "h0h4"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": 9,
+              "bound": "exact"
+            },
+            "pv": [
+              "i9h9",
+              "b0a2",
+              "g6g5",
+              "i0h0",
+              "h7h3",
+              "b2c2"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": -4,
+              "bound": "exact"
+            },
+            "pv": [
+              "b7a7",
+              "c3c4",
+              "a9b9",
+              "b0c2",
+              "g6g5"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7 a0a1",
+          "go depth 8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 12 multipv 1 score cp 124 nodes 9191 nps 1313000 hashfull 0 tbhits 0 time 7 pv b7b0 a1a0 b0d0 e0d0 g6g5 i0h0 i9h9 h0h4",
+          "info depth 8 seldepth 11 multipv 2 score cp 9 nodes 9191 nps 1313000 hashfull 0 tbhits 0 time 7 pv i9h9 b0a2 g6g5 i0h0 h7h3 b2c2",
+          "info depth 8 seldepth 12 multipv 3 score cp -4 nodes 9191 nps 1313000 hashfull 0 tbhits 0 time 7 pv b7a7 c3c4 a9b9 b0c2 g6g5"
+        ],
+        "raw_bestmove": [
+          "bestmove b7b0 ponder a1a0"
+        ]
+      },
+      "candidate": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7",
+            "a0a1"
+          ],
+          "depth": 8,
+          "multipv": 1,
+          "searchmoves": [
+            "a9a8"
+          ]
+        },
+        "fen": "r1bakab1r/9/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/R8/1NBAKAB1R b",
+        "score_pov": "side_to_move",
+        "bestmove": "a9a8",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -63,
+              "bound": "exact"
+            },
+            "pv": [
+              "a9a8",
+              "i0h0",
+              "i9h9",
+              "b2c2",
+              "g6g5",
+              "a1b1",
+              "a8b8"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7 a0a1",
+          "go depth 8 searchmoves a9a8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 15 multipv 1 score cp -63 nodes 4881 nps 813500 hashfull 0 tbhits 0 time 6 pv a9a8 i0h0 i9h9 b2c2 g6g5 a1b1 a8b8"
+        ],
+        "raw_bestmove": [
+          "bestmove a9a8 ponder i0h0"
+        ]
+      }
+    },
+    {
+      "id": "opening-second-horse",
+      "purpose": "多手历史与完整PV核验",
+      "candidate_move": "b0c2",
+      "candidate_facts": {
+        "action": "马八进七",
+        "capture": null,
+        "gives_check": false
+      },
+      "loss_cp": 29,
+      "best": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7",
+            "a0a1",
+            "a9a8"
+          ],
+          "depth": 8,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "2bakab1r/r8/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/R8/1NBAKAB1R w",
+        "score_pov": "side_to_move",
+        "bestmove": "i0h0",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 68,
+              "bound": "exact"
+            },
+            "pv": [
+              "i0h0",
+              "i9h9",
+              "b2c2",
+              "g6g5",
+              "a1b1",
+              "a8b8"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": 65,
+              "bound": "exact"
+            },
+            "pv": [
+              "b2c2",
+              "g6g5",
+              "i0h0",
+              "i9i7",
+              "c3c4",
+              "b7b8"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": 58,
+              "bound": "exact"
+            },
+            "pv": [
+              "b0c2",
+              "a8d8",
+              "i0h0",
+              "i9h9",
+              "c3c4",
+              "g6g5",
+              "b2a2"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7 a0a1 a9a8",
+          "go depth 8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 14 multipv 1 score cp 68 nodes 20036 nps 910727 hashfull 1 tbhits 0 time 22 pv i0h0 i9h9 b2c2 g6g5 a1b1 a8b8",
+          "info depth 8 seldepth 14 multipv 2 score cp 65 nodes 20036 nps 910727 hashfull 1 tbhits 0 time 22 pv b2c2 g6g5 i0h0 i9i7 c3c4 b7b8",
+          "info depth 8 seldepth 14 multipv 3 score cp 58 nodes 20036 nps 910727 hashfull 1 tbhits 0 time 22 pv b0c2 a8d8 i0h0 i9h9 c3c4 g6g5 b2a2"
+        ],
+        "raw_bestmove": [
+          "bestmove i0h0 ponder i9h9"
+        ]
+      },
+      "candidate": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7",
+            "a0a1",
+            "a9a8"
+          ],
+          "depth": 8,
+          "multipv": 1,
+          "searchmoves": [
+            "b0c2"
+          ]
+        },
+        "fen": "2bakab1r/r8/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/R8/1NBAKAB1R w",
+        "score_pov": "side_to_move",
+        "bestmove": "b0c2",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 39,
+              "bound": "exact"
+            },
+            "pv": [
+              "b0c2",
+              "a8d8",
+              "e3e4",
+              "i9h9",
+              "b2a2",
+              "b7b5",
+              "i0h0"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7 a0a1 a9a8",
+          "go depth 8 searchmoves b0c2"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 13 multipv 1 score cp 39 nodes 6137 nps 876714 hashfull 0 tbhits 0 time 7 pv b0c2 a8d8 e3e4 i9h9 b2a2 b7b5 i0h0"
+        ],
+        "raw_bestmove": [
+          "bestmove b0c2 ponder a8d8"
+        ]
+      }
+    },
+    {
+      "id": "rook-giveaway",
+      "purpose": "人工构造的明显丢车反例，非历史实战",
+      "candidate_move": "a0a8",
+      "candidate_facts": {
+        "action": "车九进八",
+        "capture": null,
+        "gives_check": false
+      },
+      "loss_cp": 1759,
+      "best": {
+        "request": {
+          "initial_fen": "r3k4/9/9/9/4p4/9/9/9/9/R3K4 w - - 0 1",
+          "moves": [],
+          "depth": 8,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "r3k4/9/9/9/4p4/9/9/9/9/R3K4 w",
+        "score_pov": "side_to_move",
+        "bestmove": "a0a9",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 829,
+              "bound": "exact"
+            },
+            "pv": [
+              "a0a9",
+              "e9e8",
+              "e0f0",
+              "e5e4",
+              "a9a4",
+              "e4e3",
+              "a4e4",
+              "e8d8",
+              "e4e3"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": -414,
+              "bound": "exact"
+            },
+            "pv": [
+              "a0b0",
+              "a9a4",
+              "b0b9",
+              "e9e8",
+              "b9b6",
+              "a4e4",
+              "e0d0"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": -477,
+              "bound": "exact"
+            },
+            "pv": [
+              "a0c0",
+              "a9a4",
+              "c0c9",
+              "e9e8",
+              "c9c8",
+              "e8e9",
+              "c8c7",
+              "a4e4",
+              "e0f0"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen r3k4/9/9/9/4p4/9/9/9/9/R3K4 w - - 0 1",
+          "go depth 8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 10 multipv 1 score cp 829 nodes 7194 nps 1798500 hashfull 0 tbhits 0 time 4 pv a0a9 e9e8 e0f0 e5e4 a9a4 e4e3 a4e4 e8d8 e4e3",
+          "info depth 8 seldepth 17 multipv 2 score cp -414 nodes 7194 nps 1798500 hashfull 0 tbhits 0 time 4 pv a0b0 a9a4 b0b9 e9e8 b9b6 a4e4 e0d0",
+          "info depth 8 seldepth 15 multipv 3 score cp -477 nodes 7194 nps 1798500 hashfull 0 tbhits 0 time 4 pv a0c0 a9a4 c0c9 e9e8 c9c8 e8e9 c8c7 a4e4 e0f0"
+        ],
+        "raw_bestmove": [
+          "bestmove a0a9 ponder e9e8"
+        ]
+      },
+      "candidate": {
+        "request": {
+          "initial_fen": "r3k4/9/9/9/4p4/9/9/9/9/R3K4 w - - 0 1",
+          "moves": [],
+          "depth": 8,
+          "multipv": 1,
+          "searchmoves": [
+            "a0a8"
+          ]
+        },
+        "fen": "r3k4/9/9/9/4p4/9/9/9/9/R3K4 w",
+        "score_pov": "side_to_move",
+        "bestmove": "a0a8",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -930,
+              "bound": "exact"
+            },
+            "pv": [
+              "a0a8",
+              "a9a8",
+              "e0d0",
+              "a8a1",
+              "d0e0",
+              "a1a0",
+              "e0e1",
+              "a0a8"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen r3k4/9/9/9/4p4/9/9/9/9/R3K4 w - - 0 1",
+          "go depth 8 searchmoves a0a8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 10 multipv 1 score cp -930 nodes 265 nps 265000 hashfull 0 tbhits 0 time 1 pv a0a8 a9a8 e0d0 a8a1 d0e0 a1a0 e0e1 a0a8"
+        ],
+        "raw_bestmove": [
+          "bestmove a0a8 ponder a9a8"
+        ]
+      }
+    },
+    {
+      "id": "knight-check",
+      "purpose": "人工构造的马将军，只核验事件，不预设妙手",
+      "candidate_move": "d6f7",
+      "candidate_facts": {
+        "action": "马六进四",
+        "capture": null,
+        "gives_check": true
+      },
+      "loss_cp": null,
+      "best": {
+        "request": {
+          "initial_fen": "4k4/9/9/3N5/4P4/9/9/9/9/4K4 w - - 0 1",
+          "moves": [],
+          "depth": 8,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "4k4/9/9/3N5/4P4/9/9/9/9/4K4 w",
+        "score_pov": "side_to_move",
+        "bestmove": "e5e6",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "mate",
+              "value": 4,
+              "bound": "exact"
+            },
+            "pv": [
+              "e5e6",
+              "e9f9",
+              "e6f6",
+              "f9f8",
+              "f6f7",
+              "f8f9",
+              "d6f5"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 2,
+            "score": {
+              "kind": "mate",
+              "value": 6,
+              "bound": "exact"
+            },
+            "pv": [
+              "d6f5",
+              "e9e8",
+              "e5e6",
+              "e8e9",
+              "f5d6",
+              "e9f9",
+              "e6f6",
+              "f9f8",
+              "f6f7",
+              "f8f9",
+              "d6f5"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": 1064,
+              "bound": "exact"
+            },
+            "pv": [
+              "d6f7",
+              "e9e8",
+              "f7d6",
+              "e8e7",
+              "e5e6",
+              "e7d7",
+              "e6e7",
+              "d7d8"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen 4k4/9/9/3N5/4P4/9/9/9/9/4K4 w - - 0 1",
+          "go depth 8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 11 multipv 1 score mate 4 nodes 1380 nps 1380000 hashfull 0 tbhits 0 time 1 pv e5e6 e9f9 e6f6 f9f8 f6f7 f8f9 d6f5",
+          "info depth 8 seldepth 12 multipv 2 score mate 6 nodes 1380 nps 1380000 hashfull 0 tbhits 0 time 1 pv d6f5 e9e8 e5e6 e8e9 f5d6 e9f9 e6f6 f9f8 f6f7 f8f9 d6f5",
+          "info depth 8 seldepth 12 multipv 3 score cp 1064 nodes 1380 nps 1380000 hashfull 0 tbhits 0 time 1 pv d6f7 e9e8 f7d6 e8e7 e5e6 e7d7 e6e7 d7d8"
+        ],
+        "raw_bestmove": [
+          "bestmove e5e6 ponder e9f9"
+        ]
+      },
+      "candidate": {
+        "request": {
+          "initial_fen": "4k4/9/9/3N5/4P4/9/9/9/9/4K4 w - - 0 1",
+          "moves": [],
+          "depth": 8,
+          "multipv": 1,
+          "searchmoves": [
+            "d6f7"
+          ]
+        },
+        "fen": "4k4/9/9/3N5/4P4/9/9/9/9/4K4 w",
+        "score_pov": "side_to_move",
+        "bestmove": "d6f7",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 950,
+              "bound": "exact"
+            },
+            "pv": [
+              "d6f7",
+              "e9e8",
+              "e5e6",
+              "e8f8",
+              "e6e7",
+              "f8f9",
+              "f7h8",
+              "f9f8"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen 4k4/9/9/3N5/4P4/9/9/9/9/4K4 w - - 0 1",
+          "go depth 8 searchmoves d6f7"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 9 multipv 1 score cp 950 nodes 399 nps 399000 hashfull 0 tbhits 0 time 1 pv d6f7 e9e8 e5e6 e8f8 e6e7 f8f9 f7h8 f9f8"
+        ],
+        "raw_bestmove": [
+          "bestmove d6f7 ponder e9e8"
+        ]
+      }
+    },
+    {
+      "id": "cannon-capture-invitation",
+      "purpose": "隔炮吃马后对方可用车回吃，不凭吃子或表面弃子判妙手",
+      "candidate_move": "h2h9",
+      "candidate_facts": {
+        "action": "炮二进七",
+        "capture": "马",
+        "gives_check": false
+      },
+      "loss_cp": 162,
+      "best": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [],
+          "depth": 8,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+        "score_pov": "side_to_move",
+        "bestmove": "b2e2",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 30,
+              "bound": "exact"
+            },
+            "pv": [
+              "b2e2",
+              "b9c7",
+              "c3c4",
+              "a9b9",
+              "b0c2",
+              "b7a7",
+              "g3g4",
+              "h7e7"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": 25,
+              "bound": "exact"
+            },
+            "pv": [
+              "c3c4",
+              "c9e7",
+              "b0c2",
+              "g6g5",
+              "h0i2",
+              "h9g7",
+              "c0e2",
+              "h7i7"
+            ]
+          },
+          {
+            "depth": 8,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": 22,
+              "bound": "exact"
+            },
+            "pv": [
+              "h2e2",
+              "h9g7",
+              "h0g2",
+              "g6g5",
+              "i0h0",
+              "i9h9",
+              "h0h6",
+              "b9c7",
+              "c3c4",
+              "h7i7",
+              "h6h9",
+              "g7h9",
+              "b0c2"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "go depth 8"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 11 multipv 1 score cp 30 nodes 15037 nps 1074071 hashfull 0 tbhits 0 time 14 pv b2e2 b9c7 c3c4 a9b9 b0c2 b7a7 g3g4 h7e7",
+          "info depth 8 seldepth 12 multipv 2 score cp 25 nodes 15037 nps 1074071 hashfull 0 tbhits 0 time 14 pv c3c4 c9e7 b0c2 g6g5 h0i2 h9g7 c0e2 h7i7",
+          "info depth 8 seldepth 14 multipv 3 score cp 22 nodes 15037 nps 1074071 hashfull 0 tbhits 0 time 14 pv h2e2 h9g7 h0g2 g6g5 i0h0 i9h9 h0h6 b9c7 c3c4 h7i7 h6h9 g7h9 b0c2"
+        ],
+        "raw_bestmove": [
+          "bestmove b2e2 ponder b9c7"
+        ]
+      },
+      "candidate": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [],
+          "depth": 8,
+          "multipv": 1,
+          "searchmoves": [
+            "h2h9"
+          ]
+        },
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+        "score_pov": "side_to_move",
+        "bestmove": "h2h9",
+        "lines": [
+          {
+            "depth": 8,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -132,
+              "bound": "exact"
+            },
+            "pv": [
+              "h2h9",
+              "i9h9",
+              "c3c4",
+              "h7e7"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "go depth 8 searchmoves h2h9"
+        ],
+        "final_raw_info": [
+          "info depth 8 seldepth 12 multipv 1 score cp -132 nodes 2460 nps 1230000 hashfull 0 tbhits 0 time 2 pv h2h9 i9h9 c3c4 h7e7"
+        ],
+        "raw_bestmove": [
+          "bestmove h2h9 ponder i9h9"
+        ]
+      }
+    }
+  ],
+  "game_scan": [
+    {
+      "ply": 1,
+      "move": "h2e2",
+      "bestmove": "h2e2",
+      "loss_cp": 3
+    },
+    {
+      "ply": 2,
+      "move": "h9g7",
+      "bestmove": "h9g7",
+      "loss_cp": 11
+    },
+    {
+      "ply": 3,
+      "move": "h0g2",
+      "bestmove": "g3g4",
+      "loss_cp": -11
+    },
+    {
+      "ply": 4,
+      "move": "b9c7",
+      "bestmove": "i9h9",
+      "loss_cp": 9
+    },
+    {
+      "ply": 5,
+      "move": "a0a1",
+      "bestmove": "i0h0",
+      "loss_cp": 175
+    },
+    {
+      "ply": 6,
+      "move": "a9a8",
+      "bestmove": "b7b0",
+      "loss_cp": 197
+    },
+    {
+      "ply": 7,
+      "move": "b0c2",
+      "bestmove": "i0h0",
+      "loss_cp": 17
+    },
+    {
+      "ply": 8,
+      "move": "h7h5",
+      "bestmove": "i9h9",
+      "loss_cp": 18
+    }
+  ],
+  "game_reviews": [
+    {
+      "ply": 5,
+      "reason": "指定复查",
+      "loss_cp": 151,
+      "best": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7"
+          ],
+          "depth": 10,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "r1bakab1r/9/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/9/RNBAKAB1R w",
+        "score_pov": "side_to_move",
+        "bestmove": "c3c4",
+        "lines": [
+          {
+            "depth": 10,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 40,
+              "bound": "exact"
+            },
+            "pv": [
+              "c3c4",
+              "g6g5",
+              "i0h0",
+              "i9h9",
+              "h0h6",
+              "h7i7",
+              "h6g6",
+              "d9e8",
+              "b0c2",
+              "i7i8",
+              "e3e4"
+            ]
+          },
+          {
+            "depth": 10,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": 40,
+              "bound": "exact"
+            },
+            "pv": [
+              "i0h0",
+              "i9h9",
+              "c3c4",
+              "g6g5",
+              "h0h6",
+              "h7i7",
+              "h6g6",
+              "i7i8"
+            ]
+          },
+          {
+            "depth": 10,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": 29,
+              "bound": "exact"
+            },
+            "pv": [
+              "g3g4",
+              "c6c5",
+              "b0a2",
+              "i9h9",
+              "b2c2",
+              "c7b5",
+              "i0h0",
+              "d9e8",
+              "a0a1",
+              "c9e7",
+              "a1d1",
+              "a9d9",
+              "d1d9",
+              "e9d9"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7",
+          "go depth 10"
+        ],
+        "final_raw_info": [
+          "info depth 10 seldepth 13 multipv 1 score cp 40 nodes 32733 nps 991909 hashfull 3 tbhits 0 time 33 pv c3c4 g6g5 i0h0 i9h9 h0h6 h7i7 h6g6 d9e8 b0c2 i7i8 e3e4",
+          "info depth 10 seldepth 16 multipv 2 score cp 40 nodes 32733 nps 991909 hashfull 3 tbhits 0 time 33 pv i0h0 i9h9 c3c4 g6g5 h0h6 h7i7 h6g6 i7i8",
+          "info depth 10 seldepth 20 multipv 3 score cp 29 nodes 32733 nps 991909 hashfull 3 tbhits 0 time 33 pv g3g4 c6c5 b0a2 i9h9 b2c2 c7b5 i0h0 d9e8 a0a1 c9e7 a1d1 a9d9 d1d9 e9d9"
+        ],
+        "raw_bestmove": [
+          "bestmove c3c4 ponder g6g5"
+        ]
+      },
+      "actual": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7"
+          ],
+          "depth": 10,
+          "multipv": 1,
+          "searchmoves": [
+            "a0a1"
+          ]
+        },
+        "fen": "r1bakab1r/9/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/9/RNBAKAB1R w",
+        "score_pov": "side_to_move",
+        "bestmove": "a0a1",
+        "lines": [
+          {
+            "depth": 10,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -111,
+              "bound": "exact"
+            },
+            "pv": [
+              "a0a1",
+              "b7b0",
+              "a1a0",
+              "b0b1"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7",
+          "go depth 10 searchmoves a0a1"
+        ],
+        "final_raw_info": [
+          "info depth 10 seldepth 17 multipv 1 score cp -111 nodes 5059 nps 1011800 hashfull 0 tbhits 0 time 5 pv a0a1 b7b0 a1a0 b0b1"
+        ],
+        "raw_bestmove": [
+          "bestmove a0a1 ponder b7b0"
+        ]
+      }
+    },
+    {
+      "ply": 6,
+      "reason": "浅扫差值/非cp证据待复查",
+      "loss_cp": 188,
+      "best": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7",
+            "a0a1"
+          ],
+          "depth": 10,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "r1bakab1r/9/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/R8/1NBAKAB1R b",
+        "score_pov": "side_to_move",
+        "bestmove": "b7b0",
+        "lines": [
+          {
+            "depth": 10,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 121,
+              "bound": "exact"
+            },
+            "pv": [
+              "b7b0",
+              "i0h0",
+              "i9h9",
+              "a1a0",
+              "b0d0",
+              "e0d0",
+              "a9b9",
+              "b2c2",
+              "g6g5",
+              "h0h4",
+              "h7i7"
+            ]
+          },
+          {
+            "depth": 10,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": 27,
+              "bound": "exact"
+            },
+            "pv": [
+              "i9h9",
+              "b0a2",
+              "g6g5",
+              "a1f1",
+              "d9e8",
+              "f1f4"
+            ]
+          },
+          {
+            "depth": 10,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": -2,
+              "bound": "exact"
+            },
+            "pv": [
+              "b7a7",
+              "i0h0",
+              "i9h9",
+              "b0c2",
+              "a9b9",
+              "h0h4",
+              "g6g5",
+              "e3e4"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7 a0a1",
+          "go depth 10"
+        ],
+        "final_raw_info": [
+          "info depth 10 seldepth 13 multipv 1 score cp 121 nodes 16298 nps 1086533 hashfull 1 tbhits 0 time 15 pv b7b0 i0h0 i9h9 a1a0 b0d0 e0d0 a9b9 b2c2 g6g5 h0h4 h7i7",
+          "info depth 10 seldepth 13 multipv 2 score cp 27 nodes 16298 nps 1086533 hashfull 1 tbhits 0 time 15 pv i9h9 b0a2 g6g5 a1f1 d9e8 f1f4",
+          "info depth 10 seldepth 13 multipv 3 score cp -2 nodes 16298 nps 1086533 hashfull 1 tbhits 0 time 15 pv b7a7 i0h0 i9h9 b0c2 a9b9 h0h4 g6g5 e3e4"
+        ],
+        "raw_bestmove": [
+          "bestmove b7b0 ponder i0h0"
+        ]
+      },
+      "actual": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7",
+            "a0a1"
+          ],
+          "depth": 10,
+          "multipv": 1,
+          "searchmoves": [
+            "a9a8"
+          ]
+        },
+        "fen": "r1bakab1r/9/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/R8/1NBAKAB1R b",
+        "score_pov": "side_to_move",
+        "bestmove": "a9a8",
+        "lines": [
+          {
+            "depth": 10,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -67,
+              "bound": "exact"
+            },
+            "pv": [
+              "a9a8",
+              "i0h0",
+              "i9h9",
+              "b2c2",
+              "g6g5",
+              "a1b1",
+              "a8b8",
+              "b1b6",
+              "c9e7",
+              "b6c6",
+              "h7i7",
+              "h0h9",
+              "g7h9"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7 a0a1",
+          "go depth 10 searchmoves a9a8"
+        ],
+        "final_raw_info": [
+          "info depth 10 seldepth 18 multipv 1 score cp -67 nodes 5319 nps 886500 hashfull 0 tbhits 0 time 6 pv a9a8 i0h0 i9h9 b2c2 g6g5 a1b1 a8b8 b1b6 c9e7 b6c6 h7i7 h0h9 g7h9"
+        ],
+        "raw_bestmove": [
+          "bestmove a9a8 ponder i0h0"
+        ]
+      }
+    },
+    {
+      "ply": 8,
+      "reason": "浅扫差值/非cp证据待复查",
+      "loss_cp": 39,
+      "best": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7",
+            "a0a1",
+            "a9a8",
+            "b0c2"
+          ],
+          "depth": 10,
+          "multipv": 3,
+          "searchmoves": []
+        },
+        "fen": "2bakab1r/r8/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1CN1C1N2/R8/2BAKAB1R b",
+        "score_pov": "side_to_move",
+        "bestmove": "g6g5",
+        "lines": [
+          {
+            "depth": 10,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -44,
+              "bound": "exact"
+            },
+            "pv": [
+              "g6g5",
+              "i0h0",
+              "i9h9",
+              "a1d1",
+              "h7h3",
+              "e3e4",
+              "c9e7",
+              "d1d6"
+            ]
+          },
+          {
+            "depth": 10,
+            "multipv": 2,
+            "score": {
+              "kind": "cp",
+              "value": -45,
+              "bound": "exact"
+            },
+            "pv": [
+              "a8d8",
+              "i0h0",
+              "i9h9",
+              "h0h6",
+              "h7i7",
+              "h6h9",
+              "g7h9",
+              "a1h1",
+              "h9g7",
+              "e3e4",
+              "d8d3"
+            ]
+          },
+          {
+            "depth": 10,
+            "multipv": 3,
+            "score": {
+              "kind": "cp",
+              "value": -49,
+              "bound": "exact"
+            },
+            "pv": [
+              "i9h9",
+              "e3e4",
+              "a8d8",
+              "i0i1",
+              "d8d3",
+              "e4e5",
+              "f9e8",
+              "c2e3",
+              "e6e5",
+              "a1d1",
+              "d3c3"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 3",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7 a0a1 a9a8 b0c2",
+          "go depth 10"
+        ],
+        "final_raw_info": [
+          "info depth 10 seldepth 16 multipv 1 score cp -44 nodes 49345 nps 1007040 hashfull 4 tbhits 0 time 49 pv g6g5 i0h0 i9h9 a1d1 h7h3 e3e4 c9e7 d1d6",
+          "info depth 10 seldepth 14 multipv 2 score cp -45 nodes 49345 nps 1007040 hashfull 4 tbhits 0 time 49 pv a8d8 i0h0 i9h9 h0h6 h7i7 h6h9 g7h9 a1h1 h9g7 e3e4 d8d3",
+          "info depth 10 seldepth 15 multipv 3 score cp -49 nodes 49345 nps 1007040 hashfull 4 tbhits 0 time 49 pv i9h9 e3e4 a8d8 i0i1 d8d3 e4e5 f9e8 c2e3 e6e5 a1d1 d3c3"
+        ],
+        "raw_bestmove": [
+          "bestmove g6g5 ponder i0h0"
+        ]
+      },
+      "actual": {
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h9g7",
+            "h0g2",
+            "b9c7",
+            "a0a1",
+            "a9a8",
+            "b0c2"
+          ],
+          "depth": 10,
+          "multipv": 1,
+          "searchmoves": [
+            "h7h5"
+          ]
+        },
+        "fen": "2bakab1r/r8/1cn3nc1/p1p1p1p1p/9/9/P1P1P1P1P/1CN1C1N2/R8/2BAKAB1R b",
+        "score_pov": "side_to_move",
+        "bestmove": "h7h5",
+        "lines": [
+          {
+            "depth": 10,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -83,
+              "bound": "exact"
+            },
+            "pv": [
+              "h7h5",
+              "g3g4",
+              "c6c5",
+              "i0h0",
+              "i9h9",
+              "a1d1",
+              "h5h3",
+              "d1d4",
+              "h3c3",
+              "h0h9",
+              "c3c0",
+              "d0e1",
+              "g7h9"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h9g7 h0g2 b9c7 a0a1 a9a8 b0c2",
+          "go depth 10 searchmoves h7h5"
+        ],
+        "final_raw_info": [
+          "info depth 10 seldepth 14 multipv 1 score cp -83 nodes 8361 nps 929000 hashfull 1 tbhits 0 time 9 pv h7h5 g3g4 c6c5 i0h0 i9h9 a1d1 h5h3 d1d4 h3c3 h0h9 c3c0 d0e1 g7h9"
+        ],
+        "raw_bestmove": [
+          "bestmove h7h5 ponder g3g4"
+        ]
+      }
+    }
+  ]
+}
