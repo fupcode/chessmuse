@@ -1,5 +1,232 @@
 {
-  "mode": "reviewed_fact_cards",
+  "plan": {
+    "nodes": [
+      {
+        "ply": 12,
+        "segments": [
+          {
+            "fact": "intuition",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "12-intuition-1",
+                "focus": "12-black-cannon"
+              },
+              {
+                "unit": "12-intuition-2",
+                "focus": "12-black-cannon"
+              }
+            ]
+          },
+          {
+            "fact": "disagreement",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "12-disagreement-1",
+                "focus": null
+              },
+              {
+                "unit": "12-disagreement-2",
+                "focus": "12-black-advisor"
+              },
+              {
+                "unit": "12-disagreement-3",
+                "focus": null
+              }
+            ]
+          },
+          {
+            "fact": "variation",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "12-variation-1",
+                "focus": null
+              },
+              {
+                "unit": "12-variation-2",
+                "focus": null
+              }
+            ]
+          },
+          {
+            "fact": "lesson",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "12-lesson-1",
+                "focus": null
+              },
+              {
+                "unit": "12-lesson-2",
+                "focus": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "ply": 13,
+        "segments": [
+          {
+            "fact": "intuition",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "13-intuition-1",
+                "focus": null
+              },
+              {
+                "unit": "13-intuition-2",
+                "focus": "13-red-rook"
+              },
+              {
+                "unit": "13-intuition-3",
+                "focus": "13-black-cannon"
+              }
+            ]
+          },
+          {
+            "fact": "disagreement",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "13-disagreement-1",
+                "focus": "13-red-cannon"
+              },
+              {
+                "unit": "13-disagreement-2",
+                "focus": "13-cannon-screen"
+              },
+              {
+                "unit": "13-disagreement-3",
+                "focus": "13-cannon-attack"
+              },
+              {
+                "unit": "13-disagreement-4",
+                "focus": null
+              }
+            ]
+          },
+          {
+            "fact": "variation",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "13-variation-1",
+                "focus": null
+              },
+              {
+                "unit": "13-variation-2",
+                "focus": null
+              },
+              {
+                "unit": "13-variation-3",
+                "focus": null
+              },
+              {
+                "unit": "13-variation-4",
+                "focus": null
+              }
+            ]
+          },
+          {
+            "fact": "lesson",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "13-lesson-1",
+                "focus": null
+              },
+              {
+                "unit": "13-lesson-2",
+                "focus": "13-cannon-attack"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "ply": 19,
+        "segments": [
+          {
+            "fact": "intuition",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "19-intuition-1",
+                "focus": "19-red-rook"
+              },
+              {
+                "unit": "19-intuition-2",
+                "focus": "19-black-advisor"
+              }
+            ]
+          },
+          {
+            "fact": "disagreement",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "19-disagreement-1",
+                "focus": "19-red-rook"
+              },
+              {
+                "unit": "19-disagreement-2",
+                "focus": null
+              },
+              {
+                "unit": "19-disagreement-3",
+                "focus": null
+              }
+            ]
+          },
+          {
+            "fact": "variation",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "19-variation-1",
+                "focus": null
+              },
+              {
+                "unit": "19-variation-2",
+                "focus": null
+              }
+            ]
+          },
+          {
+            "fact": "lesson",
+            "transition": "",
+            "beats": [
+              {
+                "unit": "19-lesson-1",
+                "focus": null
+              },
+              {
+                "unit": "19-lesson-2",
+                "focus": null
+              },
+              {
+                "unit": "19-lesson-3",
+                "focus": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 3817,
+    "completion_tokens": 650,
+    "total_tokens": 4467
+  },
+  "request_id": "470fcd32-17d5-4b89-8e01-9d81d82be82d",
+  "mode": "llm_attention_composition",
+  "prompt_version": 2,
   "catalog": {
     "12": {
       "intuition": "这匹马就摆在炮口上，黑方当然想吃。炮二进七，马是拿到了，可接下来还得顾着自己的防守。",
@@ -9,7 +236,7 @@
     },
     "13": {
       "intuition": "红方少了一匹马，很容易想着赶紧追回来。比如走车九退一，退车去追那门吃马的炮。但追上炮，可不等于已经把子拿回来了。",
-      "disagreement": "红方选择炮八进五。注意黑方的中炮，恰好给红炮当了炮架，红炮隔着它就盯上了黑马。这会儿还没吃到马，黑方也能应对，但进炮和退车追炮，着眼点已经不同了。",
+      "disagreement": "红方选择炮八进五。注意黑方的中炮，恰好给红炮当了炮架。红炮隔着它，盯住了黑马。黑方接下来仍有应对的机会。",
       "variation": "如果红方回车追炮呢？把刚才这步退回来看看。黑炮可以走开，红方并不能追一下就把丢掉的马补回来。看过这条变化，再回到进炮的局面。",
       "lesson": "少了子，也别只盯着怎么追回来。这步进炮借用了对方的炮架，把目标转向黑马；先看看手里的棋子还能做什么，再决定要不要追着吃。"
     },
@@ -19,72 +246,5 @@
       "variation": "先看看黑方不吃车，走将六进一会怎样，这条路还要继续周旋。再回来看古谱：黑方士五退四吃车，红方另一辆车马上平四将军，接着进车吃炮，最后炮八平五收尾。",
       "lesson": "古谱里黑方吃下这辆车，最后确实被将死了。漂亮就漂亮在，红方送掉一车，另一辆车和炮却接上了进攻。不过这个结尾是顺着吃车走出来的，黑方不吃车时，还得另算。"
     }
-  },
-  "plan": {
-    "nodes": [
-      {
-        "ply": 12,
-        "segments": [
-          {
-            "fact": "intuition",
-            "transition": ""
-          },
-          {
-            "fact": "disagreement",
-            "transition": ""
-          },
-          {
-            "fact": "variation",
-            "transition": ""
-          },
-          {
-            "fact": "lesson",
-            "transition": ""
-          }
-        ]
-      },
-      {
-        "ply": 13,
-        "segments": [
-          {
-            "fact": "intuition",
-            "transition": ""
-          },
-          {
-            "fact": "disagreement",
-            "transition": ""
-          },
-          {
-            "fact": "variation",
-            "transition": ""
-          },
-          {
-            "fact": "lesson",
-            "transition": ""
-          }
-        ]
-      },
-      {
-        "ply": 19,
-        "segments": [
-          {
-            "fact": "intuition",
-            "transition": ""
-          },
-          {
-            "fact": "disagreement",
-            "transition": ""
-          },
-          {
-            "fact": "variation",
-            "transition": ""
-          },
-          {
-            "fact": "lesson",
-            "transition": ""
-          }
-        ]
-      }
-    ]
   }
 }

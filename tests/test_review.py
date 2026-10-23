@@ -1,3 +1,4 @@
+import asyncio
 import io
 import json
 import zipfile
@@ -139,3 +140,93 @@ def test_commentary_rejects_invented_contrast(text):
     from chessmuse.review import validate_spoken_commentary
     with pytest.raises(ValueError, match="立靶"):
         validate_spoken_commentary(text)
+
+
+
+def test_annotated_beats_are_ordered_and_cannot_invent_a_focus():
+    from chessmuse.review import spoken_units
+    composition = json.loads((DATA / "famous-composition.json").read_text(encoding="utf-8"))
+    units = spoken_units(composition["catalog"])
+    for node in composition["plan"]["nodes"]:
+        for segment in node["segments"]:
+            assert [b["unit"] for b in segment["beats"]] == [
+                u["unit"] for u in units[str(node["ply"])][segment["fact"]]]
+    broken = deepcopy(composition["plan"])
+    broken["nodes"][0]["segments"][0]["beats"][0]["focus"] = "13-cannon-attack"
+    with pytest.raises(ValueError, match="未核验"):
+        validate_plan(composition["catalog"], broken)
+    broken = deepcopy(composition["plan"])
+    broken["nodes"][0]["segments"][0]["beats"].reverse()
+    with pytest.raises(ValueError, match="未核验"):
+        validate_plan(composition["catalog"], broken)
+
+
+def test_cannon_explanation_points_to_cannon_screen_and_target_in_sequence():
+    script = GameLibrary().example("qima-13")
+    beats = [p for p in script["paragraphs"] if p["id"].startswith("node-13-disagreement-")]
+    assert [p["annotation"]["rings"] for p in beats[:3]] == [
+        ["b7"], ["e7"], ["b7", "e7", "g7"]]
+    assert beats[2]["annotation"]["arrows"] == [{"from": "b7", "to": "g7", "kind": "attack"}]
+
+
+def test_annotation_is_rejected_in_wrong_position_or_without_its_screen():
+    from chessmuse.annotations import validate_annotation
+    script = GameLibrary().example("qima-13")
+    paragraph = next(p for p in script["paragraphs"] if p["id"] == "node-13-disagreement-3")
+    annotation = paragraph["annotation"]
+    validate_annotation(annotation, annotation["fen"])
+    with pytest.raises(ValueError, match="当前局面"):
+        validate_annotation(annotation, script["initial_fen"])
+    board = ChessBoard(annotation["fen"])
+    board.pop_fench((4, 7))
+    changed = deepcopy(annotation)
+    changed["fen"] = board.to_fen()
+    changed["rings"].remove("e7")
+    with pytest.raises(ValueError):
+        validate_annotation(changed, changed["fen"])
+
+
+def test_restoration_keeps_piece_identity_and_animates_captured_piece_return():
+    library = GameLibrary()
+    demo = compile_demo(library.example("qima-13"), require_audio=False,
+                        narration_path=library.narration_path("qima-13"))
+    restore = next(e for e in demo["events"] if e["id"] == "accept-restore")
+    assert restore["animation_ms"] == 650
+    assert restore["before_state"]["branch"]
+    assert restore["state"]["branch"] is None
+    assert restore["state"]["caption"] is None
+    before = {p["id"]: p for p in restore["before_state"]["pieces"]}
+    after = {p["id"]: p for p in restore["state"]["pieces"]}
+    assert "i0" not in before and "i0" in after  # The sacrificed rook returns.
+    assert after["i0"]["file"] == 3 and after["i0"]["rank"] == 0
+
+
+
+def test_llm_receives_short_units_and_retries_an_invented_annotation():
+    from chessmuse.llm import Completion, TokenUsage
+    from chessmuse.review import plan_commentary
+    composition = json.loads((DATA / "famous-composition.json").read_text(encoding="utf-8"))
+    script = GameLibrary().example("qima-13")
+    attention = {p["annotation"]["id"]: p["annotation"]
+                 for p in script["paragraphs"] if "annotation" in p}
+    invalid = deepcopy(composition["plan"])
+    invalid["nodes"][0]["segments"][0]["beats"][0]["focus"] = "invented-square"
+
+    class Client:
+        def __init__(self):
+            self.outputs = iter([invalid, composition["plan"]])
+            self.calls = []
+
+        async def complete(self, messages, **kwargs):
+            self.calls.append(list(messages))
+            data = next(self.outputs)
+            return Completion(text=json.dumps(data), data=data, model="test-model",
+                              request_id="test-request", usage=TokenUsage(1, 1, 2))
+
+    client = Client()
+    result = asyncio.run(plan_commentary(client, composition["catalog"], attention))
+    assert result["mode"] == "llm_attention_composition"
+    assert len(client.calls) == 2
+    payload = json.loads(client.calls[0][1].content)
+    assert payload["units"]["13"]["disagreement"][2]["focus"] == "13-cannon-attack"
+    assert payload["annotation_options"]["13-cannon-attack"]["rings"] == ["b7", "e7", "g7"]

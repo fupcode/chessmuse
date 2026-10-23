@@ -5,6 +5,7 @@ import re
 from copy import deepcopy
 from pathlib import Path
 
+from chessmuse.annotations import validate_annotation
 from chessmuse.game import move_facts, play
 from chessmuse.narration import read_announcements
 from chessmuse.tts import audio_duration, speech_text
@@ -22,6 +23,25 @@ def load_script() -> dict:
     return json.loads((DATA / "demo.json").read_text(encoding="utf-8"))
 
 
+def initial_pieces(fen: str) -> dict:
+    pieces = {}
+    for rank, row in enumerate(fen.split()[0].split("/")):
+        file = 0
+        for code in row:
+            if code.isdigit():
+                file += int(code)
+            else:
+                square = chr(97 + file) + str(9 - rank)
+                pieces[square] = {"id": square, "code": code, "file": file, "rank": rank}
+                file += 1
+    return pieces
+
+
+def move_pieces(pieces: dict, move: str):
+    moving = pieces.pop(move[:2])
+    pieces[move[2:]] = {**moving, "file": ord(move[2]) - 97, "rank": 9 - int(move[3])}
+
+
 def compile_demo(script: dict | None = None, *, require_audio: bool = True, require_narration: bool = True,
                  narration_path: Path | None = None, audio_dir: Path | None = None) -> dict:
     if require_audio and not require_narration:
@@ -31,6 +51,8 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
         raise ValueError("Invalid game ID")
     audio_dir = audio_dir if audio_dir is not None else AUDIO_ROOT / script["id"]
     snapshots = [script["initial_fen"]]
+    positions = initial_pieces(script["initial_fen"])
+    piece_snapshots = [deepcopy(positions)]
     notations = []
     mainline_history = []
     for move in script["mainline"]:
@@ -38,12 +60,15 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
         facts = move_facts(snapshots[-1], move, notation)
         mainline_history.append({"side": facts["side"], "action": facts["action"], "gives_check": facts["gives_check"]})
         snapshots.append(fen)
+        move_pieces(positions, move)
+        piece_snapshots.append(deepcopy(positions))
         notations.append(notation)
 
     paragraphs = {p["id"]: p for p in script["paragraphs"]}
     if len(paragraphs) != len(script["paragraphs"]):
         raise ValueError("Duplicate paragraph IDs")
     fen, ply, branch, caption, last_move = snapshots[0], 0, None, None, None
+    positions = deepcopy(piece_snapshots[0])
     seen = set()
     history = []
     narration_inputs = []
@@ -55,10 +80,11 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
             case "move":
                 event["before_state"] = {
                     "fen": fen, "ply": ply, "branch": branch,
-                    "caption": caption, "last_move": last_move,
+                    "caption": caption, "last_move": last_move, "pieces": list(positions.values()),
                 }
                 previous_fen = fen
                 fen, event["notation"] = play(fen, event["move"])
+                move_pieces(positions, event["move"])
                 facts = move_facts(previous_fen, event["move"], event["notation"])
                 event["gives_check"] = facts["gives_check"]
                 narration_inputs.append({"id": event["id"], "facts": facts, "history": history[-6:], "branch": branch})
@@ -73,20 +99,26 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
                 if branch is None and (ply >= len(snapshots) or fen != snapshots[ply]):
                     raise ValueError("Mainline event disagrees with the authored game")
             case "set_position":
+                event["before_state"] = {"fen": fen, "ply": ply, "branch": branch,
+                    "caption": caption, "last_move": last_move, "pieces": list(positions.values())}
+                event["animation_ms"] = 650
+                caption = None
                 ply = event["mainline_ply"]
                 if not 0 <= ply < len(snapshots):
                     raise ValueError("Snapshot index outside mainline")
                 fen, branch, last_move = snapshots[ply], event.get("branch"), None
                 history = mainline_history[:ply]
+                positions = deepcopy(piece_snapshots[ply])
             case "speak":
                 caption = event["paragraph"]
                 if caption not in paragraphs:
                     raise ValueError(f"Unknown paragraph: {caption}")
+                validate_annotation(paragraphs[caption].get("annotation"), fen)
             case _:
                 raise ValueError(f"Unknown event type: {event['type']}")
         event["state"] = {
             "fen": fen, "ply": ply, "branch": branch,
-            "caption": caption, "last_move": last_move,
+            "caption": caption, "last_move": last_move, "pieces": list(positions.values()),
         }
     if branch is not None or fen != snapshots[-1]:
         raise ValueError("Timeline must finish at the end of the mainline")

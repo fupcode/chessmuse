@@ -33,7 +33,14 @@ function drawGrid() {
   board.append(svg("text",{x:389,y:306,"text-anchor":"middle",fill:"#9c845f","font-size":22,"letter-spacing":12},"漢界"));
   for(let col=0;col<9;col++) board.append(svg("text",{x:x(col),y:600,"text-anchor":"middle",fill:"#9c845f","font-size":12},"九八七六五四三二一"[col]));
   board.append(svg("g",{id:"markers"}));
+  board.append(svg("g",{id:"attention-lines", "pointer-events":"none"}));
   board.append(svg("g",{id:"pieces"}));
+  const defs=svg("defs",{});
+  const arrow=svg("marker",{id:"attention-arrow",viewBox:"0 0 10 10",refX:8,refY:5,
+    markerWidth:5,markerHeight:5,orient:"auto-start-reverse"});
+  arrow.append(svg("path",{d:"M 0 0 L 10 5 L 0 10 z",fill:"#c06328"}));
+  defs.append(arrow);board.append(defs);
+  board.append(svg("g",{id:"attention",class:"attention", "pointer-events":"none"}));
 }
 
 function drawPosition(state, duration = 0) {
@@ -45,15 +52,22 @@ function drawPosition(state, duration = 0) {
       else wanted.push({code,file:file++,rank});
     }
   });
+  if(state.pieces) {wanted.splice(0,wanted.length,...state.pieces.map(p=>({...p})));}
   if(previousFen !== state.fen) {
-    // Retain exact-square pieces first; move the unmatched piece for animation.
+    // Stable piece IDs keep both rooks distinct when restoring a branch.
     const unused = new Set(pieces);
     for(const p of wanted) {
-      const same = pieces.find(q => unused.has(q) && q.code===p.code && q.file===p.file && q.rank===p.rank);
-      if(same) {p.el=same.el;unused.delete(same);}
+      const same = pieces.find(q => unused.has(q) && (p.id ? q.id===p.id : q.code===p.code && q.file===p.file && q.rank===p.rank));
+      if(same) {
+        p.el=same.el;unused.delete(same);
+        const target=`translate(${x(p.file)}px,${y(p.rank)}px)`;
+        const origin=p.el.style.transform;
+        p.el.style.transform=target;
+        if(origin!==target && duration>0 && !reducedMotion.matches) motion.start(p.el,origin,target,duration);
+      }
     }
     for(const p of wanted.filter(p=>!p.el)) {
-      const moved = [...unused].find(q=>q.code===p.code);
+      const moved = p.id ? null : [...unused].find(q=>q.code===p.code);
       if(moved) {p.el=moved.el;unused.delete(moved);}
       else {
         const red=p.code===p.code.toUpperCase();
@@ -66,9 +80,16 @@ function drawPosition(state, duration = 0) {
       const target = `translate(${x(p.file)}px,${y(p.rank)}px)`;
       const origin = p.el.style.transform;
       p.el.style.transform=target;
-      if (moved && duration > 0 && !reducedMotion.matches) motion.start(p.el, origin, target, duration);
+      if (duration > 0 && !reducedMotion.matches) {
+        if(moved) motion.start(p.el, origin, target, duration);
+        else motion.frames(p.el,[{opacity:0},{opacity:1}],duration);
+      }
     }
-    unused.forEach(p=>p.el.remove());
+    unused.forEach(p=>{
+      if(duration>0 && !reducedMotion.matches)
+        motion.frames(p.el,[{opacity:1},{opacity:0}],duration,()=>p.el.remove());
+      else p.el.remove();
+    });
     pieces=wanted;
     previousFen=state.fen;
   }
@@ -79,6 +100,33 @@ function drawPosition(state, duration = 0) {
     }
   }
   $("board").setAttribute("aria-label",`${state.branch ? "推演变化" : "实战主线"}，第${state.ply}半回合，${state.fen.endsWith(" w") ? "红" : "黑"}方行棋`);
+}
+
+
+function drawAttention(annotation, state) {
+  const layer=$("attention");
+  const key=annotation && annotation.fen===state.fen ? annotation.id : "";
+  if(layer.dataset.focus===key) return;
+  layer.dataset.focus=key;layer.replaceChildren();
+  const lines=$("attention-lines");lines.replaceChildren();
+  if(!key) return;
+  const point=square=>({x:x(square.charCodeAt(0)-97),y:y(9-Number(square[1]))});
+  for(const arrow of annotation.arrows) {
+    const from=point(arrow.from),to=point(arrow.to);
+    const length=Math.hypot(to.x-from.x,to.y-from.y);
+    const end={x:to.x-(to.x-from.x)*30/length,y:to.y-(to.y-from.y)*30/length};
+    lines.append(svg("line",{x1:from.x,y1:from.y,x2:end.x,y2:end.y,
+      stroke:"#c06328","stroke-width":4,"stroke-linecap":"round","marker-end":"url(#attention-arrow)"}));
+  }
+  for(const square of annotation.rings) {
+    const p=point(square);
+    layer.append(svg("circle",{cx:p.x,cy:p.y,r:27,fill:"none",stroke:"#c06328","stroke-width":3}));
+  }
+  layer.append(svg("title",{},annotation.label));
+  if(!reducedMotion.matches) {
+    motion.frames(layer,[{opacity:0},{opacity:1}],180);
+    motion.frames(lines,[{opacity:0},{opacity:1}],180);
+  }
 }
 
 function mountDemo(demo) {
@@ -108,6 +156,9 @@ function mountDemo(demo) {
   const render=(event,index,playing,frame)=>{
     const state=frame.state;
     drawPosition(state,frame.animate ? event.animation_ms : 0);
+    drawAttention(frame.annotation, state);
+    $("edition").textContent=state.branch ? "推演中" : "中国象棋 · 复盘讲解";
+    $("edition").classList.toggle("in-variation",!!state.branch);
     $("line").textContent=state.branch ? `推演 · ${state.branch}` : "实战主线";
     $("turn").textContent=`第 ${state.ply} 半回合 · ${state.fen.endsWith(" w")?"红":"黑"}方行棋`;
     $("move-label").textContent=event.notation || (event.type==="set_position" ? "已切换局面" : "听解说 · 看局面");
@@ -145,7 +196,7 @@ function mountDemo(demo) {
   $("replay").onclick=()=>{player.seek(0);player.play();};
   $("progress").oninput=e=>player.seek(Number(e.target.value));
   $("voice").onchange=e=>player.setVoice(e.target.checked);
-  $("mainline").onclick=()=>player.seek(player.mainlineReturnIndex());
+  $("mainline").onclick=()=>player.returnToMainline();
   player.paint();
   $("status").textContent="准备就绪 · 点击播放开始";
 }

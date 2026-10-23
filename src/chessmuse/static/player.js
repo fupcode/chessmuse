@@ -40,16 +40,25 @@ export class Player {
     this.timer = null;
   }
 
+  displayState() {
+    if (!this.started && this.event.type === "move")
+      return {...this.event.before_state, caption:this.event.paragraph};
+    if (!this.started && this.event.type === "set_position" && this.event.before_state)
+      return this.transitionOrigin || this.event.before_state;
+    return this.event.state;
+  }
+
   paint(animate = false) {
-    const state = this.event.type === "move" && !this.started
-      ? {...this.event.before_state, caption:this.event.paragraph} : this.event.state;
-    this.render(this.event, this.index, this.playing, {state, animate});
+    this.render(this.event, this.index, this.playing, {
+      state:this.displayState(), animate,
+      annotation:this.started && this.event.type === "speak" ? this.paragraph?.annotation : null,
+    });
   }
 
   startMove() {
-    if (this.event.type === "move" && !this.started) {
+    if (!this.started) {
       this.started = true;
-      this.paint(true);
+      this.paint(this.event.type === "move" || this.event.type === "set_position");
     }
     this.motion.play();
   }
@@ -65,7 +74,7 @@ export class Player {
     this.status("已暂停");
   }
 
-  seek(index) {
+  seek(index, {origin = null} = {}) {
     this.pause();
     this.motion.cancel();
     this.index = Math.max(0, Math.min(index, this.demo.events.length - 1));
@@ -74,10 +83,23 @@ export class Player {
     this.audio.load();
     this.readyAudio = false;
     this.started = false;
+    this.transitionOrigin = origin;
+    this.transitionOnly = false;
     this.failed = false;
     this.remaining = null;
     this.paint();
     this.status("已定位，点击播放继续");
+  }
+
+  returnToMainline() {
+    const target = this.mainlineReturnIndex();
+    const restore = this.demo.events[target]?.type === "set_position" ? target : target - 1;
+    if (!this.displayState().branch || this.demo.events[restore]?.type !== "set_position") return;
+    const resume = this.playing;
+    const origin = this.displayState();
+    this.seek(restore, {origin});
+    this.transitionOnly = !resume;
+    this.play();
   }
 
   setVoice(enabled) {
@@ -116,7 +138,7 @@ export class Player {
       }
     } else {
       this.startMove();
-      const delay = this.remaining ?? (this.paragraph ? this.paragraph.duration * 1000 : 0);
+      const delay = this.remaining ?? (this.paragraph ? this.paragraph.duration * 1000 : (this.event.animation_ms || 0));
       this.deadline = this.now() + delay;
       this.timer = this.clock.setTimeout(() => {
         this.timer = null;
@@ -140,7 +162,12 @@ export class Player {
     }
     this.index++;
     this.started = false;
-    this.play();
+    this.transitionOrigin = null;
+    if (this.transitionOnly) {
+      this.transitionOnly = false;
+      this.paint();
+      this.status("已回到棋谱，点击播放继续");
+    } else this.play();
   }
 
   fail(message) {

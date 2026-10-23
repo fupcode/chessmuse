@@ -43,6 +43,368 @@
     "events": []
   },
   "scope": "manually_selected_famous_game_nodes",
+  "branch_reviews": {
+    "defense": {
+      "ply": 12,
+      "label": "黑方先补防",
+      "moves": [
+        "f9e8",
+        "b0c2",
+        "b7d7",
+        "d8b8",
+        "h3g3",
+        "c2e1"
+      ],
+      "endpoint": {
+        "engine": "Pikafish 2026-09-06",
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h7e7",
+            "h0g2",
+            "h9g7",
+            "i0i1",
+            "i9h9",
+            "i1d1",
+            "h9h3",
+            "d1d8",
+            "b9a7",
+            "a0a1",
+            "f9e8",
+            "b0c2",
+            "b7d7",
+            "d8b8",
+            "h3g3",
+            "c2e1"
+          ],
+          "depth": 16,
+          "multipv": 1,
+          "searchmoves": []
+        },
+        "score_pov": "side_to_move",
+        "fen": "r1bak1b2/1R2a4/n2cc1n2/p1p1p1p1p/9/9/P1P1P1r1P/1C2C1N2/R3N4/2BAKAB2 b",
+        "bestmove": "c6c5",
+        "lines": [
+          {
+            "depth": 16,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 10,
+              "bound": "exact"
+            },
+            "pv": [
+              "c6c5",
+              "b8b6",
+              "g6g5",
+              "a1d1",
+              "g7f5",
+              "e2e6",
+              "a7c8",
+              "b6c6",
+              "c8d6",
+              "b2d2",
+              "f5e3",
+              "g2e3",
+              "g3e3",
+              "c6d6",
+              "e3e6",
+              "d6e6",
+              "d7d1",
+              "d2e2",
+              "e7e2",
+              "g0e2",
+              "a9b9",
+              "e1g2",
+              "b9b4"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h7e7 h0g2 h9g7 i0i1 i9h9 i1d1 h9h3 d1d8 b9a7 a0a1 f9e8 b0c2 b7d7 d8b8 h3g3 c2e1",
+          "go depth 16"
+        ],
+        "final_info": [
+          "info depth 16 seldepth 27 multipv 1 score cp 10 nodes 262430 nps 880637 hashfull 38 tbhits 0 time 298 pv c6c5 b8b6 g6g5 a1d1 g7f5 e2e6 a7c8 b6c6 c8d6 b2d2 f5e3 g2e3 g3e3 c6d6 e3e6 d6e6 d7d1 d2e2 e7e2 g0e2 a9b9 e1g2 b9b4",
+          "bestmove c6c5 ponder b8b6"
+        ]
+      },
+      "conclusion": {
+        "fen": "r1bak1b2/1R2a4/n2cc1n2/p1p1p1p1p/9/9/P1P1P1r1P/1C2C1N2/R3N4/2BAKAB2 b",
+        "assessment": "走到这里，双方局面大致均衡。",
+        "reason": "先补好这一手士，黑方还有稳住局面的余地。",
+        "return": "回到古谱，黑方选择炮二进七，先吃下红马。接着看红方怎么应。"
+      }
+    },
+    "chase": {
+      "ply": 13,
+      "label": "回车追炮",
+      "moves": [
+        "a1a0",
+        "b0b1",
+        "b2b7",
+        "a9b9",
+        "b7g7",
+        "f9e8"
+      ],
+      "endpoint": {
+        "engine": "Pikafish 2026-09-06",
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h7e7",
+            "h0g2",
+            "h9g7",
+            "i0i1",
+            "i9h9",
+            "i1d1",
+            "h9h3",
+            "d1d8",
+            "b9a7",
+            "a0a1",
+            "b7b0",
+            "a1a0",
+            "b0b1",
+            "b2b7",
+            "a9b9",
+            "b7g7",
+            "f9e8"
+          ],
+          "depth": 16,
+          "multipv": 1,
+          "searchmoves": []
+        },
+        "score_pov": "side_to_move",
+        "fen": "1rbak1b2/3Ra4/n3c1C2/p1p1p1p1p/9/9/P1P1P1PrP/4C1N2/1c7/R1BAKAB2 w",
+        "bestmove": "a0a2",
+        "lines": [
+          {
+            "depth": 16,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": -16,
+              "bound": "exact"
+            },
+            "pv": [
+              "a0a2",
+              "h3h7",
+              "g7a7",
+              "c9a7",
+              "e2e6",
+              "h7f7",
+              "d8d2",
+              "f7f6",
+              "e6e4",
+              "b9b4",
+              "f0e1",
+              "b1b3",
+              "c3c4",
+              "b4c4",
+              "d2f2",
+              "f6e6",
+              "a2b2",
+              "c4c3",
+              "e4e7",
+              "g9e7",
+              "f2f4",
+              "c6c5",
+              "g3g4"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h7e7 h0g2 h9g7 i0i1 i9h9 i1d1 h9h3 d1d8 b9a7 a0a1 b7b0 a1a0 b0b1 b2b7 a9b9 b7g7 f9e8",
+          "go depth 16"
+        ],
+        "final_info": [
+          "info depth 16 seldepth 27 multipv 1 score cp -16 nodes 176263 nps 812271 hashfull 32 tbhits 0 time 217 pv a0a2 h3h7 g7a7 c9a7 e2e6 h7f7 d8d2 f7f6 e6e4 b9b4 f0e1 b1b3 c3c4 b4c4 d2f2 f6e6 a2b2 c4c3 e4e7 g9e7 f2f4 c6c5 g3g4",
+          "bestmove a0a2 ponder h3h7"
+        ]
+      },
+      "conclusion": {
+        "fen": "1rbak1b2/3Ra4/n3c1C2/p1p1p1p1p/9/9/P1P1P1PrP/4C1N2/1c7/R1BAKAB2 w",
+        "assessment": "走到这里，双方局面大致均衡。",
+        "reason": "红车追炮，黑炮可以避开；红方随后还得进炮吃马，才把子力补回来。",
+        "return": "回到古谱，红方直接选择炮八进五，把进炮这步先走了。"
+      }
+    },
+    "decline": {
+      "ply": 19,
+      "label": "拒绝弃车",
+      "moves": [
+        "d8d9",
+        "f9f8",
+        "d9g9",
+        "h9i7",
+        "b7i7",
+        "a9a8"
+      ],
+      "endpoint": {
+        "engine": "Pikafish 2026-09-06",
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h7e7",
+            "h0g2",
+            "h9g7",
+            "i0i1",
+            "i9h9",
+            "i1d1",
+            "h9h3",
+            "d1d8",
+            "b9a7",
+            "a0a1",
+            "b7b0",
+            "b2b7",
+            "g7h9",
+            "e2e6",
+            "f9e8",
+            "a1d1",
+            "e9f9",
+            "d8d9",
+            "f9f8",
+            "d9g9",
+            "h9i7",
+            "b7i7",
+            "a9a8"
+          ],
+          "depth": 16,
+          "multipv": 1,
+          "searchmoves": []
+        },
+        "score_pov": "side_to_move",
+        "fen": "2b3R2/r3ak3/n3c3C/p1p1C1p1p/9/9/P1P1P1PrP/6N2/3R5/1cBAKAB2 w",
+        "bestmove": "g9g8",
+        "lines": [
+          {
+            "depth": 16,
+            "multipv": 1,
+            "score": {
+              "kind": "cp",
+              "value": 851,
+              "bound": "exact"
+            },
+            "pv": [
+              "g9g8",
+              "f8f9",
+              "g8g9",
+              "f9f8",
+              "g9g7",
+              "b0b7",
+              "g7g8",
+              "f8f9",
+              "i7b7",
+              "a8b8",
+              "d1f1",
+              "e7f7",
+              "f1f7",
+              "e8f7",
+              "g8b8",
+              "a6a5",
+              "e6f6",
+              "f9e9"
+            ]
+          }
+        ],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h7e7 h0g2 h9g7 i0i1 i9h9 i1d1 h9h3 d1d8 b9a7 a0a1 b7b0 b2b7 g7h9 e2e6 f9e8 a1d1 e9f9 d8d9 f9f8 d9g9 h9i7 b7i7 a9a8",
+          "go depth 16"
+        ],
+        "final_info": [
+          "info depth 16 seldepth 22 multipv 1 score cp 851 nodes 227800 nps 941322 hashfull 45 tbhits 0 time 242 pv g9g8 f8f9 g8g9 f9f8 g9g7 b0b7 g7g8 f8f9 i7b7 a8b8 d1f1 e7f7 f1f7 e8f7 g8b8 a6a5 e6f6 f9e9",
+          "bestmove g9g8 ponder f8f9"
+        ]
+      },
+      "conclusion": {
+        "fen": "2b3R2/r3ak3/n3c3C/p1p1C1p1p/9/9/P1P1P1PrP/6N2/3R5/1cBAKAB2 w",
+        "assessment": "走到这里，红方已经大优。",
+        "reason": "红车还留在前方，红炮又吃到了黑马，黑方依然承受着进攻的压力。",
+        "return": "回到古谱，接下来黑方选择士五退四，吃下红车。咱们再看吃车这条路。"
+      }
+    },
+    "accept": {
+      "ply": 19,
+      "label": "古谱接受弃车至将死",
+      "moves": [
+        "d8d9",
+        "e8d9",
+        "d1f1",
+        "e7f7",
+        "f1f7",
+        "f9e9",
+        "b7e7"
+      ],
+      "endpoint": {
+        "engine": "Pikafish 2026-09-06",
+        "request": {
+          "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+          "moves": [
+            "h2e2",
+            "h7e7",
+            "h0g2",
+            "h9g7",
+            "i0i1",
+            "i9h9",
+            "i1d1",
+            "h9h3",
+            "d1d8",
+            "b9a7",
+            "a0a1",
+            "b7b0",
+            "b2b7",
+            "g7h9",
+            "e2e6",
+            "f9e8",
+            "a1d1",
+            "e9f9",
+            "d8d9",
+            "e8d9",
+            "d1f1",
+            "e7f7",
+            "f1f7",
+            "f9e9",
+            "b7e7"
+          ],
+          "depth": 16,
+          "multipv": 1,
+          "searchmoves": []
+        },
+        "score_pov": "side_to_move",
+        "fen": "r1bak1bn1/9/n3CR3/p1p1C1p1p/9/9/P1P1P1PrP/6N2/9/1cBAKAB2 b",
+        "bestmove": null,
+        "lines": [],
+        "commands": [
+          "ucinewgame",
+          "setoption name MultiPV value 1",
+          "isready",
+          "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1 moves h2e2 h7e7 h0g2 h9g7 i0i1 i9h9 i1d1 h9h3 d1d8 b9a7 a0a1 b7b0 b2b7 g7h9 e2e6 f9e8 a1d1 e9f9 d8d9 e8d9 d1f1 e7f7 f1f7 f9e9 b7e7",
+          "go depth 16"
+        ],
+        "final_info": [
+          "bestmove (none)"
+        ]
+      },
+      "conclusion": {
+        "fen": "r1bak1bn1/9/n3CR3/p1p1C1p1p/9/9/P1P1P1PrP/6N2/9/1cBAKAB2 b",
+        "assessment": "黑方已无棋可走，红方获胜。",
+        "reason": "红方送掉一辆车，另一辆车和炮接上进攻，最后炮八平五，将死黑方。",
+        "return": "回到古谱，接着走完士五退四吃车以后的这段攻杀。"
+      }
+    }
+  },
   "nodes": [
     {
       "ply": 12,

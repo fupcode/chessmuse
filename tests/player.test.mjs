@@ -47,7 +47,7 @@ function setup() {
   ]};
   const renders=[];
   const motion={paused:0,played:0,cancelled:0,pause(){this.paused++;},play(){this.played++;},cancel(){this.cancelled++;}};
-  const player=new Player(demo,(event,index,playing,frame)=>renders.push({fen:frame.state.fen,index,playing,animate:frame.animate}),()=>{},audio,clock,motion);
+  const player=new Player(demo,(event,index,playing,frame)=>renders.push({fen:frame.state.fen,index,playing,animate:frame.animate,annotation:frame.annotation}),()=>{},audio,clock,motion);
   return {player,audio,tick,jobs,renders,motion};
 }
 
@@ -163,4 +163,46 @@ test('a move without further explanation goes straight to the next spoken move',
   assert.equal(player.playing,true);
   assert.equal(renders.at(-1).fen,'next-move');
   assert.equal(renders.filter(frame=>frame.animate).length,2);
+});
+
+
+test('annotations start with their spoken beat, survive pause and clear on seek',async()=>{
+  const {player,renders,audio}=setup();
+  player.demo.paragraphs[0].annotation={id:'focus'};
+  player.paint();assert.equal(renders.at(-1).annotation,null);
+  await player.play();assert.equal(renders.at(-1).annotation.id,'focus');
+  player.pause();assert.equal(renders.at(-1).annotation.id,'focus');
+  player.seek(1);assert.equal(renders.at(-1).annotation,null);
+  await player.play();audio.onended();
+  assert.equal(renders.at(-1).annotation,null);
+});
+
+test('return button animates from the visible branch and paused transition resumes its remaining time',async()=>{
+  const {player,renders,tick}=setup();
+  player.demo.events[1].state.branch='test';
+  player.demo.events[2]={type:'set_position',animation_ms:650,
+    before_state:{fen:'branch-end',branch:'test'},state:{fen:'mainline',branch:null}};
+  player.demo.events.push({type:'speak',paragraph:'one',state:{fen:'mainline',branch:null}});
+  player.seek(1);await player.play();player.pause();
+  player.returnToMainline();
+  assert.equal(player.index,2);
+  assert.equal(renders.at(-1).animate,true);
+  assert.equal(renders.at(-1).fen,'mainline');
+  assert.equal(player.transitionOrigin.fen,'branch');
+  tick(250);player.pause();tick(1000);
+  assert.equal(player.index,2);
+  await player.play();tick(399);assert.equal(player.index,2);
+  tick(1);assert.equal(player.index,3);
+  assert.equal(player.playing,false);
+});
+
+test('automatic restoration waits for its animation before starting the next narration',async()=>{
+  const {player,audio,tick,renders}=setup();
+  player.demo.events[2]={type:'set_position',animation_ms:650,
+    before_state:{fen:'branch',branch:'test'},state:{fen:'mainline',branch:null}};
+  player.demo.events.push({type:'speak',paragraph:'one',state:{fen:'mainline',branch:null}});
+  player.seek(1);await player.play();audio.onended();
+  assert.equal(player.index,2);assert.equal(renders.at(-1).animate,true);
+  tick(649);assert.equal(player.index,2);
+  tick(1);assert.equal(player.index,3);
 });

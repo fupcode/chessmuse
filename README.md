@@ -86,6 +86,7 @@ node tests/player.test.mjs
 node tests/motion.test.mjs
 node tests/import.test.mjs
 node tests/review-playback.test.mjs
+node tests/board-render.test.mjs
 uv run chessmuse validate
 ```
 
@@ -106,7 +107,7 @@ uv run chessmuse analyze-suite --engine .cache/pikafish/Pikafish-Windows-x86-64-
 
 ## 当前交接状态（2026-10-20）
 
-已实现一份著名古谱的完整讲解：25个主线半回合、3个关键节点、4段推演、77个事件及69段真实语音。ElephantEye 的纯子力/传统评价配置完成1/3/5层对照，Pikafish深度12/16复查关键候选；详细战术采用已核验事实卡，由LLM组织段落。修复了多分支「回到主线」定位问题，完整音频缓存可直接复用。
+已实现一份著名古谱的完整讲解：25个主线半回合、3个关键节点、4段推演、107个事件及99段真实语音，其中12个短片段同步展示棋子光圈或攻击关系线。ElephantEye 的纯子力/传统评价配置完成1/3/5层对照，Pikafish深度12/16复查关键候选；详细战术采用已核验事实卡，由LLM组织段落。修复了多分支「回到主线」定位问题，完整音频缓存可直接复用。
 
 下一上下文先读 [项目总纲](docs/overview.md)、本 README 和 [著名古谱讲解交付](docs/famous-review.md)。真实HTTP加载、全部音频访问、完整Player事件推进已验证；桌面操作因网址识别限制停止，画面、实际听音和主观讲解质量仍待人工验收。当前三个古谱节点由开发时指定，尚未覆盖任意导入棋谱的自动完整解说；下一步优先按真实观感改进本演示，再推广节点选择和名局样本。
 

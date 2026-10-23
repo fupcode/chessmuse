@@ -44,54 +44,275 @@
       "text": "今天看橘中秘里的弃马十三着。红方先让黑炮吃马，后面又送出一辆车，这盘棋究竟是怎么攻起来的？咱们顺着古谱往下看，遇到关键地方，也看看黑方有没有别的走法。"
     },
     {
-      "id": "node-12-intuition",
+      "id": "node-12-intuition-1",
       "title": "这匹马能吃吗",
-      "text": "这匹马就摆在炮口上，黑方当然想吃。炮二进七，马是拿到了，可接下来还得顾着自己的防守。"
+      "text": "这匹马就摆在炮口上，黑方当然想吃。",
+      "annotation": {
+        "id": "12-black-cannon",
+        "label": "吃马的黑炮",
+        "fen": "r1bakab2/3R5/n3c1n2/p1p1p1p1p/9/9/P1P1P1PrP/1C2C1N2/R8/1cBAKAB2 w",
+        "rings": [
+          "b0"
+        ],
+        "arrows": []
+      },
+      "fact_ref": "12-intuition-1"
     },
     {
-      "id": "node-12-disagreement",
+      "id": "node-12-intuition-2",
+      "title": "这匹马能吃吗",
+      "text": "炮二进七，马是拿到了，可接下来还得顾着自己的防守。",
+      "annotation": {
+        "id": "12-black-cannon",
+        "label": "吃马的黑炮",
+        "fen": "r1bakab2/3R5/n3c1n2/p1p1p1p1p/9/9/P1P1P1PrP/1C2C1N2/R8/1cBAKAB2 w",
+        "rings": [
+          "b0"
+        ],
+        "arrows": []
+      },
+      "fact_ref": "12-intuition-2"
+    },
+    {
+      "id": "node-12-disagreement-1",
       "title": "先补防还是先吃马",
-      "text": "这里可不能光顾着吃马。先走士６进５补好防守，是更稳妥的选择。不过，吃马也不等于马上输棋，黑方后面还有补防的机会。"
+      "text": "这里可不能光顾着吃马。",
+      "fact_ref": "12-disagreement-1"
     },
     {
-      "id": "node-12-variation",
+      "id": "node-12-disagreement-2",
+      "title": "先补防还是先吃马",
+      "text": "先走士６进５补好防守，是更稳妥的选择。",
+      "annotation": {
+        "id": "12-black-advisor",
+        "label": "补防的黑士",
+        "fen": "r1bakab2/3R5/n3c1n2/p1p1p1p1p/9/9/P1P1P1PrP/1C2C1N2/R8/1cBAKAB2 w",
+        "rings": [
+          "f9"
+        ],
+        "arrows": []
+      },
+      "fact_ref": "12-disagreement-2"
+    },
+    {
+      "id": "node-12-disagreement-3",
+      "title": "先补防还是先吃马",
+      "text": "不过，吃马也不等于马上输棋，黑方后面还有补防的机会。",
+      "fact_ref": "12-disagreement-3"
+    },
+    {
+      "id": "node-12-variation-1",
       "title": "换个走法看看",
-      "text": "把棋退回吃马之前，看看黑方先补防会怎么走。这里只看其中一种应对，随后再接着看古谱里的吃马。"
+      "text": "把棋退回吃马之前，看看黑方先补防会怎么走。",
+      "fact_ref": "12-variation-1"
     },
     {
-      "id": "defense-return",
+      "id": "node-12-variation-2",
+      "title": "换个走法看看",
+      "text": "这里只看其中一种应对，随后再接着看古谱里的吃马。",
+      "fact_ref": "12-variation-2"
+    },
+    {
+      "id": "defense-assessment",
+      "title": "这条变化的结果",
+      "text": "走到这里，双方局面大致均衡。",
+      "fact_ref": "branch-defense-endpoint"
+    },
+    {
+      "id": "defense-reason",
+      "title": "走到这里看结果",
+      "text": "先补好这一手士，黑方还有稳住局面的余地。",
+      "fact_ref": "branch-defense-line"
+    },
+    {
+      "id": "defense-return-1",
       "title": "回到古谱",
-      "text": "好，再接着看古谱。"
+      "text": "回到古谱，黑方选择炮二进七，先吃下红马。",
+      "fact_ref": "branch-defense-actual"
     },
     {
-      "id": "node-12-lesson",
+      "id": "defense-return-2",
+      "title": "回到古谱",
+      "text": "接着看红方怎么应。",
+      "fact_ref": "branch-defense-actual"
+    },
+    {
+      "id": "node-12-lesson-1",
       "title": "吃子之前看防守",
-      "text": "有子可吃，先别急着伸手。把防守补好，还是先拿这匹马，要连着对方后面的出子一起看。"
+      "text": "有子可吃，先别急着伸手。",
+      "fact_ref": "12-lesson-1"
     },
     {
-      "id": "node-13-intuition",
+      "id": "node-12-lesson-2",
+      "title": "吃子之前看防守",
+      "text": "把防守补好，还是先拿这匹马，要连着对方后面的出子一起看。",
+      "fact_ref": "12-lesson-2"
+    },
+    {
+      "id": "node-13-intuition-1",
       "title": "少了马，急着追吗",
-      "text": "红方少了一匹马，很容易想着赶紧追回来。比如走车九退一，退车去追那门吃马的炮。但追上炮，可不等于已经把子拿回来了。"
+      "text": "红方少了一匹马，很容易想着赶紧追回来。",
+      "fact_ref": "13-intuition-1"
     },
     {
-      "id": "node-13-disagreement",
+      "id": "node-13-intuition-2",
+      "title": "少了马，急着追吗",
+      "text": "比如走车九退一，退车去追那门吃马的炮。",
+      "annotation": {
+        "id": "13-red-rook",
+        "label": "准备退回追炮的红车",
+        "fen": "r1bakab2/3R5/nC2c1n2/p1p1p1p1p/9/9/P1P1P1PrP/4C1N2/R8/1cBAKAB2 b",
+        "rings": [
+          "a1"
+        ],
+        "arrows": []
+      },
+      "fact_ref": "13-intuition-2"
+    },
+    {
+      "id": "node-13-intuition-3",
+      "title": "少了马，急着追吗",
+      "text": "但追上炮，可不等于已经把子拿回来了。",
+      "annotation": {
+        "id": "13-black-cannon",
+        "label": "吃马的黑炮",
+        "fen": "r1bakab2/3R5/nC2c1n2/p1p1p1p1p/9/9/P1P1P1PrP/4C1N2/R8/1cBAKAB2 b",
+        "rings": [
+          "b0"
+        ],
+        "arrows": []
+      },
+      "fact_ref": "13-intuition-3"
+    },
+    {
+      "id": "node-13-disagreement-1",
       "title": "借对方的炮架",
-      "text": "红方选择炮八进五。注意黑方的中炮，恰好给红炮当了炮架，红炮隔着它就盯上了黑马。这会儿还没吃到马，黑方也能应对，但进炮和退车追炮，着眼点已经不同了。"
+      "text": "红方选择炮八进五。",
+      "annotation": {
+        "id": "13-red-cannon",
+        "label": "进到前方的红炮",
+        "fen": "r1bakab2/3R5/nC2c1n2/p1p1p1p1p/9/9/P1P1P1PrP/4C1N2/R8/1cBAKAB2 b",
+        "rings": [
+          "b7"
+        ],
+        "arrows": []
+      },
+      "fact_ref": "13-disagreement-1"
     },
     {
-      "id": "node-13-variation",
+      "id": "node-13-disagreement-2",
+      "title": "借对方的炮架",
+      "text": "注意黑方的中炮，恰好给红炮当了炮架。",
+      "annotation": {
+        "id": "13-cannon-screen",
+        "label": "充当炮架的黑中炮",
+        "fen": "r1bakab2/3R5/nC2c1n2/p1p1p1p1p/9/9/P1P1P1PrP/4C1N2/R8/1cBAKAB2 b",
+        "rings": [
+          "e7"
+        ],
+        "arrows": []
+      },
+      "fact_ref": "13-disagreement-2"
+    },
+    {
+      "id": "node-13-disagreement-3",
+      "title": "借对方的炮架",
+      "text": "红炮隔着它，盯住了黑马。",
+      "annotation": {
+        "id": "13-cannon-attack",
+        "label": "红炮借炮架攻击黑马",
+        "fen": "r1bakab2/3R5/nC2c1n2/p1p1p1p1p/9/9/P1P1P1PrP/4C1N2/R8/1cBAKAB2 b",
+        "rings": [
+          "b7",
+          "e7",
+          "g7"
+        ],
+        "arrows": [
+          {
+            "from": "b7",
+            "to": "g7",
+            "kind": "attack"
+          }
+        ]
+      },
+      "fact_ref": "13-disagreement-3"
+    },
+    {
+      "id": "node-13-disagreement-4",
+      "title": "借对方的炮架",
+      "text": "黑方接下来仍有应对的机会。",
+      "fact_ref": "13-disagreement-4"
+    },
+    {
+      "id": "node-13-variation-1",
       "title": "回车追炮会怎样",
-      "text": "如果红方回车追炮呢？把刚才这步退回来看看。黑炮可以走开，红方并不能追一下就把丢掉的马补回来。看过这条变化，再回到进炮的局面。"
+      "text": "如果红方回车追炮呢？",
+      "fact_ref": "13-variation-1"
     },
     {
-      "id": "chase-return",
+      "id": "node-13-variation-2",
+      "title": "回车追炮会怎样",
+      "text": "把刚才这步退回来看看。",
+      "fact_ref": "13-variation-2"
+    },
+    {
+      "id": "node-13-variation-3",
+      "title": "回车追炮会怎样",
+      "text": "黑炮可以走开，红方并不能追一下就把丢掉的马补回来。",
+      "fact_ref": "13-variation-3"
+    },
+    {
+      "id": "node-13-variation-4",
+      "title": "回车追炮会怎样",
+      "text": "看过这条变化，再回到进炮的局面。",
+      "fact_ref": "13-variation-4"
+    },
+    {
+      "id": "chase-assessment",
+      "title": "这条变化的结果",
+      "text": "走到这里，双方局面大致均衡。",
+      "fact_ref": "branch-chase-endpoint"
+    },
+    {
+      "id": "chase-reason",
+      "title": "走到这里看结果",
+      "text": "红车追炮，黑炮可以避开；红方随后还得进炮吃马，才把子力补回来。",
+      "fact_ref": "branch-chase-line"
+    },
+    {
+      "id": "chase-return-1",
       "title": "回到古谱",
-      "text": "好，再接着看古谱。"
+      "text": "回到古谱，红方直接选择炮八进五，把进炮这步先走了。",
+      "fact_ref": "branch-chase-actual"
     },
     {
-      "id": "node-13-lesson",
+      "id": "node-13-lesson-1",
       "title": "别只盯着追回子",
-      "text": "少了子，也别只盯着怎么追回来。这步进炮借用了对方的炮架，把目标转向黑马；先看看手里的棋子还能做什么，再决定要不要追着吃。"
+      "text": "少了子，也别只盯着怎么追回来。",
+      "fact_ref": "13-lesson-1"
+    },
+    {
+      "id": "node-13-lesson-2",
+      "title": "别只盯着追回子",
+      "text": "这步进炮借用了对方的炮架，把目标转向黑马；先看看手里的棋子还能做什么，再决定要不要追着吃。",
+      "annotation": {
+        "id": "13-cannon-attack",
+        "label": "红炮借炮架攻击黑马",
+        "fen": "r1bakab2/3R5/nC2c1n2/p1p1p1p1p/9/9/P1P1P1PrP/4C1N2/R8/1cBAKAB2 b",
+        "rings": [
+          "b7",
+          "e7",
+          "g7"
+        ],
+        "arrows": [
+          {
+            "from": "b7",
+            "to": "g7",
+            "kind": "attack"
+          }
+        ]
+      },
+      "fact_ref": "13-lesson-2"
     },
     {
       "id": "retreat-error",
@@ -99,34 +320,133 @@
       "text": "黑方选择退马，这一下，红方的机会就大了。前面吃马以后，黑方本来还有补防的余地，走到这里却没有抓住。别看最后红方攻得漂亮，黑方也有过把局面守好的机会。"
     },
     {
-      "id": "node-19-intuition",
+      "id": "node-19-intuition-1",
       "title": "这辆车也敢送",
-      "text": "这一步，红方前车进一，吃士将军！可黑士回头就能吃掉这辆车，红方为什么还敢往里送？"
+      "text": "这一步，红方前车进一，吃士将军！",
+      "annotation": {
+        "id": "19-red-rook",
+        "label": "吃士将军的红车",
+        "fen": "r1bR1kbn1/4a4/nC2c4/p1p1C1p1p/9/9/P1P1P1PrP/6N2/3R5/1cBAKAB2 b",
+        "rings": [
+          "d9"
+        ],
+        "arrows": []
+      },
+      "fact_ref": "19-intuition-1"
     },
     {
-      "id": "node-19-disagreement",
+      "id": "node-19-intuition-2",
+      "title": "这辆车也敢送",
+      "text": "可黑士回头就能吃掉这辆车，红方为什么还敢往里送？",
+      "annotation": {
+        "id": "19-black-advisor",
+        "label": "可以回吃红车的黑士",
+        "fen": "r1bR1kbn1/4a4/nC2c4/p1p1C1p1p/9/9/P1P1P1PrP/6N2/3R5/1cBAKAB2 b",
+        "rings": [
+          "e8"
+        ],
+        "arrows": []
+      },
+      "fact_ref": "19-intuition-2"
+    },
+    {
+      "id": "node-19-disagreement-1",
       "title": "黑方一定要吃吗",
-      "text": "红方看中的是吃车以后的进攻，愿意为此付出一辆车。不过黑方也不一定非吃不可，还可以走将六进一。吃还是不吃，得分开来看。"
+      "text": "红方看中的是吃车以后的进攻，愿意为此付出一辆车。",
+      "annotation": {
+        "id": "19-red-rook",
+        "label": "吃士将军的红车",
+        "fen": "r1bR1kbn1/4a4/nC2c4/p1p1C1p1p/9/9/P1P1P1PrP/6N2/3R5/1cBAKAB2 b",
+        "rings": [
+          "d9"
+        ],
+        "arrows": []
+      },
+      "fact_ref": "19-disagreement-1"
     },
     {
-      "id": "node-19-variation",
+      "id": "node-19-disagreement-2",
+      "title": "黑方一定要吃吗",
+      "text": "不过黑方也不一定非吃不可，还可以走将六进一。",
+      "fact_ref": "19-disagreement-2"
+    },
+    {
+      "id": "node-19-disagreement-3",
+      "title": "黑方一定要吃吗",
+      "text": "吃还是不吃，得分开来看。",
+      "fact_ref": "19-disagreement-3"
+    },
+    {
+      "id": "node-19-variation-1",
       "title": "吃与不吃的两条路",
-      "text": "先看看黑方不吃车，走将六进一会怎样，这条路还要继续周旋。再回来看古谱：黑方士五退四吃车，红方另一辆车马上平四将军，接着进车吃炮，最后炮八平五收尾。"
+      "text": "先看看黑方不吃车，走将六进一会怎样，这条路还要继续周旋。",
+      "fact_ref": "19-variation-1"
     },
     {
-      "id": "decline-return",
+      "id": "node-19-variation-2",
+      "title": "吃与不吃的两条路",
+      "text": "再回来看古谱：黑方士五退四吃车，红方另一辆车马上平四将军，接着进车吃炮，最后炮八平五收尾。",
+      "fact_ref": "19-variation-2"
+    },
+    {
+      "id": "decline-assessment",
+      "title": "这条变化的结果",
+      "text": "走到这里，红方已经大优。",
+      "fact_ref": "branch-decline-endpoint"
+    },
+    {
+      "id": "decline-reason",
+      "title": "走到这里看结果",
+      "text": "红车还留在前方，红炮又吃到了黑马，黑方依然承受着进攻的压力。",
+      "fact_ref": "branch-decline-line"
+    },
+    {
+      "id": "decline-return-1",
       "title": "回到古谱",
-      "text": "好，再接着看古谱。"
+      "text": "回到古谱，接下来黑方选择士五退四，吃下红车。",
+      "fact_ref": "branch-decline-actual"
     },
     {
-      "id": "accept-return",
+      "id": "decline-return-2",
       "title": "回到古谱",
-      "text": "好，再接着看古谱。"
+      "text": "咱们再看吃车这条路。",
+      "fact_ref": "branch-decline-actual"
     },
     {
-      "id": "node-19-lesson",
+      "id": "accept-assessment",
+      "title": "这条变化的结果",
+      "text": "黑方已无棋可走，红方获胜。",
+      "fact_ref": "branch-accept-endpoint"
+    },
+    {
+      "id": "accept-reason",
+      "title": "走到这里看结果",
+      "text": "红方送掉一辆车，另一辆车和炮接上进攻，最后炮八平五，将死黑方。",
+      "fact_ref": "branch-accept-line"
+    },
+    {
+      "id": "accept-return-1",
+      "title": "回到古谱",
+      "text": "回到古谱，接着走完士五退四吃车以后的这段攻杀。",
+      "fact_ref": "branch-accept-actual"
+    },
+    {
+      "id": "node-19-lesson-1",
       "title": "车炮接上进攻",
-      "text": "古谱里黑方吃下这辆车，最后确实被将死了。漂亮就漂亮在，红方送掉一车，另一辆车和炮却接上了进攻。不过这个结尾是顺着吃车走出来的，黑方不吃车时，还得另算。"
+      "text": "古谱里黑方吃下这辆车，最后确实被将死了。",
+      "fact_ref": "19-lesson-1"
+    },
+    {
+      "id": "node-19-lesson-2",
+      "title": "车炮接上进攻",
+      "text": "漂亮就漂亮在，红方送掉一车，另一辆车和炮却接上了进攻。",
+      "fact_ref": "19-lesson-2"
+    },
+    {
+      "id": "node-19-lesson-3",
+      "title": "车炮接上进攻",
+      "text": "不过这个结尾是顺着吃车走出来的，黑方不吃车时，还得另算。",
+      "fact_ref": "19-lesson-3"
     },
     {
       "id": "famous-finish",
@@ -202,20 +522,40 @@
       "move": "b7b0"
     },
     {
-      "id": "node-12-intuition",
+      "id": "node-12-intuition-1",
       "type": "speak",
-      "paragraph": "node-12-intuition",
+      "paragraph": "node-12-intuition-1",
       "chapter": "吃马之前"
     },
     {
-      "id": "node-12-disagreement",
+      "id": "node-12-intuition-2",
       "type": "speak",
-      "paragraph": "node-12-disagreement"
+      "paragraph": "node-12-intuition-2"
     },
     {
-      "id": "node-12-variation",
+      "id": "node-12-disagreement-1",
       "type": "speak",
-      "paragraph": "node-12-variation"
+      "paragraph": "node-12-disagreement-1"
+    },
+    {
+      "id": "node-12-disagreement-2",
+      "type": "speak",
+      "paragraph": "node-12-disagreement-2"
+    },
+    {
+      "id": "node-12-disagreement-3",
+      "type": "speak",
+      "paragraph": "node-12-disagreement-3"
+    },
+    {
+      "id": "node-12-variation-1",
+      "type": "speak",
+      "paragraph": "node-12-variation-1"
+    },
+    {
+      "id": "node-12-variation-2",
+      "type": "speak",
+      "paragraph": "node-12-variation-2"
     },
     {
       "id": "defense-position",
@@ -254,19 +594,39 @@
       "move": "c2e1"
     },
     {
+      "id": "defense-assessment",
+      "type": "speak",
+      "paragraph": "defense-assessment"
+    },
+    {
+      "id": "defense-reason",
+      "type": "speak",
+      "paragraph": "defense-reason"
+    },
+    {
       "id": "defense-restore",
       "type": "set_position",
       "mainline_ply": 12
     },
     {
-      "id": "defense-return",
+      "id": "defense-return-1",
       "type": "speak",
-      "paragraph": "defense-return"
+      "paragraph": "defense-return-1"
     },
     {
-      "id": "node-12-lesson",
+      "id": "defense-return-2",
       "type": "speak",
-      "paragraph": "node-12-lesson"
+      "paragraph": "defense-return-2"
+    },
+    {
+      "id": "node-12-lesson-1",
+      "type": "speak",
+      "paragraph": "node-12-lesson-1"
+    },
+    {
+      "id": "node-12-lesson-2",
+      "type": "speak",
+      "paragraph": "node-12-lesson-2"
     },
     {
       "id": "famous-m13",
@@ -274,20 +634,60 @@
       "move": "b2b7"
     },
     {
-      "id": "node-13-intuition",
+      "id": "node-13-intuition-1",
       "type": "speak",
-      "paragraph": "node-13-intuition",
+      "paragraph": "node-13-intuition-1",
       "chapter": "进炮还是追炮"
     },
     {
-      "id": "node-13-disagreement",
+      "id": "node-13-intuition-2",
       "type": "speak",
-      "paragraph": "node-13-disagreement"
+      "paragraph": "node-13-intuition-2"
     },
     {
-      "id": "node-13-variation",
+      "id": "node-13-intuition-3",
       "type": "speak",
-      "paragraph": "node-13-variation"
+      "paragraph": "node-13-intuition-3"
+    },
+    {
+      "id": "node-13-disagreement-1",
+      "type": "speak",
+      "paragraph": "node-13-disagreement-1"
+    },
+    {
+      "id": "node-13-disagreement-2",
+      "type": "speak",
+      "paragraph": "node-13-disagreement-2"
+    },
+    {
+      "id": "node-13-disagreement-3",
+      "type": "speak",
+      "paragraph": "node-13-disagreement-3"
+    },
+    {
+      "id": "node-13-disagreement-4",
+      "type": "speak",
+      "paragraph": "node-13-disagreement-4"
+    },
+    {
+      "id": "node-13-variation-1",
+      "type": "speak",
+      "paragraph": "node-13-variation-1"
+    },
+    {
+      "id": "node-13-variation-2",
+      "type": "speak",
+      "paragraph": "node-13-variation-2"
+    },
+    {
+      "id": "node-13-variation-3",
+      "type": "speak",
+      "paragraph": "node-13-variation-3"
+    },
+    {
+      "id": "node-13-variation-4",
+      "type": "speak",
+      "paragraph": "node-13-variation-4"
     },
     {
       "id": "chase-position",
@@ -326,19 +726,34 @@
       "move": "f9e8"
     },
     {
+      "id": "chase-assessment",
+      "type": "speak",
+      "paragraph": "chase-assessment"
+    },
+    {
+      "id": "chase-reason",
+      "type": "speak",
+      "paragraph": "chase-reason"
+    },
+    {
       "id": "chase-restore",
       "type": "set_position",
       "mainline_ply": 13
     },
     {
-      "id": "chase-return",
+      "id": "chase-return-1",
       "type": "speak",
-      "paragraph": "chase-return"
+      "paragraph": "chase-return-1"
     },
     {
-      "id": "node-13-lesson",
+      "id": "node-13-lesson-1",
       "type": "speak",
-      "paragraph": "node-13-lesson"
+      "paragraph": "node-13-lesson-1"
+    },
+    {
+      "id": "node-13-lesson-2",
+      "type": "speak",
+      "paragraph": "node-13-lesson-2"
     },
     {
       "id": "famous-m14",
@@ -376,20 +791,40 @@
       "move": "d8d9"
     },
     {
-      "id": "node-19-intuition",
+      "id": "node-19-intuition-1",
       "type": "speak",
-      "paragraph": "node-19-intuition",
+      "paragraph": "node-19-intuition-1",
       "chapter": "弃车以后的进攻"
     },
     {
-      "id": "node-19-disagreement",
+      "id": "node-19-intuition-2",
       "type": "speak",
-      "paragraph": "node-19-disagreement"
+      "paragraph": "node-19-intuition-2"
     },
     {
-      "id": "node-19-variation",
+      "id": "node-19-disagreement-1",
       "type": "speak",
-      "paragraph": "node-19-variation"
+      "paragraph": "node-19-disagreement-1"
+    },
+    {
+      "id": "node-19-disagreement-2",
+      "type": "speak",
+      "paragraph": "node-19-disagreement-2"
+    },
+    {
+      "id": "node-19-disagreement-3",
+      "type": "speak",
+      "paragraph": "node-19-disagreement-3"
+    },
+    {
+      "id": "node-19-variation-1",
+      "type": "speak",
+      "paragraph": "node-19-variation-1"
+    },
+    {
+      "id": "node-19-variation-2",
+      "type": "speak",
+      "paragraph": "node-19-variation-2"
     },
     {
       "id": "decline-position",
@@ -428,14 +863,29 @@
       "move": "a9a8"
     },
     {
+      "id": "decline-assessment",
+      "type": "speak",
+      "paragraph": "decline-assessment"
+    },
+    {
+      "id": "decline-reason",
+      "type": "speak",
+      "paragraph": "decline-reason"
+    },
+    {
       "id": "decline-restore",
       "type": "set_position",
       "mainline_ply": 19
     },
     {
-      "id": "decline-return",
+      "id": "decline-return-1",
       "type": "speak",
-      "paragraph": "decline-return"
+      "paragraph": "decline-return-1"
+    },
+    {
+      "id": "decline-return-2",
+      "type": "speak",
+      "paragraph": "decline-return-2"
     },
     {
       "id": "accept-position",
@@ -479,19 +929,39 @@
       "move": "b7e7"
     },
     {
+      "id": "accept-assessment",
+      "type": "speak",
+      "paragraph": "accept-assessment"
+    },
+    {
+      "id": "accept-reason",
+      "type": "speak",
+      "paragraph": "accept-reason"
+    },
+    {
       "id": "accept-restore",
       "type": "set_position",
       "mainline_ply": 19
     },
     {
-      "id": "accept-return",
+      "id": "accept-return-1",
       "type": "speak",
-      "paragraph": "accept-return"
+      "paragraph": "accept-return-1"
     },
     {
-      "id": "node-19-lesson",
+      "id": "node-19-lesson-1",
       "type": "speak",
-      "paragraph": "node-19-lesson"
+      "paragraph": "node-19-lesson-1"
+    },
+    {
+      "id": "node-19-lesson-2",
+      "type": "speak",
+      "paragraph": "node-19-lesson-2"
+    },
+    {
+      "id": "node-19-lesson-3",
+      "type": "speak",
+      "paragraph": "node-19-lesson-3"
     },
     {
       "id": "famous-m20",
@@ -531,5 +1001,31 @@
     }
   ],
   "evidence_schema": 1,
-  "commentary_mode": "reviewed_fact_cards"
+  "commentary_mode": "llm_attention_composition",
+  "branch_outcomes": {
+    "defense": {
+      "fen": "r1bak1b2/1R2a4/n2cc1n2/p1p1p1p1p/9/9/P1P1P1r1P/1C2C1N2/R3N4/2BAKAB2 b",
+      "assessment": "走到这里，双方局面大致均衡。",
+      "reason": "先补好这一手士，黑方还有稳住局面的余地。",
+      "return": "回到古谱，黑方选择炮二进七，先吃下红马。接着看红方怎么应。"
+    },
+    "chase": {
+      "fen": "1rbak1b2/3Ra4/n3c1C2/p1p1p1p1p/9/9/P1P1P1PrP/4C1N2/1c7/R1BAKAB2 w",
+      "assessment": "走到这里，双方局面大致均衡。",
+      "reason": "红车追炮，黑炮可以避开；红方随后还得进炮吃马，才把子力补回来。",
+      "return": "回到古谱，红方直接选择炮八进五，把进炮这步先走了。"
+    },
+    "decline": {
+      "fen": "2b3R2/r3ak3/n3c3C/p1p1C1p1p/9/9/P1P1P1PrP/6N2/3R5/1cBAKAB2 w",
+      "assessment": "走到这里，红方已经大优。",
+      "reason": "红车还留在前方，红炮又吃到了黑马，黑方依然承受着进攻的压力。",
+      "return": "回到古谱，接下来黑方选择士五退四，吃下红车。咱们再看吃车这条路。"
+    },
+    "accept": {
+      "fen": "r1bak1bn1/9/n3CR3/p1p1C1p1p/9/9/P1P1P1PrP/6N2/9/1cBAKAB2 b",
+      "assessment": "黑方已无棋可走，红方获胜。",
+      "reason": "红方送掉一辆车，另一辆车和炮接上进攻，最后炮八平五，将死黑方。",
+      "return": "回到古谱，接着走完士五退四吃车以后的这段攻杀。"
+    }
+  }
 }

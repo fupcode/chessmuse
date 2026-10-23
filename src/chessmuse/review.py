@@ -8,6 +8,8 @@ from pathlib import Path
 from cchess import ChessBoard
 
 from chessmuse.analysis import analyze_game, cp_loss
+from chessmuse.annotations import validate_annotation
+from chessmuse.branches import branch_specs, branch_conclusions, build_branch_reviews
 from chessmuse.demo import DATA, compile_demo
 from chessmuse.engine import position_after, verified_line
 from chessmuse.game import play
@@ -145,7 +147,7 @@ def fact_catalog(evidence: dict) -> dict:
         },
         "13": {
             "intuition": f"红方少了一匹马，很容易想着赶紧追回来。比如走{intuitive['features']['action']}，退车去追那门吃马的炮。但追上炮，可不等于已经把子拿回来了。",
-            "disagreement": "红方选择炮八进五。注意黑方的中炮，恰好给红炮当了炮架，红炮隔着它就盯上了黑马。这会儿还没吃到马，黑方也能应对，但进炮和退车追炮，着眼点已经不同了。",
+            "disagreement": "红方选择炮八进五。注意黑方的中炮，恰好给红炮当了炮架。红炮隔着它，盯住了黑马。黑方接下来仍有应对的机会。",
             "variation": "如果红方回车追炮呢？把刚才这步退回来看看。黑炮可以走开，红方并不能追一下就把丢掉的马补回来。看过这条变化，再回到进炮的局面。",
             "lesson": "少了子，也别只盯着怎么追回来。这步进炮借用了对方的炮架，把目标转向黑马；先看看手里的棋子还能做什么，再决定要不要追着吃。",
         },
@@ -185,10 +187,13 @@ COMMENTARY_SYSTEM_PROMPT = """你是一位正在和观众一起看棋的中国�
 反例：“两套模型有分歧，接下来用变化验证。”
 正例：“急着退车追炮，黑炮走开了怎么办？咱们把这几步摆出来看看。”
 
+推演收尾：
+每条推演都要在末局面停留并说明结果、具体原因，再衔接实际走法。可说红方大优、双方大致均衡等经过核验的局势判断，不播报分数。程序会根据推演末局面的独立复查插入收尾事实卡；不要提前在引入段宣布尚未展示的结果，也不要把一种更好的防守说成实战已经走过。
+
 事实边界：
 只能使用给定事实卡，不得编造走法、攻击关系、得失子或杀棋。不能把“攻击到”说成“已经吃到”，不能把一条变化里的将死说成所有防守都必败。没有具体原因可用时，少说一句，不能拿技术指标或空泛赞叹凑解释。
 
-当前任务是编排已经审阅的口语事实卡，不是自由改写：严格按示例 JSON 返回全部三个节点，每节点四段。fact 必须依次为 intuition、disagreement、variation、lesson；它们仅是程序内部引用键，不是观众听到的标题。transition 必须为空字符串，卡片自身已有衔接。只返回 JSON。
+当前任务是为已经审阅的短讲解同步选择标注。每个短片段只承载一个注意力重点，最多一组标注，过渡句使用 null。程序已按句切分 units，按原顺序逐一引用，不拼成长段、不遗漏或添加文字。讲到具体棋子时圈出它；讲到攻击关系时使用给定关系线。focus 只能选择该 unit 给出的 focus 或 null，不能自创坐标或关系。严格按示例 JSON 返回三个节点，每节点保留四个内部 fact 分组；每组 beats 是实际逐条播放的短片段列表，每项只含 unit 和 focus。fact 依次为 intuition、disagreement、variation、lesson，仅作引用键；transition 必须为空字符串。只返回 JSON。
 """
 
 _TECHNICAL_COMMENTARY = re.compile(
@@ -207,19 +212,75 @@ def validate_spoken_commentary(text: str):
         raise ValueError("讲解含后台技术话语，请只讲具体棋子、攻防与走法后果")
 
 
-async def plan_commentary(client, catalog: dict) -> dict:
+COMMENTARY_PROMPT_VERSION = 2
+
+# References to reviewed attention points; no coordinates are authored by the LLM.
+FOCUS_BY_BEAT = {
+    (12, "intuition", 1): "black-cannon", (12, "intuition", 2): "black-cannon",
+    (12, "disagreement", 2): "black-advisor",
+    (13, "intuition", 2): "red-rook", (13, "intuition", 3): "black-cannon",
+    (13, "disagreement", 1): "red-cannon", (13, "disagreement", 2): "cannon-screen",
+    (13, "disagreement", 3): "cannon-attack",
+    (13, "lesson", 2): "cannon-attack",
+    (19, "intuition", 1): "red-rook", (19, "intuition", 2): "black-advisor",
+    (19, "disagreement", 1): "red-rook",
+}
+
+
+def spoken_units(catalog: dict) -> dict:
+    units = {}
+    for ply, cards in catalog.items():
+        units[ply] = {}
+        for fact, text in cards.items():
+            sentences = re.findall(r"[^。！？]+[。！？]?", text)
+            units[ply][fact] = [{"unit": f"{ply}-{fact}-{i}", "text": sentence,
+                "focus": (f"{ply}-{FOCUS_BY_BEAT[(int(ply), fact, i)]}"
+                          if (int(ply), fact, i) in FOCUS_BY_BEAT else None)}
+                for i, sentence in enumerate(sentences, 1)]
+    return units
+
+
+def attention_catalog(evidence: dict) -> dict:
+    nodes = {n["ply"]: n for n in evidence["nodes"]}
+    attention = {}
+    points = {
+        12: {"black-cannon": ("吃马的黑炮", ["b0"]), "black-advisor": ("补防的黑士", ["f9"])},
+        13: {"red-rook": ("准备退回追炮的红车", ["a1"]),
+             "black-cannon": ("吃马的黑炮", ["b0"]),
+             "red-cannon": ("进到前方的红炮", ["b7"]),
+             "cannon-screen": ("充当炮架的黑中炮", ["e7"]),
+             "cannon-attack": ("红炮借炮架攻击黑马", ["b7", "e7", "g7"])},
+        19: {"red-rook": ("吃士将军的红车", ["d9"]),
+             "black-advisor": ("可以回吃红车的黑士", ["e8"])},
+    }
+    for ply, groups in points.items():
+        fen = play(nodes[ply]["fen"], nodes[ply]["actual_move"])[0]
+        if ply == 13:
+            cannon_attack_evidence(fen)
+        for key, (label, rings) in groups.items():
+            ref = f"{ply}-{key}"
+            attention[ref] = {"id": ref, "label": label, "fen": fen, "rings": rings,
+                "arrows": ([{"from": "b7", "to": "g7", "kind": "attack"}]
+                           if key == "cannon-attack" else [])}
+            validate_annotation(attention[ref], fen)
+    return attention
+
+
+async def plan_commentary(client, catalog: dict, attention: dict) -> dict:
     """LLM composes from verified fact cards, never supplies tactical free text."""
     for cards in catalog.values():
         for text in cards.values():
             validate_spoken_commentary(text)
-    example = {"nodes": [{"ply": ply, "segments": [{"fact": stage, "transition": ""}
-                  for stage in STAGES]} for ply in KEY_PLIES]}
+    units = spoken_units(catalog)
+    example = {"nodes": [{"ply": ply, "segments": [{"fact": stage, "transition": "",
+        "beats": [{"unit": u["unit"], "focus": u["focus"]} for u in units[str(ply)][stage]]}
+        for stage in STAGES]} for ply in KEY_PLIES]}
     messages = [
         Message("system", COMMENTARY_SYSTEM_PROMPT),
-        Message("user", json.dumps({"cards": catalog, "transitions": TRANSITIONS, "example": example}, ensure_ascii=False)),
+        Message("user", json.dumps({"units": units, "annotation_options": attention, "example": example}, ensure_ascii=False)),
     ]
     for attempt in range(2):
-        completion = await client.complete(messages, json_mode=True, max_tokens=2048)
+        completion = await client.complete(messages, json_mode=True, max_tokens=4096)
         plan = completion.data
         try:
             validate_plan(catalog, plan)
@@ -230,7 +291,8 @@ async def plan_commentary(client, catalog: dict) -> dict:
             messages += [Message("assistant", completion.text),
                          Message("user", f"请修正并完整返回全部三个节点，每节点恰好四段：{error}")]
     return {"plan": plan, "model": completion.model, "usage": asdict(completion.usage),
-            "request_id": completion.request_id, "mode": "llm_fact_card_composition"}
+            "request_id": completion.request_id, "mode": "llm_attention_composition",
+            "prompt_version": COMMENTARY_PROMPT_VERSION}
 
 
 def validate_plan(catalog: dict, plan: dict):
@@ -241,63 +303,86 @@ def validate_plan(catalog: dict, plan: dict):
     for cards in catalog.values():
         for text in cards.values():
             validate_spoken_commentary(text)
+    units = spoken_units(catalog)
     for node in plan["nodes"]:
         segments = node.get("segments", [])
         if (not isinstance(segments, list) or any(not isinstance(s, dict) for s in segments)
                 or [s.get("fact") for s in segments] != list(STAGES)):
             raise ValueError("解说必须依次覆盖直觉、分歧、变化、总结")
         for segment in segments:
-            if (set(segment) != {"fact", "transition"} or segment["transition"] not in (*TRANSITIONS, "")
+            if (set(segment) != {"fact", "transition", "beats"} or segment["transition"] not in (*TRANSITIONS, "")
                     or segment["fact"] not in catalog[str(node["ply"])]):
                 raise ValueError("解说引用了未核验的自由文本或事实")
+            expected = units[str(node["ply"])][segment["fact"]]
+            beats = segment.get("beats")
+            if (not isinstance(beats, list) or len(beats) != len(expected)
+                    or any(not isinstance(b, dict) or set(b) != {"unit", "focus"} for b in beats)):
+                raise ValueError("讲解必须按注意力重点分段，每段最多一组标注")
+            for beat, unit in zip(beats, expected):
+                if beat["unit"] != unit["unit"] or beat["focus"] not in (None, unit["focus"]):
+                    raise ValueError("讲解引用了未核验的片段或标注")
 
 
 def compile_review(evidence: dict, composition: dict) -> dict:
     catalog = fact_catalog(evidence)
     validate_plan(catalog, composition["plan"])
+    attention = attention_catalog(evidence)
+    outcomes = branch_conclusions(evidence)
+    branches = branch_specs(evidence)
+    units = spoken_units(catalog)
     source = evidence["source"]
     script = {**source, "paragraphs": [], "events": [], "evidence_schema": 1,
-              "commentary_mode": composition["mode"],
+              "commentary_mode": composition["mode"], "branch_outcomes": outcomes,
               "description": "古谱完整主线 · 吃马、进炮与弃车攻杀 · 关键变化推演"}
     paragraphs, events = script["paragraphs"], script["events"]
-    def speak(key, title, text, chapter=None):
+    def speak(key, title, text, chapter=None, annotation=None, fact_ref=None):
         validate_spoken_commentary(title)
         validate_spoken_commentary(text)
-        paragraphs.append({"id": key, "title": title, "text": text})
+        paragraphs.append({"id": key, "title": title, "text": text,
+            **({"annotation": annotation} if annotation else {}),
+            **({"fact_ref": fact_ref} if fact_ref else {})})
         events.append({"id": key, "type": "speak", "paragraph": key,
                        **({"chapter": chapter} if chapter else {})})
-    def branch(key, ply, moves, label, return_ply):
+    def branch(key):
+        spec = branches[key]
+        ply, moves, label = spec["ply"], spec["moves"], spec["label"]
+        outcome = outcomes[key]
         events.append({"id": f"{key}-position", "type": "set_position", "mainline_ply": ply-1, "branch": label})
         for i, move in enumerate(moves):
             events.append({"id": f"{key}-m{i+1}", "type": "move", "move": move})
-        events.append({"id": f"{key}-restore", "type": "set_position", "mainline_ply": return_ply})
-        speak(f"{key}-return", "回到古谱", "好，再接着看古谱。")
+        speak(f"{key}-assessment", "这条变化的结果", outcome["assessment"],
+              fact_ref=f"branch-{key}-endpoint")
+        speak(f"{key}-reason", "走到这里看结果", outcome["reason"],
+              fact_ref=f"branch-{key}-line")
+        events.append({"id": f"{key}-restore", "type": "set_position", "mainline_ply": ply})
+        for i, sentence in enumerate(re.findall(r"[^。！？]+[。！？]?", outcome["return"]), 1):
+            speak(f"{key}-return-{i}", "回到古谱", sentence, fact_ref=f"branch-{key}-actual")
     speak("famous-intro", "认识这份古谱", "今天看橘中秘里的弃马十三着。红方先让黑炮吃马，后面又送出一辆车，这盘棋究竟是怎么攻起来的？咱们顺着古谱往下看，遇到关键地方，也看看黑方有没有别的走法。", "古谱开场")
     plans = {n["ply"]: n for n in composition["plan"]["nodes"]}
-    nodes = {n["ply"]: n for n in evidence["nodes"]}
     for ply, move in enumerate(source["mainline"], 1):
         events.append({"id": f"famous-m{ply}", "type": "move", "move": move})
         if ply == 14:
             speak("retreat-error", "退马并非最强防守", "黑方选择退马，这一下，红方的机会就大了。前面吃马以后，黑方本来还有补防的余地，走到这里却没有抓住。别看最后红方攻得漂亮，黑方也有过把局面守好的机会。")
         if ply not in plans:
             continue
-        node = nodes[ply]
         for index, segment in enumerate(plans[ply]["segments"]):
             stage = segment["fact"]
-            speak(f"node-{ply}-{stage}", {12: ["这匹马能吃吗", "先补防还是先吃马", "换个走法看看", "吃子之前看防守"],
-                         13: ["少了马，急着追吗", "借对方的炮架", "回车追炮会怎样", "别只盯着追回子"],
-                         19: ["这辆车也敢送", "黑方一定要吃吗", "吃与不吃的两条路", "车炮接上进攻"]}[ply][index],
-                  segment["transition"] + catalog[str(ply)][stage],
-                  {12: "吃马之前", 13: "进炮还是追炮", 19: "弃车以后的进攻"}[ply] if index == 0 else None)
+            title = {12: ["这匹马能吃吗", "先补防还是先吃马", "换个走法看看", "吃子之前看防守"],
+                     13: ["少了马，急着追吗", "借对方的炮架", "回车追炮会怎样", "别只盯着追回子"],
+                     19: ["这辆车也敢送", "黑方一定要吃吗", "吃与不吃的两条路", "车炮接上进攻"]}[ply][index]
+            for beat_index, (beat, unit) in enumerate(zip(segment["beats"], units[str(ply)][stage])):
+                speak(f"node-{unit['unit']}", title, unit["text"],
+                    {12: "吃马之前", 13: "进炮还是追炮", 19: "弃车以后的进攻"}[ply]
+                    if index == 0 and beat_index == 0 else None,
+                    annotation=attention.get(beat["focus"]), fact_ref=unit["unit"])
             if stage == "variation":
                 if ply == 12:
-                    branch("defense", ply, node["expert"]["lines"][0]["pv"][:6], "黑方先补防", ply)
+                    branch("defense")
                 elif ply == 13:
-                    branch("chase", ply, node["candidates"]["a1a0"]["lines"][0]["pv"][:6], "回车追炮", ply)
+                    branch("chase")
                 else:
-                    refusal = node["sacrifice"]["declined"]["lines"][0]["pv"][:5]
-                    branch("decline", ply, [move] + refusal, "拒绝弃车", ply)
-                    branch("accept", ply, source["mainline"][ply-1:], "古谱接受弃车至将死", ply)
+                    branch("decline")
+                    branch("accept")
     speak("famous-finish", "复盘结束", "炮八平五，黑方已经无处可解，这盘古谱就到这里了。回头看，进炮时没有急着追回那匹马，进车时又舍得把车送出去，都是为了接下来的进攻。轮到自己下棋，遇到眼前的得失，不妨再多问一句：下一步，对方会怎么应？", "终局总结")
     compile_demo(script, require_audio=False, require_narration=False)
     return script
@@ -335,6 +420,9 @@ def experiment_summary(evidence: dict) -> dict:
                 "declined": search_summary(sac["declined"]), "limitation": sac["limitation"]}
         nodes.append(summary)
     return {"schema_version": 1, "source": evidence["source"], "scope": "manually_selected_famous_game_nodes",
+            "branch_reviews": {key: {**branch_specs(evidence)[key],
+                "endpoint": search_summary(result), "conclusion": branch_conclusions(evidence)[key]}
+                for key, result in evidence["branch_reviews"]["results"].items()},
             "nodes": nodes, "retreat_error": {"ply": 14, "loss_cp": evidence["retreat_error"]["loss_cp"],
                 "best": search_summary(evidence["retreat_error"]["best"]),
                 "actual": search_summary(evidence["retreat_error"]["actual"])},
@@ -359,18 +447,22 @@ async def prepare_famous(engine_path: str, *, force=False, env_file=".env", prog
         evidence = json.loads(evidence_file.read_text(encoding="utf-8"))
         if evidence["source"] != famous_source():
             raise ValueError("古谱来源或走法已变更，请用 --force 重建证据")
+    if (force or evidence.get("branch_reviews", {}).get("specs") != branch_specs(evidence)):
+        with Pikafish(engine_path) as engine:
+            evidence["branch_reviews"] = build_branch_reviews(engine, evidence, force=force, progress=progress)
+        evidence_file.write_text(json.dumps(evidence, ensure_ascii=False, indent=2), encoding="utf-8")
     catalog = fact_catalog(evidence)
     composition_file = folder / "composition.json"
     composition = None
     if not force and composition_file.exists():
         saved = json.loads(composition_file.read_text(encoding="utf-8"))
-        if saved.get("catalog") == catalog:
+        if saved.get("catalog") == catalog and saved.get("prompt_version") == COMMENTARY_PROMPT_VERSION:
             validate_plan(catalog, saved["plan"])
             composition = saved
     if composition is None:
         progress("根据已验证事实卡组织三处关键讲解")
         async with DeepSeekClient(DeepSeekSettings.from_env(env_file)) as client:
-            composition = {**await plan_commentary(client, catalog), "catalog": catalog}
+            composition = {**await plan_commentary(client, catalog, attention_catalog(evidence)), "catalog": catalog}
         composition_file.write_text(json.dumps(composition, ensure_ascii=False, indent=2), encoding="utf-8")
     script = compile_review(evidence, composition)
     narration = DATA / "famous-narration.json"
