@@ -94,7 +94,8 @@ class DemoHandler(SimpleHTTPRequestHandler):
             except ValueError:
                 self.json_response(404, {"error": "示例不存在"})
                 return
-            payload = json.dumps({"title": game["title"], "moves": game["mainline"]}, ensure_ascii=False, indent=2).encode("utf-8")
+            payload = json.dumps({"title": game["title"], "moves": game["mainline"],
+                                  **({"source": game["source"]} if game.get("source") else {})}, ensure_ascii=False, indent=2).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Content-Disposition", f'attachment; filename="{game_id}.json"')

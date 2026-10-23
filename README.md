@@ -1,7 +1,6 @@
 # 棋妙 ChessMuse
 
-中国象棋 AI 复盘项目，目标与优先级见 [项目总纲](docs/overview.md)。现已提供《橘中秘·弃马十三着》的完整讲解演示：完整主线、自然攻防讲解、关键变化推演、晓晓中文语音和同步字幕。其他导入棋谱目前支持合法回放与走子短句。
-
+中国象棋 AI 复盘项目，目标与优先级见 [项目总纲](docs/overview.md)。主示例为2025年五羊杯曹岩磊对王禹博的慢棋实战。导入棋谱会自动分析关键选择、生成带棋盘标注的分段讲解，并播放推演及其结论。
 ## 启动
 
 需要 Python 3.12+ 和 uv，从项目根目录运行：
@@ -11,9 +10,9 @@ uv sync --locked
 uv run chessmuse serve
 ```
 
-打开 <http://127.0.0.1:8000>。默认准备「橘中秘 · 弃马十三着」，点击「播放解说」可听完整演示；也可选择开局示例或导入自己的 JSON 棋谱。服务启动不要求已存在音频；选择棋谱后会显示校验与准备进度。古谱讲解和古谱走子短句随代码交付，播放无需在线 LLM；默认 TTS 首次生成需要联网，已有有效缓存时直接复用。
+打开 <http://127.0.0.1:8000>。默认选择2025年五羊杯实战；网页「下载示例 JSON」也下载这局。主示例的已审阅讲解与走子短句随源码交付，首次生成语音需要联网，已有有效缓存会复用。《弃马十三着》仍可从示例列表选择。
 
-本工作区古谱音频已准备好。新工作区可先执行 `uv run chessmuse prepare-example --example qima-13`。完整来源、三处重点、模型实验和重做流程见 [著名古谱讲解交付](docs/famous-review.md)。
+复盘自己的棋谱需要配置 LLM，并将 Pikafish 与 `pikafish.nnue` 放到 `.cache/pikafish/`，也可用 `CHESSMUSE_ENGINE` 指定引擎路径。导入后显示分析、撰写、审阅和语音准备的真实进度。流程及限制见 [通用复盘](docs/generic-review.md)。
 
 ## 导入棋谱
 
@@ -26,12 +25,12 @@ uv run chessmuse serve
 }
 ```
 
-导入后先校验全部走法，再生成带上下文的自然短句和音频，完成后可播放。非法走法会直接报错，不启动生成；处理中可看到真实进度，失败后可重试。再次导入相同标题和走法会复用本地棋谱缓存。格式和接口见 [棋谱导入说明](docs/importing.md)。
+导入后先校验全部走法，再扫描全局、复查关键节点、生成和审阅详细讲解，最后准备走子短句和音频，完成后可播放。非法走法会直接报错，不启动生成；处理中可看到真实进度，失败后可重试。再次导入相同标题和走法会复用本地棋谱缓存。格式和接口见 [棋谱导入说明](docs/importing.md)。
 
 ## 本地文件与缓存
 
 - `audio/<棋谱ID>/`：实际 MP3/WAV 及 `audio.json` 清单，位于项目根目录，**不提交 Git，也不打入 Python 包**。
-- `.cache/games/<棋谱ID>/`：导入棋谱与本地生成的 LLM 短句。
+- `.cache/games/<棋谱ID>/`：导入棋谱、复盘证据、逐版讲解、审阅记录与走子短句。
 - `.cache/tts/`、`.cache/narration/`：生成中的临时文件。
 - `.cache/review/`、`.cache/analysis/`：古谱证据和专家搜索；`.cache/elephanteye/`：白名单源码、直觉模型构建及实验缓存。
 - `.cache/uv/`、`.cache/pytest_cache/`、`.cache/pytest-tmp/`：工具缓存与测试临时文件。
@@ -42,7 +41,15 @@ uv run chessmuse serve
 ## 开发时重新生成
 
 ```powershell
-# 准备完整示例：有缓存则直接复用
+# 准备主要实战示例：有缓存则直接复用
+uv run chessmuse prepare-review
+
+# 修改提示词后重新生成详细复盘、审阅并准备语音
+uv run chessmuse prepare-review --rewrite
+
+# 对自己的 JSON 执行同一套流程
+uv run chessmuse prepare-review --input docs/candidates/cao-wang-2025.json
+
 uv run chessmuse prepare-example
 uv run chessmuse prepare-example --example horse-opening
 
@@ -105,11 +112,11 @@ uv run chessmuse analyze-suite --engine .cache/pikafish/Pikafish-Windows-x86-64-
 
 默认示例全局 depth 6，最多 3 处 depth 10 复查，每步实战走法独立搜索；`analyze-position` 支持任意合法 FEN 和多个指定候选。原始 UCI、评分、合法 PV 和逐步吃子/将军证据保存在 `.cache/analysis/`。这不会调用 LLM 或生成语音。详情、评分限制与真实实验见 [专家分析阶段交付](docs/expert-analysis.md)。引擎源码 GPLv3，发行版权重另有限制商用的许可，当前不打包分发。
 
-## 当前交接状态（2026-10-20）
+## 当前交接状态（2026-10-23）
 
-已实现一份著名古谱的完整讲解：25个主线半回合、3个关键节点、4段推演、107个事件及99段真实语音，其中12个短片段同步展示棋子光圈或攻击关系线。ElephantEye 的纯子力/传统评价配置完成1/3/5层对照，Pikafish深度12/16复查关键候选；详细战术采用已核验事实卡，由LLM组织段落。修复了多分支「回到主线」定位问题，完整音频缓存可直接复用。
+主要示例和导入棋谱已接入同一套通用复盘流程。全局扫描后复查关键选择，结合评价损失、弃子及局势转折选少量节点。每条推演都独立复查终点，生成原因说明并动画返回实战。具体棋子的讲解带对应光圈或合法攻击关系；精确匹配的经典开局用短句概括多步，保留逐步动画。
 
-下一上下文先读 [项目总纲](docs/overview.md)、本 README 和 [著名古谱讲解交付](docs/famous-review.md)。真实HTTP加载、全部音频访问、完整Player事件推进已验证；桌面操作因网址识别限制停止，画面、实际听音和主观讲解质量仍待人工验收。当前三个古谱节点由开发时指定，尚未覆盖任意导入棋谱的自动完整解说；下一步优先按真实观感改进本演示，再推广节点选择和名局样本。
+古谱的既有讲解与实验资料仍保留在 [著名古谱讲解交付](docs/famous-review.md)。本次实现、真实生成记录与质量边界见 [通用复盘](docs/generic-review.md)。
 
 服务需在新会话中确认或重新启动，不依赖上一个会话的后台进程。导入任务和进度只保存在服务内存中；重启后需重新选择或导入，磁盘中有效的棋谱、短句和音频仍可复用。旧音频文件暂不自动清理，HTTP 仅提供当前清单引用的文件。
 

@@ -1,0 +1,1170 @@
+{
+  "id": "cao-wang-2025",
+  "title": "曹岩磊执红胜王禹博 · 2025年五羊杯冠亚军决赛慢棋",
+  "description": "实战复盘 · 关键选择与攻防推演",
+  "review_requested": true,
+  "initial_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+  "mainline": [
+    "c3c4",
+    "b7c7",
+    "h2e2",
+    "c9e7",
+    "h0g2",
+    "c6c5",
+    "i0h0",
+    "c5c4",
+    "c0a2",
+    "i9i8",
+    "b0d1",
+    "i8b8",
+    "h0h4",
+    "b9d8",
+    "h4c4",
+    "g6g5",
+    "e3e4",
+    "d9e8",
+    "g2e3",
+    "b8b6",
+    "e4e5",
+    "e6e5",
+    "c4h4",
+    "b6d6",
+    "e2e5",
+    "a9b9",
+    "e5d5",
+    "h7h6",
+    "f0e1",
+    "h6e6",
+    "e0f0",
+    "h9g7",
+    "b2d2",
+    "d6c6",
+    "a2c4",
+    "e6e5",
+    "h4f4",
+    "c6h6",
+    "d2d8",
+    "b9b8",
+    "a0b0",
+    "b8d8",
+    "c4e2",
+    "d8d9",
+    "g3g4",
+    "g7e6",
+    "f4f5",
+    "c7c5",
+    "g4g5",
+    "e5e2",
+    "f5f2",
+    "h6h0",
+    "f2e2",
+    "h0g0",
+    "f0f1",
+    "e6f4",
+    "e2d2",
+    "g0g5",
+    "d5f5",
+    "d9d2",
+    "e1d2",
+    "f4d5",
+    "d2e1",
+    "c5c1",
+    "f1f2",
+    "g5h5",
+    "f2e2",
+    "d5f4",
+    "e2d2",
+    "h5h6",
+    "e3c4",
+    "e8d9",
+    "b0b6",
+    "h6h3",
+    "b6d6",
+    "e7g5",
+    "d6d9",
+    "e9e8",
+    "c4d6",
+    "e8e7",
+    "d6c8"
+  ],
+  "paragraphs": [
+    {
+      "id": "review-intro-0",
+      "title": "开场",
+      "text": "这局慢棋决赛的看点，是黑方手握几次机会却选择退让，攻守慢慢转了向。",
+      "fact_refs": [
+        "nodes"
+      ]
+    },
+    {
+      "id": "review-intro-1",
+      "title": "开场",
+      "text": "红方是怎么把这些机会一点点收下的，从头看起。",
+      "fact_refs": [
+        "nodes"
+      ]
+    },
+    {
+      "id": "opening-summary",
+      "title": "仙人指路转中炮，对卒底炮飞象",
+      "text": "红方仙人指路转中炮，黑方卒底炮飞象。"
+    },
+    {
+      "id": "n50-setup-0",
+      "title": "炮吃相后局面仍平",
+      "text": "黑方实战炮五进三，直接吃掉了红方一相。",
+      "fact_refs": [
+        "actual",
+        "actual_effects"
+      ],
+      "annotation": {
+        "id": "n50-actual-e2",
+        "label": "黑方五路炮（e2）",
+        "fen": "3rkab2/4a4/4b4/p3n2rp/2cC1RP2/9/P3N3P/4c4/3NA4/1R1A1KB2 w",
+        "rings": [
+          "e2"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n50-setup-1",
+      "title": "炮吃相后局面仍平",
+      "text": "吃相之后局面大致均衡，这一步没带来上风。",
+      "fact_refs": [
+        "actual_effects",
+        "comparison"
+      ],
+      "annotation": {
+        "id": "n50-actual-e2",
+        "label": "黑方五路炮（e2）",
+        "fen": "3rkab2/4a4/4b4/p3n2rp/2cC1RP2/9/P3N3P/4c4/3NA4/1R1A1KB2 w",
+        "rings": [
+          "e2"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n50-branch-intro-0",
+      "title": "换个走法",
+      "text": "实战黑方已经吃相，这里改试红方兵三平二：小兵平到二路，有炮和车在后面保着，黑车上来吃会被回吃。",
+      "fact_refs": [
+        "alternative",
+        "alternative_protection"
+      ],
+      "annotation": {
+        "id": "n50-before-g5",
+        "label": "红方三路兵（g5）",
+        "fen": "3rkab2/4a4/4b4/p3n2rp/2cC1RP2/9/P3N3P/4c4/3NA4/1R1A1KB2 w",
+        "rings": [
+          "g5"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n50-assessment",
+      "title": "这条变化的结果",
+      "text": "走到这里，双方局面大致均衡。",
+      "fact_refs": [
+        "assessment"
+      ]
+    },
+    {
+      "id": "n50-outcome-0",
+      "title": "看清变化的结果",
+      "text": "走到这里，红马仍瞄着黑象，黑方也有需要照看的地方；马真去吃象，黑象能回吃这匹马。",
+      "fact_refs": [
+        "branch_events",
+        "endpoint_exchanges",
+        "assessment"
+      ],
+      "annotation": {
+        "id": "n50-end-attack-f5e7",
+        "label": "马四进五的攻击关系",
+        "fen": "4kab2/4a4/4b4/pR6p/2cr1N3/9/P7P/4B4/4A4/3A1K3 w",
+        "rings": [
+          "f5",
+          "e7"
+        ],
+        "arrows": [
+          {
+            "from": "f5",
+            "to": "e7",
+            "kind": "attack"
+          }
+        ]
+      }
+    },
+    {
+      "id": "n50-return-0",
+      "title": "回到实战",
+      "text": "实战红方没走平兵，选择车四退三；黑方随即车八进六压进来，此后黑方明显占优。",
+      "fact_refs": [
+        "actual",
+        "followup",
+        "reply_comparison"
+      ],
+      "annotation": {
+        "id": "n50-actual-f5",
+        "label": "红方四路车（f5）",
+        "fen": "3rkab2/4a4/4b4/p3n2rp/2cC1RP2/9/P3N3P/4c4/3NA4/1R1A1KB2 w",
+        "rings": [
+          "f5"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n70-setup-0",
+      "title": "黑方退车让出先手",
+      "text": "黑方选择车八退一，把肋上的车退回自己腹地，这步并不带将。",
+      "fact_refs": [
+        "actual"
+      ],
+      "annotation": {
+        "id": "n70-actual-h6",
+        "label": "黑方八路车（h6）",
+        "fen": "4kab2/4a4/4b4/p6rp/5C3/5n3/P3N3P/3K5/2cNA4/1R1A5 w",
+        "rings": [
+          "h6"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n70-setup-1",
+      "title": "黑方退车让出先手",
+      "text": "前几手黑方马四进六叫将，红方帅五平六，先手原本还在黑方手里。",
+      "fact_refs": [
+        "recent"
+      ],
+      "annotation": {
+        "id": "n70-actual-f4",
+        "label": "黑方六路马（f4）",
+        "fen": "4kab2/4a4/4b4/p6rp/5C3/5n3/P3N3P/3K5/2cNA4/1R1A5 w",
+        "rings": [
+          "f4"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n70-setup-2",
+      "title": "黑方退车让出先手",
+      "text": "退车以后，红方马五进七就能上来，黑方的攻势反而慢了一拍。",
+      "fact_refs": [
+        "followup"
+      ],
+      "annotation": {
+        "id": "n70-actual-e3",
+        "label": "红方五路马（e3）",
+        "fen": "4kab2/4a4/4b4/p6rp/5C3/5n3/P3N3P/3K5/2cNA4/1R1A5 w",
+        "rings": [
+          "e3"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n70-branch-intro-0",
+      "title": "换个走法",
+      "text": "这里换个下法，黑方不退车，直接车八进三将军，逼红方先应一手。",
+      "fact_refs": [
+        "alternative",
+        "alternative_effects"
+      ],
+      "annotation": {
+        "id": "n70-before-h5",
+        "label": "黑方八路车（h5）",
+        "fen": "4kab2/4a4/4b4/p7p/5C1r1/5n3/P3N3P/3K5/2cNA4/1R1A5 b",
+        "rings": [
+          "h5"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n70-assessment",
+      "title": "这条变化的结果",
+      "text": "走到这里，黑方明显占优。",
+      "fact_refs": [
+        "assessment"
+      ]
+    },
+    {
+      "id": "n70-outcome-0",
+      "title": "看清变化的结果",
+      "text": "推演走到这里，黑车横着瞄住红马，红车要回来照看这匹马，活动受了限制；黑车真吃马，红车也能回吃。",
+      "fact_refs": [
+        "branch_events",
+        "endpoint_exchanges",
+        "assessment"
+      ],
+      "annotation": {
+        "id": "n70-end-attack-h3e3",
+        "label": "车八平五的攻击关系",
+        "fen": "2c1kab2/4a4/4b4/p7p/5C3/4Rn3/P3N2rP/3K1A3/3N5/3A5 b",
+        "rings": [
+          "h3",
+          "e3"
+        ],
+        "arrows": [
+          {
+            "from": "h3",
+            "to": "e3",
+            "kind": "attack"
+          }
+        ]
+      }
+    },
+    {
+      "id": "n70-return-0",
+      "title": "回到实战",
+      "text": "实战黑方走的是车八退一，等于把马五进七的机会送给红方。",
+      "fact_refs": [
+        "actual",
+        "followup"
+      ],
+      "annotation": {
+        "id": "n70-actual-h6",
+        "label": "黑方八路车（h6）",
+        "fen": "4kab2/4a4/4b4/p6rp/5C3/5n3/P3N3P/3K5/2cNA4/1R1A5 w",
+        "rings": [
+          "h6"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n72-setup-0",
+      "title": "退士到底线，红车压上",
+      "text": "黑方这步走士五退四，把士从九宫中间退到底线。",
+      "fact_refs": [
+        "actual",
+        "actual_effects"
+      ],
+      "annotation": {
+        "id": "n72-actual-d9",
+        "label": "黑方四路士（d9）",
+        "fen": "3akab2/9/4b4/p6rp/5C3/2N2n3/P7P/3K5/2cNA4/1R1A5 w",
+        "rings": [
+          "d9"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n72-setup-1",
+      "title": "退士到底线，红车压上",
+      "text": "士退下之后，红方八路车进六压过来，黑方八路车提起来应对。",
+      "fact_refs": [
+        "actual_effects",
+        "followup"
+      ],
+      "annotation": {
+        "id": "n72-actual-b0",
+        "label": "红方八路车（b0）",
+        "fen": "3akab2/9/4b4/p6rp/5C3/2N2n3/P7P/3K5/2cNA4/1R1A5 w",
+        "rings": [
+          "b0"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n72-setup-2",
+      "title": "退士到底线，红车压上",
+      "text": "士退底线和进到九宫前沿，宫前的防守厚度不一样，这是这步的取舍。",
+      "fact_refs": [
+        "actual_effects",
+        "alternative_effects"
+      ],
+      "annotation": {
+        "id": "n72-actual-d9",
+        "label": "黑方四路士（d9）",
+        "fen": "3akab2/9/4b4/p6rp/5C3/2N2n3/P7P/3K5/2cNA4/1R1A5 w",
+        "rings": [
+          "d9"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n72-branch-intro-0",
+      "title": "换个走法",
+      "text": "如果改走士五进四，把士留在九宫前沿，宫前就多一枚防守子。",
+      "fact_refs": [
+        "alternative",
+        "alternative_effects"
+      ],
+      "annotation": {
+        "id": "n72-before-e8",
+        "label": "黑方五路士（e8）",
+        "fen": "4kab2/4a4/4b4/p6rp/5C3/2N2n3/P7P/3K5/2cNA4/1R1A5 b",
+        "rings": [
+          "e8"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n72-assessment",
+      "title": "这条变化的结果",
+      "text": "走到这里，双方局面大致均衡。",
+      "fact_refs": [
+        "assessment"
+      ]
+    },
+    {
+      "id": "n72-outcome-0",
+      "title": "看清变化的结果",
+      "text": "红车沉底将军，黑方进士后还有象能退到将前遮挡，红车在这条变化里退回，黑方能够守住。",
+      "fact_refs": [
+        "branch_events",
+        "assessment"
+      ],
+      "annotation": {
+        "id": "n72-end-c9",
+        "label": "黑方三路象（c9）",
+        "fen": "2b1kab2/9/3a5/p6rp/5C3/2N6/PR6P/3K1An2/2cN5/3A5 b",
+        "rings": [
+          "c9"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "n72-return-0",
+      "title": "回到实战",
+      "text": "实战黑方选择士五退四，把士退到底线；红方随后车八进六压上。",
+      "fact_refs": [
+        "actual",
+        "actual_effects",
+        "followup"
+      ],
+      "annotation": {
+        "id": "n72-actual-d9",
+        "label": "黑方四路士（d9）",
+        "fen": "3akab2/9/4b4/p6rp/5C3/2N2n3/P7P/3K5/2cNA4/1R1A5 w",
+        "rings": [
+          "d9"
+        ],
+        "arrows": []
+      }
+    },
+    {
+      "id": "review-finish-0",
+      "title": "复盘收尾",
+      "text": "最后红马连跳压上去，红方已有杀棋，黑方难以守住，这局以红胜收场。",
+      "fact_refs": [
+        "ending"
+      ]
+    },
+    {
+      "id": "review-finish-1",
+      "title": "复盘收尾",
+      "text": "回看关键取舍，黑方补士退到底线，让红车压上后一路牵着黑方走。",
+      "fact_refs": [
+        "nodes"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "review-intro-0",
+      "type": "speak",
+      "paragraph": "review-intro-0",
+      "chapter": "开场"
+    },
+    {
+      "id": "review-intro-1",
+      "type": "speak",
+      "paragraph": "review-intro-1"
+    },
+    {
+      "id": "opening-group",
+      "type": "move_group",
+      "moves": [
+        "c3c4",
+        "b7c7",
+        "h2e2",
+        "c9e7"
+      ],
+      "paragraph": "opening-summary",
+      "chapter": "仙人指路转中炮，对卒底炮飞象"
+    },
+    {
+      "id": "main-5",
+      "type": "move",
+      "move": "h0g2"
+    },
+    {
+      "id": "main-6",
+      "type": "move",
+      "move": "c6c5"
+    },
+    {
+      "id": "main-7",
+      "type": "move",
+      "move": "i0h0"
+    },
+    {
+      "id": "main-8",
+      "type": "move",
+      "move": "c5c4"
+    },
+    {
+      "id": "main-9",
+      "type": "move",
+      "move": "c0a2"
+    },
+    {
+      "id": "main-10",
+      "type": "move",
+      "move": "i9i8"
+    },
+    {
+      "id": "main-11",
+      "type": "move",
+      "move": "b0d1"
+    },
+    {
+      "id": "main-12",
+      "type": "move",
+      "move": "i8b8"
+    },
+    {
+      "id": "main-13",
+      "type": "move",
+      "move": "h0h4"
+    },
+    {
+      "id": "main-14",
+      "type": "move",
+      "move": "b9d8"
+    },
+    {
+      "id": "main-15",
+      "type": "move",
+      "move": "h4c4"
+    },
+    {
+      "id": "main-16",
+      "type": "move",
+      "move": "g6g5"
+    },
+    {
+      "id": "main-17",
+      "type": "move",
+      "move": "e3e4"
+    },
+    {
+      "id": "main-18",
+      "type": "move",
+      "move": "d9e8"
+    },
+    {
+      "id": "main-19",
+      "type": "move",
+      "move": "g2e3"
+    },
+    {
+      "id": "main-20",
+      "type": "move",
+      "move": "b8b6"
+    },
+    {
+      "id": "main-21",
+      "type": "move",
+      "move": "e4e5"
+    },
+    {
+      "id": "main-22",
+      "type": "move",
+      "move": "e6e5"
+    },
+    {
+      "id": "main-23",
+      "type": "move",
+      "move": "c4h4"
+    },
+    {
+      "id": "main-24",
+      "type": "move",
+      "move": "b6d6"
+    },
+    {
+      "id": "main-25",
+      "type": "move",
+      "move": "e2e5"
+    },
+    {
+      "id": "main-26",
+      "type": "move",
+      "move": "a9b9"
+    },
+    {
+      "id": "main-27",
+      "type": "move",
+      "move": "e5d5"
+    },
+    {
+      "id": "main-28",
+      "type": "move",
+      "move": "h7h6"
+    },
+    {
+      "id": "main-29",
+      "type": "move",
+      "move": "f0e1"
+    },
+    {
+      "id": "main-30",
+      "type": "move",
+      "move": "h6e6"
+    },
+    {
+      "id": "main-31",
+      "type": "move",
+      "move": "e0f0"
+    },
+    {
+      "id": "main-32",
+      "type": "move",
+      "move": "h9g7"
+    },
+    {
+      "id": "main-33",
+      "type": "move",
+      "move": "b2d2"
+    },
+    {
+      "id": "main-34",
+      "type": "move",
+      "move": "d6c6"
+    },
+    {
+      "id": "main-35",
+      "type": "move",
+      "move": "a2c4"
+    },
+    {
+      "id": "main-36",
+      "type": "move",
+      "move": "e6e5"
+    },
+    {
+      "id": "main-37",
+      "type": "move",
+      "move": "h4f4"
+    },
+    {
+      "id": "main-38",
+      "type": "move",
+      "move": "c6h6"
+    },
+    {
+      "id": "main-39",
+      "type": "move",
+      "move": "d2d8"
+    },
+    {
+      "id": "main-40",
+      "type": "move",
+      "move": "b9b8"
+    },
+    {
+      "id": "main-41",
+      "type": "move",
+      "move": "a0b0"
+    },
+    {
+      "id": "main-42",
+      "type": "move",
+      "move": "b8d8"
+    },
+    {
+      "id": "main-43",
+      "type": "move",
+      "move": "c4e2"
+    },
+    {
+      "id": "main-44",
+      "type": "move",
+      "move": "d8d9"
+    },
+    {
+      "id": "main-45",
+      "type": "move",
+      "move": "g3g4"
+    },
+    {
+      "id": "main-46",
+      "type": "move",
+      "move": "g7e6"
+    },
+    {
+      "id": "main-47",
+      "type": "move",
+      "move": "f4f5"
+    },
+    {
+      "id": "main-48",
+      "type": "move",
+      "move": "c7c5"
+    },
+    {
+      "id": "main-49",
+      "type": "move",
+      "move": "g4g5"
+    },
+    {
+      "id": "main-50",
+      "type": "move",
+      "move": "e5e2"
+    },
+    {
+      "id": "n50-setup-0",
+      "type": "speak",
+      "paragraph": "n50-setup-0",
+      "chapter": "炮吃相后局面仍平"
+    },
+    {
+      "id": "n50-setup-1",
+      "type": "speak",
+      "paragraph": "n50-setup-1"
+    },
+    {
+      "id": "n50-branch-position",
+      "type": "set_position",
+      "mainline_ply": 50,
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-intro-0",
+      "type": "speak",
+      "paragraph": "n50-branch-intro-0"
+    },
+    {
+      "id": "n50-branch-0",
+      "type": "move",
+      "move": "g5h5"
+    },
+    {
+      "id": "n50-branch-1",
+      "type": "move",
+      "move": "h6g6"
+    },
+    {
+      "id": "n50-branch-2",
+      "type": "move",
+      "move": "h5g5"
+    },
+    {
+      "id": "n50-branch-3",
+      "type": "move",
+      "move": "e6g5"
+    },
+    {
+      "id": "n50-branch-4",
+      "type": "move",
+      "move": "d5g5"
+    },
+    {
+      "id": "n50-branch-5",
+      "type": "move",
+      "move": "g6g5"
+    },
+    {
+      "id": "n50-branch-6",
+      "type": "move",
+      "move": "g0e2"
+    },
+    {
+      "id": "n50-branch-7",
+      "type": "move",
+      "move": "g5f5"
+    },
+    {
+      "id": "n50-branch-8",
+      "type": "move",
+      "move": "e3f5"
+    },
+    {
+      "id": "n50-branch-9",
+      "type": "move",
+      "move": "d9d1"
+    },
+    {
+      "id": "n50-branch-10",
+      "type": "move",
+      "move": "b0b6"
+    },
+    {
+      "id": "n50-branch-11",
+      "type": "move",
+      "move": "d1d5"
+    },
+    {
+      "id": "n50-assessment",
+      "type": "speak",
+      "paragraph": "n50-assessment"
+    },
+    {
+      "id": "n50-outcome-0",
+      "type": "speak",
+      "paragraph": "n50-outcome-0"
+    },
+    {
+      "id": "n50-restore",
+      "type": "set_position",
+      "mainline_ply": 50
+    },
+    {
+      "id": "n50-return-0",
+      "type": "speak",
+      "paragraph": "n50-return-0"
+    },
+    {
+      "id": "main-51",
+      "type": "move",
+      "move": "f5f2"
+    },
+    {
+      "id": "main-52",
+      "type": "move",
+      "move": "h6h0"
+    },
+    {
+      "id": "main-53",
+      "type": "move",
+      "move": "f2e2"
+    },
+    {
+      "id": "main-54",
+      "type": "move",
+      "move": "h0g0"
+    },
+    {
+      "id": "main-55",
+      "type": "move",
+      "move": "f0f1"
+    },
+    {
+      "id": "main-56",
+      "type": "move",
+      "move": "e6f4"
+    },
+    {
+      "id": "main-57",
+      "type": "move",
+      "move": "e2d2"
+    },
+    {
+      "id": "main-58",
+      "type": "move",
+      "move": "g0g5"
+    },
+    {
+      "id": "main-59",
+      "type": "move",
+      "move": "d5f5"
+    },
+    {
+      "id": "main-60",
+      "type": "move",
+      "move": "d9d2"
+    },
+    {
+      "id": "main-61",
+      "type": "move",
+      "move": "e1d2"
+    },
+    {
+      "id": "main-62",
+      "type": "move",
+      "move": "f4d5"
+    },
+    {
+      "id": "main-63",
+      "type": "move",
+      "move": "d2e1"
+    },
+    {
+      "id": "main-64",
+      "type": "move",
+      "move": "c5c1"
+    },
+    {
+      "id": "main-65",
+      "type": "move",
+      "move": "f1f2"
+    },
+    {
+      "id": "main-66",
+      "type": "move",
+      "move": "g5h5"
+    },
+    {
+      "id": "main-67",
+      "type": "move",
+      "move": "f2e2"
+    },
+    {
+      "id": "main-68",
+      "type": "move",
+      "move": "d5f4"
+    },
+    {
+      "id": "main-69",
+      "type": "move",
+      "move": "e2d2"
+    },
+    {
+      "id": "main-70",
+      "type": "move",
+      "move": "h5h6"
+    },
+    {
+      "id": "n70-setup-0",
+      "type": "speak",
+      "paragraph": "n70-setup-0",
+      "chapter": "黑方退车让出先手"
+    },
+    {
+      "id": "n70-setup-1",
+      "type": "speak",
+      "paragraph": "n70-setup-1"
+    },
+    {
+      "id": "n70-setup-2",
+      "type": "speak",
+      "paragraph": "n70-setup-2"
+    },
+    {
+      "id": "n70-branch-position",
+      "type": "set_position",
+      "mainline_ply": 69,
+      "branch": "黑方退车让出先手 · 换个走法"
+    },
+    {
+      "id": "n70-branch-intro-0",
+      "type": "speak",
+      "paragraph": "n70-branch-intro-0"
+    },
+    {
+      "id": "n70-branch-0",
+      "type": "move",
+      "move": "h5h2"
+    },
+    {
+      "id": "n70-branch-1",
+      "type": "move",
+      "move": "e1f2"
+    },
+    {
+      "id": "n70-branch-2",
+      "type": "move",
+      "move": "c1c9"
+    },
+    {
+      "id": "n70-branch-3",
+      "type": "move",
+      "move": "b0b4"
+    },
+    {
+      "id": "n70-branch-4",
+      "type": "move",
+      "move": "h2h3"
+    },
+    {
+      "id": "n70-branch-5",
+      "type": "move",
+      "move": "b4e4"
+    },
+    {
+      "id": "n70-assessment",
+      "type": "speak",
+      "paragraph": "n70-assessment"
+    },
+    {
+      "id": "n70-outcome-0",
+      "type": "speak",
+      "paragraph": "n70-outcome-0"
+    },
+    {
+      "id": "n70-restore",
+      "type": "set_position",
+      "mainline_ply": 70
+    },
+    {
+      "id": "n70-return-0",
+      "type": "speak",
+      "paragraph": "n70-return-0"
+    },
+    {
+      "id": "main-71",
+      "type": "move",
+      "move": "e3c4"
+    },
+    {
+      "id": "main-72",
+      "type": "move",
+      "move": "e8d9"
+    },
+    {
+      "id": "n72-setup-0",
+      "type": "speak",
+      "paragraph": "n72-setup-0",
+      "chapter": "退士到底线，红车压上"
+    },
+    {
+      "id": "n72-setup-1",
+      "type": "speak",
+      "paragraph": "n72-setup-1"
+    },
+    {
+      "id": "n72-setup-2",
+      "type": "speak",
+      "paragraph": "n72-setup-2"
+    },
+    {
+      "id": "n72-branch-position",
+      "type": "set_position",
+      "mainline_ply": 71,
+      "branch": "退士到底线，红车压上 · 换个走法"
+    },
+    {
+      "id": "n72-branch-intro-0",
+      "type": "speak",
+      "paragraph": "n72-branch-intro-0"
+    },
+    {
+      "id": "n72-branch-0",
+      "type": "move",
+      "move": "e8d7"
+    },
+    {
+      "id": "n72-branch-1",
+      "type": "move",
+      "move": "b0b9"
+    },
+    {
+      "id": "n72-branch-2",
+      "type": "move",
+      "move": "e7c9"
+    },
+    {
+      "id": "n72-branch-3",
+      "type": "move",
+      "move": "b9b3"
+    },
+    {
+      "id": "n72-branch-4",
+      "type": "move",
+      "move": "f4g2"
+    },
+    {
+      "id": "n72-branch-5",
+      "type": "move",
+      "move": "e1f2"
+    },
+    {
+      "id": "n72-assessment",
+      "type": "speak",
+      "paragraph": "n72-assessment"
+    },
+    {
+      "id": "n72-outcome-0",
+      "type": "speak",
+      "paragraph": "n72-outcome-0"
+    },
+    {
+      "id": "n72-restore",
+      "type": "set_position",
+      "mainline_ply": 72
+    },
+    {
+      "id": "n72-return-0",
+      "type": "speak",
+      "paragraph": "n72-return-0"
+    },
+    {
+      "id": "main-73",
+      "type": "move",
+      "move": "b0b6"
+    },
+    {
+      "id": "main-74",
+      "type": "move",
+      "move": "h6h3"
+    },
+    {
+      "id": "main-75",
+      "type": "move",
+      "move": "b6d6"
+    },
+    {
+      "id": "main-76",
+      "type": "move",
+      "move": "e7g5"
+    },
+    {
+      "id": "main-77",
+      "type": "move",
+      "move": "d6d9"
+    },
+    {
+      "id": "main-78",
+      "type": "move",
+      "move": "e9e8"
+    },
+    {
+      "id": "main-79",
+      "type": "move",
+      "move": "c4d6"
+    },
+    {
+      "id": "main-80",
+      "type": "move",
+      "move": "e8e7"
+    },
+    {
+      "id": "main-81",
+      "type": "move",
+      "move": "d6c8"
+    },
+    {
+      "id": "review-finish-0",
+      "type": "speak",
+      "paragraph": "review-finish-0",
+      "chapter": "复盘收尾"
+    },
+    {
+      "id": "review-finish-1",
+      "type": "speak",
+      "paragraph": "review-finish-1"
+    }
+  ],
+  "source": {
+    "url": "https://www.xiangqiqipu.com/Category/View-41986.html",
+    "date": "2025-05-11",
+    "event": "2025年第31届五羊杯全国象棋冠军邀请赛",
+    "round": "决赛第06轮，第1局（慢棋）",
+    "place": "广州文化公园",
+    "red": "曹岩磊",
+    "black": "王禹博",
+    "result": "红胜",
+    "news": "https://ysln.ycwb.com/content/2025-05/12/content_53404289.html"
+  },
+  "evidence_schema": 2,
+  "review_version": 7,
+  "commentary_mode": "generic_evidence_review",
+  "review_nodes": [
+    50,
+    70,
+    72
+  ]
+}

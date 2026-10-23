@@ -15,6 +15,7 @@ from chessmuse.llm import DeepSeekClient, DeepSeekSettings
 from chessmuse.narration import generate_announcements, read_announcements
 from chessmuse.tts import DEFAULT_RATE, DEFAULT_VOICE, prepare_neural_audio
 
+DEFAULT_EXAMPLE = "cao-wang-2025"
 MAX_MOVES = 200
 
 
@@ -34,12 +35,18 @@ def make_game(source: dict, game_id: str) -> dict:
         raise ValueError("title 必须为1到100个字符")
     script = {
         "id": game_id, "title": title.strip(),
-        "description": "导入棋谱 · LLM 走子短句 · 无引擎评价",
+        "description": "导入棋谱 · 关键选择与攻防复盘",
+        "review_requested": True,
         "initial_fen": FULL_INIT_FEN, "mainline": moves,
         "paragraphs": [],
         "events": [{"id": f"m{i + 1}", "type": "move", "move": move,
                     **({"chapter": "开局"} if i == 0 else {})} for i, move in enumerate(moves)],
     }
+    metadata = source.get("source")
+    if isinstance(metadata, dict):
+        script["source"] = {k: v for k, v in metadata.items()
+            if k in {"date", "event", "round", "place", "red", "black", "result", "url", "news"}
+            and isinstance(v, str) and len(v) <= 300}
     try:
         compile_demo(script, require_audio=False, require_narration=False)
     except (ValueError, AttributeError, IndexError, TypeError) as error:
@@ -49,14 +56,19 @@ def make_game(source: dict, game_id: str) -> dict:
 
 def examples() -> dict[str, dict]:
     horses = make_game({"title": "双方起马 · 四步示例", "moves": ["h0g2", "h9g7", "b0c2", "b9c7"]}, "horse-opening")
-    horses["description"] = "简短示例 · 每步自然讲述 · 无引擎评价"
+    horses["description"] = "简短开局示例 · 双方起马"
     result = {horses["id"]: horses}
     reviewed = DATA / "famous-review.json"
     if reviewed.exists():
         famous = json.loads(reviewed.read_text(encoding="utf-8"))
         # Put the finished substantive review first in the web catalog.
         result = {famous["id"]: famous, **result}
-    return result
+    modern = DATA / "modern-review.json"
+    if modern.exists():
+        primary = json.loads(modern.read_text(encoding="utf-8"))
+    else:
+        primary = make_game(json.loads((DATA / "modern-game.json").read_text(encoding="utf-8")), DEFAULT_EXAMPLE)
+    return {primary["id"]: primary, **result}
 
 
 class GameLibrary:
@@ -67,6 +79,7 @@ class GameLibrary:
         self.builtins = examples()
 
     def example(self, game_id: str) -> dict:
+        self.builtins = examples()
         if game_id not in self.builtins:
             raise ValueError("示例棋谱不存在")
         return deepcopy(self.builtins[game_id])
@@ -83,7 +96,8 @@ class GameLibrary:
             for record in self.cache.glob("import-*/script.json"):
                 try:
                     saved = json.loads(record.read_text(encoding="utf-8"))
-                    if all(saved.get(key) == candidate[key] for key in ("title", "initial_fen", "mainline")):
+                    if all(saved.get(key) == candidate.get(key) for key in ("title", "initial_fen", "mainline", "source")):
+                        saved["review_requested"] = True
                         return saved
                 except (OSError, ValueError, TypeError):
                     pass
@@ -91,6 +105,8 @@ class GameLibrary:
 
     def narration_path(self, game_id: str) -> Path:
         local = self.game_dir(game_id) / "narration.json"
+        if not local.exists() and game_id == DEFAULT_EXAMPLE:
+            return DATA / "modern-narration.json"
         if not local.exists() and game_id == "opening-v1":
             return DATA / "narration.json"
         if not local.exists() and game_id == "qima-13":
@@ -99,28 +115,36 @@ class GameLibrary:
 
     async def prepare(self, script: dict, *, force: bool = False, force_narration: bool = False,
                       voice: str = DEFAULT_VOICE, rate: str = DEFAULT_RATE,
-                      env_file: str = ".env", progress=None) -> dict:
+                      env_file: str = ".env", rewrite_review: bool = False, progress=None) -> dict:
         report = progress or (lambda value, message: None)
         report(5, "校验棋谱与还原局面")
-        plan = compile_demo(script, require_audio=False, require_narration=False)
+        compile_demo(script, require_audio=False, require_narration=False)
         directory = self.game_dir(script["id"])
         directory.mkdir(parents=True, exist_ok=True)
+        reviewing = script.get("review_requested", False) or "review_version" in script
+        if reviewing:
+            from chessmuse.autoreview import prepare_review
+            report(8, "分析棋局与筛选关键节点")
+            script = await prepare_review(script, directory / "review", env_file=env_file,
+                rewrite=rewrite_review, progress=lambda msg: report(30 if "讲解" in msg else 18, msg))
+            report(50, "详细讲解与推演已核验")
+        plan = compile_demo(script, require_audio=False, require_narration=False)
         (directory / "script.json").write_text(json.dumps(script, ensure_ascii=False), encoding="utf-8")
         narration = self.narration_path(script["id"])
         try:
             if force_narration:
                 raise ValueError("Regeneration requested")
             read_announcements(narration, plan["narration_inputs"])
-            report(35, "复用已有走子短句")
+            report(60 if reviewing else 35, "复用已有走子短句")
         except (OSError, ValueError, TypeError):
             narration = directory / "narration.json"
-            report(10, "连接模型生成走子短句")
+            report(52 if reviewing else 10, "连接模型生成走子短句")
             async with DeepSeekClient(DeepSeekSettings.from_env(env_file)) as client:
                 await generate_announcements(client, plan["narration_inputs"], narration,
-                                             progress=lambda part, message: report(10 + int(part * 25), message))
+                                             progress=lambda part, message: report((52 if reviewing else 10) + int(part * (10 if reviewing else 25)), message))
         audio_dir = self.audio / script["id"]
         plan = compile_demo(script, require_audio=False, narration_path=narration, audio_dir=audio_dir)
-        report(36, "检查本地语音缓存")
+        report(65 if reviewing else 36, "检查本地语音缓存")
         if not force:
             try:
                 manifest = json.loads((audio_dir / "audio.json").read_text(encoding="utf-8-sig"))
@@ -135,7 +159,7 @@ class GameLibrary:
                 report(100, "导入完成，可以播放")
                 return result
         await prepare_neural_audio(audio_dir, plan["paragraphs"], voice, rate, force=force,
-                                   progress=lambda part, message: report(36 + int(part * 59), message))
+                                   progress=lambda part, message: report((65 if reviewing else 36) + int(part * (30 if reviewing else 59)), message))
         report(97, "校验音频与动画同步")
         result = compile_demo(script, narration_path=narration, audio_dir=audio_dir)
         report(100, "导入完成，可以播放")

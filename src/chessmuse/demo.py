@@ -50,7 +50,7 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
     if not isinstance(script.get("id"), str) or not re.fullmatch(r"[a-zA-Z0-9-]+", script["id"]):
         raise ValueError("Invalid game ID")
     audio_dir = audio_dir if audio_dir is not None else AUDIO_ROOT / script["id"]
-    snapshots = [script["initial_fen"]]
+    snapshots = [" ".join(script["initial_fen"].split()[:2])]
     positions = initial_pieces(script["initial_fen"])
     piece_snapshots = [deepcopy(positions)]
     notations = []
@@ -98,6 +98,31 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
                 last_move = event["move"]
                 if branch is None and (ply >= len(snapshots) or fen != snapshots[ply]):
                     raise ValueError("Mainline event disagrees with the authored game")
+            case "move_group":
+                moves = event.get("moves")
+                if branch or not isinstance(moves, list) or not 2 <= len(moves) <= 8:
+                    raise ValueError("开局概括只能合并2到8个主线行动")
+                caption = event.get("paragraph")
+                if caption not in paragraphs:
+                    raise ValueError("开局概括缺少讲解短句")
+                event["before_state"] = {"fen": fen, "ply": ply, "branch": branch,
+                    "caption": caption, "last_move": last_move, "pieces": list(positions.values())}
+                event["frames"] = []
+                for move in moves:
+                    previous_fen = fen
+                    fen, notation = play(fen, move)
+                    facts = move_facts(previous_fen, move, notation)
+                    history.append({"side": facts["side"], "action": facts["action"], "gives_check": facts["gives_check"]})
+                    move_pieces(positions, move)
+                    ply += 1
+                    last_move = move
+                    if ply >= len(snapshots) or fen != snapshots[ply]:
+                        raise ValueError("合并报步与主线不一致")
+                    event["frames"].append({"move": move, "notation": notation, "state": {
+                        "fen": fen, "ply": ply, "branch": None, "caption": caption,
+                        "last_move": move, "pieces": list(positions.values())}})
+                event["notation"] = paragraphs[caption]["title"]
+                event["animation_ms"] = 350
             case "set_position":
                 event["before_state"] = {"fen": fen, "ply": ply, "branch": branch,
                     "caption": caption, "last_move": last_move, "pieces": list(positions.values())}
@@ -147,6 +172,8 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
             paragraph["duration"] = audio_duration(audio_dir / filename)
             paragraph["audio"] = f"/audio/{script['id']}/{filename}"
         for event in script["events"]:
+            if event["type"] == "move_group":
+                event["animation_ms"] = min(420, paragraphs[event["paragraph"]]["duration"] * 650 / len(event["frames"]))
             if event["type"] == "move":
                 event["animation_ms"] = min(550, paragraphs[event["paragraph"]]["duration"] * 600)
     script["mainline_notations"] = notations

@@ -68,7 +68,7 @@ def test_http_import_returns_real_job_progress_and_errors(tmp_path, monkeypatch)
         try:
             with urlopen(base + "/api/examples") as response:
                 assert {entry["id"] for entry in json.load(response)["examples"]} == {
-                    "qima-13", "horse-opening"}
+                    "cao-wang-2025", "qima-13", "horse-opening"}
             with urlopen(base + "/api/examples/horse-opening/download") as response:
                 source = json.load(response)
                 assert source["moves"] == ["h0g2", "h9g7", "b0c2", "b9c7"]

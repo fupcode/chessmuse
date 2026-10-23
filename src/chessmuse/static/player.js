@@ -12,6 +12,9 @@ export class Player {
     this.playing = false;
     this.voice = true;
     this.timer = null;
+    this.groupTimer = null;
+    this.groupIndex = 0;
+    this.groupRemaining = null;
     this.remaining = null;
     this.readyAudio = false;
     this.started = false;
@@ -40,7 +43,28 @@ export class Player {
     this.timer = null;
   }
 
+  pauseGroup() {
+    if(this.groupTimer!==null) {
+      this.groupRemaining=Math.max(0,this.groupDeadline-this.now());
+      this.clock.clearTimeout(this.groupTimer);this.groupTimer=null;
+    }
+  }
+
+  runGroup() {
+    if(this.event.type!=="move_group" || this.groupTimer!==null || this.groupIndex>=this.event.frames.length-1) return;
+    const delay=this.groupRemaining ?? (this.paragraph.duration*1000/this.event.frames.length);
+    this.groupRemaining=null;this.groupDeadline=this.now()+delay;
+    const revision=this.revision;
+    this.groupTimer=this.clock.setTimeout(()=>{
+      this.groupTimer=null;
+      if(!this.playing || this.revision!==revision) return;
+      this.groupIndex++;this.paint(true);this.runGroup();
+    },delay);
+  }
+
   displayState() {
+    if(this.event.type==="move_group")
+      return this.started ? this.event.frames[this.groupIndex].state : this.event.before_state;
     if (!this.started && this.event.type === "move")
       return {...this.event.before_state, caption:this.event.paragraph};
     if (!this.started && this.event.type === "set_position" && this.event.before_state)
@@ -58,12 +82,14 @@ export class Player {
   startMove() {
     if (!this.started) {
       this.started = true;
-      this.paint(this.event.type === "move" || this.event.type === "set_position");
+      this.paint(this.event.type === "move" || this.event.type === "move_group" || this.event.type === "set_position");
     }
     this.motion.play();
+    this.runGroup();
   }
 
   pause() {
+    this.pauseGroup();
     if (this.timer !== null) this.remaining = Math.max(0, this.deadline - this.now());
     this.clearTimer();
     this.audio.pause();
@@ -83,6 +109,7 @@ export class Player {
     this.audio.load();
     this.readyAudio = false;
     this.started = false;
+    this.groupIndex=0;this.groupRemaining=null;
     this.transitionOrigin = origin;
     this.transitionOnly = false;
     this.failed = false;
@@ -124,7 +151,7 @@ export class Player {
       const revision = this.revision;
       const active = () => this.revision === revision && this.playing;
       this.audio.onplaying = () => { if (active()) this.startMove(); };
-      this.audio.onwaiting = () => { if (active()) this.motion.pause(); };
+      this.audio.onwaiting = () => { if (active()) {this.motion.pause();this.pauseGroup();} };
       this.audio.onended = () => { if (active()) this.advance(); };
       try {
         await this.audio.play();
@@ -148,6 +175,9 @@ export class Player {
   }
 
   advance() {
+    this.pauseGroup();
+    this.groupRemaining=null;
+    if(this.event.type==="move_group") {this.groupIndex=this.event.frames.length-1;this.paint();}
     this.clearTimer();
     this.audio.pause();
     this.motion.cancel();
@@ -161,6 +191,7 @@ export class Player {
       return;
     }
     this.index++;
+    this.groupIndex=0;
     this.started = false;
     this.transitionOrigin = null;
     if (this.transitionOnly) {

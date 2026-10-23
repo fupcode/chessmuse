@@ -12,7 +12,7 @@ from tempfile import TemporaryDirectory
 from cchess import FULL_INIT_FEN
 
 from chessmuse.demo import compile_demo
-from chessmuse.library import GameLibrary
+from chessmuse.library import DEFAULT_EXAMPLE, GameLibrary
 from chessmuse.server import DemoHandler, ImportJobs
 from chessmuse.llm import ConfigurationError, DeepSeekClient, DeepSeekSettings, LLMError, Message
 from chessmuse.narration import generate_announcements
@@ -53,13 +53,18 @@ def main():
     prepare.add_argument("--provider", choices=["edge", "windows"], default="edge")
     prepare.add_argument("--voice", default=DEFAULT_VOICE, help="在线声音名称")
     prepare.add_argument("--rate", default=DEFAULT_RATE, help="在线语速，默认 +8%%（108%%），如 --rate=+8%%")
-    prepare.add_argument("--example", default="qima-13", help="示例棋谱ID")
+    prepare.add_argument("--example", default=DEFAULT_EXAMPLE, help="示例棋谱ID")
     prepare.add_argument("--force", action="store_true", help="强制重新合成所有音频")
-    narrate.add_argument("--example", default="qima-13")
+    narrate.add_argument("--example", default=DEFAULT_EXAMPLE)
     all_prepare = sub.add_parser("prepare-example", help="准备示例短句与语音，已有缓存时复用")
-    all_prepare.add_argument("--example", default="qima-13")
+    all_prepare.add_argument("--example", default=DEFAULT_EXAMPLE)
     all_prepare.add_argument("--force", action="store_true", help="重新生成短句和语音")
     all_prepare.add_argument("--env-file", default=".env")
+    review = sub.add_parser("prepare-review", help="生成通用复盘、推演、标注和语音")
+    review.add_argument("--example", default=DEFAULT_EXAMPLE)
+    review.add_argument("--input", help="导入JSON棋谱")
+    review.add_argument("--env-file", default=".env")
+    review.add_argument("--rewrite", action="store_true", help="复用引擎证据，重新请求LLM撰写讲解")
     intuition = sub.add_parser("prepare-intuition", help="构建ElephantEye有限深度直觉模型")
     intuition.add_argument("--download", action="store_true", help="从固定官方版本下载，仅提取C++白名单")
     famous = sub.add_parser("prepare-famous", help="构建弃马十三着的专家证据、讲解与语音")
@@ -83,7 +88,7 @@ def main():
             analyze.add_argument("--candidate", action="append", default=[], help="单独搜索的候选，可重复")
         elif command == "analyze-game":
             analyze.add_argument("--input", help="本地 JSON 棋谱，支持 moves 或 mainline")
-            analyze.add_argument("--example", default="qima-13")
+            analyze.add_argument("--example", default=DEFAULT_EXAMPLE)
             analyze.add_argument("--scan-depth", type=int, default=6)
             analyze.add_argument("--review-depth", type=int, default=10)
             analyze.add_argument("--max-reviews", type=int, default=3)
@@ -145,6 +150,21 @@ def main():
             parser.exit(1, f"专家分析失败：{error}\n")
         return
     library = GameLibrary()
+    if args.command == "prepare-review":
+        from chessmuse.autoreview import save_json
+        try:
+            script = (library.import_game(json.loads(Path(args.input).read_text(encoding="utf-8-sig")))
+                      if args.input else library.example(args.example))
+            demo = asyncio.run(library.prepare(script, env_file=args.env_file, rewrite_review=args.rewrite,
+                progress=lambda value, message: print(f"{value}% {message}", flush=True)))
+            if not args.input and args.example == DEFAULT_EXAMPLE:
+                folder = library.game_dir(DEFAULT_EXAMPLE)
+                save_json(PACKAGE / "data" / "modern-review.json", json.loads((folder / "script.json").read_text(encoding="utf-8")))
+                save_json(PACKAGE / "data" / "modern-narration.json", json.loads(library.narration_path(DEFAULT_EXAMPLE).read_text(encoding="utf-8")))
+            print(f"复盘就绪：{len(demo['mainline'])}个半回合，{len(demo['paragraphs'])}段语音")
+        except (ConfigurationError, EngineError, LLMError, OSError, ValueError) as error:
+            parser.exit(1, f"复盘准备失败：{error}\n")
+        return
     if args.command == "prepare-example":
         try:
             asyncio.run(library.prepare(library.example(args.example), force=args.force,
@@ -191,7 +211,7 @@ def main():
                     "-DataDirectory", str(audio_dir.resolve()), "-ScriptPath", str(script_path),
                 ], check=True)
     if args.command != "serve":
-        example_id = getattr(args, "example", "qima-13")
+        example_id = getattr(args, "example", DEFAULT_EXAMPLE)
         demo = compile_demo(library.example(example_id), narration_path=library.narration_path(example_id),
                             audio_dir=library.audio / example_id)
         print(f"验证通过：{len(demo['mainline'])} 个主线半回合，"

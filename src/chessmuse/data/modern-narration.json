@@ -1,0 +1,5116 @@
+{
+  "prompt_version": 1,
+  "requests": [
+    {
+      "id": "fccc376e-b2fc-492f-a85d-43c827c905cd",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 4717,
+        "completion_tokens": 235,
+        "total_tokens": 4952
+      }
+    },
+    {
+      "id": "e061660d-2032-4910-85af-5da92abb1d73",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 4766,
+        "completion_tokens": 267,
+        "total_tokens": 5033
+      }
+    },
+    {
+      "id": "71f309aa-474a-44da-992d-960db83d32b2",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 5056,
+        "completion_tokens": 235,
+        "total_tokens": 5291
+      }
+    },
+    {
+      "id": "015064d3-3413-4924-98cc-35396f1d5995",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 4766,
+        "completion_tokens": 246,
+        "total_tokens": 5012
+      }
+    },
+    {
+      "id": "7df5f1a9-830e-4c57-904f-d2f83f1a169d",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 4812,
+        "completion_tokens": 281,
+        "total_tokens": 5093
+      }
+    },
+    {
+      "id": "ccd7b460-0764-4ea3-8822-3246b01d1222",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 4666,
+        "completion_tokens": 245,
+        "total_tokens": 4911
+      }
+    },
+    {
+      "id": "d95f5209-f5dc-469f-aad4-5d14ced8e13b",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 4768,
+        "completion_tokens": 261,
+        "total_tokens": 5029
+      }
+    },
+    {
+      "id": "8f05c45e-d340-4c8d-8b7b-301e57490517",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 1755,
+        "completion_tokens": 81,
+        "total_tokens": 1836
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "main-5",
+      "facts": {
+        "fen": "rn1akabnr/9/2c1b2c1/p1p1p1p1p/9/2P6/P3P1P1P/1C2C4/9/RNBAKABNR w",
+        "move": "h0g2",
+        "side": "红方",
+        "action": "马二进三",
+        "piece": "马",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "兵七进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮二平三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮二平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "象三进五",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-6",
+      "facts": {
+        "fen": "rn1akabnr/9/2c1b2c1/p1p1p1p1p/9/2P6/P3P1P1P/1C2C1N2/9/RNBAKAB1R b",
+        "move": "c6c5",
+        "side": "黑方",
+        "action": "卒三进一",
+        "piece": "卒",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "兵七进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮二平三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮二平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "象三进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马二进三",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-7",
+      "facts": {
+        "fen": "rn1akabnr/9/2c1b2c1/p3p1p1p/2p6/2P6/P3P1P1P/1C2C1N2/9/RNBAKAB1R w",
+        "move": "i0h0",
+        "side": "红方",
+        "action": "车一平二",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "兵七进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮二平三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮二平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "象三进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马二进三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-8",
+      "facts": {
+        "fen": "rn1akabnr/9/2c1b2c1/p3p1p1p/2p6/2P6/P3P1P1P/1C2C1N2/9/RNBAKABR1 b",
+        "move": "c5c4",
+        "side": "黑方",
+        "action": "卒三进一",
+        "piece": "卒",
+        "capture": "兵",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "炮二平三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮二平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "象三进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马二进三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车一平二",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-9",
+      "facts": {
+        "fen": "rn1akabnr/9/2c1b2c1/p3p1p1p/9/2p6/P3P1P1P/1C2C1N2/9/RNBAKABR1 w",
+        "move": "c0a2",
+        "side": "红方",
+        "action": "相七进九",
+        "piece": "相",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "炮二平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "象三进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马二进三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车一平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-10",
+      "facts": {
+        "fen": "rn1akabnr/9/2c1b2c1/p3p1p1p/9/2p6/P3P1P1P/BC2C1N2/9/RN1AKABR1 b",
+        "move": "i9i8",
+        "side": "黑方",
+        "action": "车九进一",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "象三进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马二进三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车一平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相七进九",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-11",
+      "facts": {
+        "fen": "rn1akabn1/8r/2c1b2c1/p3p1p1p/9/2p6/P3P1P1P/BC2C1N2/9/RN1AKABR1 w",
+        "move": "b0d1",
+        "side": "红方",
+        "action": "马八进六",
+        "piece": "马",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "马二进三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车一平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相七进九",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车九进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-12",
+      "facts": {
+        "fen": "rn1akabn1/8r/2c1b2c1/p3p1p1p/9/2p6/P3P1P1P/BC2C1N2/3N5/R2AKABR1 b",
+        "move": "i8b8",
+        "side": "黑方",
+        "action": "车九平二",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车一平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相七进九",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车九进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马八进六",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-13",
+      "facts": {
+        "fen": "rn1akabn1/1r7/2c1b2c1/p3p1p1p/9/2p6/P3P1P1P/BC2C1N2/3N5/R2AKABR1 w",
+        "move": "h0h4",
+        "side": "红方",
+        "action": "车二进四",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车一平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相七进九",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车九进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马八进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车九平二",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-14",
+      "facts": {
+        "fen": "rn1akabn1/1r7/2c1b2c1/p3p1p1p/9/2p4R1/P3P1P1P/BC2C1N2/3N5/R2AKAB2 b",
+        "move": "b9d8",
+        "side": "黑方",
+        "action": "马二进四",
+        "piece": "马",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "卒三进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相七进九",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车九进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马八进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车九平二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二进四",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-15",
+      "facts": {
+        "fen": "r2akabn1/1r1n5/2c1b2c1/p3p1p1p/9/2p4R1/P3P1P1P/BC2C1N2/3N5/R2AKAB2 w",
+        "move": "h4c4",
+        "side": "红方",
+        "action": "车二平七",
+        "piece": "车",
+        "capture": "卒",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "相七进九",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车九进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马八进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车九平二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二进四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马二进四",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-16",
+      "facts": {
+        "fen": "r2akabn1/1r1n5/2c1b2c1/p3p1p1p/9/2R6/P3P1P1P/BC2C1N2/3N5/R2AKAB2 b",
+        "move": "g6g5",
+        "side": "黑方",
+        "action": "卒七进一",
+        "piece": "卒",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车九进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马八进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车九平二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二进四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马二进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二平七",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-17",
+      "facts": {
+        "fen": "r2akabn1/1r1n5/2c1b2c1/p3p3p/6p2/2R6/P3P1P1P/BC2C1N2/3N5/R2AKAB2 w",
+        "move": "e3e4",
+        "side": "红方",
+        "action": "兵五进一",
+        "piece": "兵",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "马八进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车九平二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二进四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马二进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二平七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒七进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-18",
+      "facts": {
+        "fen": "r2akabn1/1r1n5/2c1b2c1/p3p3p/6p2/2R1P4/P5P1P/BC2C1N2/3N5/R2AKAB2 b",
+        "move": "d9e8",
+        "side": "黑方",
+        "action": "士四进五",
+        "piece": "士",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车九平二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二进四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马二进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二平七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒七进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-19",
+      "facts": {
+        "fen": "r3kabn1/1r1na4/2c1b2c1/p3p3p/6p2/2R1P4/P5P1P/BC2C1N2/3N5/R2AKAB2 w",
+        "move": "g2e3",
+        "side": "红方",
+        "action": "马三进五",
+        "piece": "马",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车二进四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马二进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二平七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒七进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士四进五",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-20",
+      "facts": {
+        "fen": "r3kabn1/1r1na4/2c1b2c1/p3p3p/6p2/2R1P4/P3N1P1P/BC2C4/3N5/R2AKAB2 b",
+        "move": "b8b6",
+        "side": "黑方",
+        "action": "车二进二",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "马二进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二平七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒七进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士四进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马三进五",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-21",
+      "facts": {
+        "fen": "r3kabn1/3na4/2c1b2c1/pr2p3p/6p2/2R1P4/P3N1P1P/BC2C4/3N5/R2AKAB2 w",
+        "move": "e4e5",
+        "side": "红方",
+        "action": "兵五进一",
+        "piece": "兵",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车二平七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒七进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士四进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马三进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二进二",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-22",
+      "facts": {
+        "fen": "r3kabn1/3na4/2c1b2c1/pr2p3p/4P1p2/2R6/P3N1P1P/BC2C4/3N5/R2AKAB2 b",
+        "move": "e6e5",
+        "side": "黑方",
+        "action": "卒五进一",
+        "piece": "卒",
+        "capture": "兵",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "卒七进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士四进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马三进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-23",
+      "facts": {
+        "fen": "r3kabn1/3na4/2c1b2c1/pr6p/4p1p2/2R6/P3N1P1P/BC2C4/3N5/R2AKAB2 w",
+        "move": "c4h4",
+        "side": "红方",
+        "action": "车七平二",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士四进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马三进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒五进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-24",
+      "facts": {
+        "fen": "r3kabn1/3na4/2c1b2c1/pr6p/4p1p2/7R1/P3N1P1P/BC2C4/3N5/R2AKAB2 b",
+        "move": "b6d6",
+        "side": "黑方",
+        "action": "车二平四",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "士四进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马三进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车七平二",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-25",
+      "facts": {
+        "fen": "r3kabn1/3na4/2c1b2c1/p2r4p/4p1p2/7R1/P3N1P1P/BC2C4/3N5/R2AKAB2 w",
+        "move": "e2e5",
+        "side": "红方",
+        "action": "炮五进三",
+        "piece": "炮",
+        "capture": "卒",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "马三进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车七平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-26",
+      "facts": {
+        "fen": "r3kabn1/3na4/2c1b2c1/p2r4p/4C1p2/7R1/P3N1P1P/BC7/3N5/R2AKAB2 b",
+        "move": "a9b9",
+        "side": "黑方",
+        "action": "车一平二",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车二进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车七平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮五进三",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-27",
+      "facts": {
+        "fen": "1r2kabn1/3na4/2c1b2c1/p2r4p/4C1p2/7R1/P3N1P1P/BC7/3N5/R2AKAB2 w",
+        "move": "e5d5",
+        "side": "红方",
+        "action": "炮五平六",
+        "piece": "炮",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "兵五进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "卒五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车七平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车一平二",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-28",
+      "facts": {
+        "fen": "1r2kabn1/3na4/2c1b2c1/p2r4p/3C2p2/7R1/P3N1P1P/BC7/3N5/R2AKAB2 b",
+        "move": "h7h6",
+        "side": "黑方",
+        "action": "炮八进一",
+        "piece": "炮",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "卒五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车七平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车一平二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮五平六",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-29",
+      "facts": {
+        "fen": "1r2kabn1/3na4/2c1b4/p2r3cp/3C2p2/7R1/P3N1P1P/BC7/3N5/R2AKAB2 w",
+        "move": "f0e1",
+        "side": "红方",
+        "action": "仕四进五",
+        "piece": "仕",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车七平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车一平二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮八进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-30",
+      "facts": {
+        "fen": "1r2kabn1/3na4/2c1b4/p2r3cp/3C2p2/7R1/P3N1P1P/BC7/3NA4/R2AK1B2 b",
+        "move": "h6e6",
+        "side": "黑方",
+        "action": "炮八平五",
+        "piece": "炮",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车一平二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮八进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕四进五",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-31",
+      "facts": {
+        "fen": "1r2kabn1/3na4/2c1b4/p2rc3p/3C2p2/7R1/P3N1P1P/BC7/3NA4/R2AK1B2 w",
+        "move": "e0f0",
+        "side": "红方",
+        "action": "帅五平四",
+        "piece": "帅",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车一平二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮八进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕四进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮八平五",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-32",
+      "facts": {
+        "fen": "1r2kabn1/3na4/2c1b4/p2rc3p/3C2p2/7R1/P3N1P1P/BC7/3NA4/R2A1KB2 b",
+        "move": "h9g7",
+        "side": "黑方",
+        "action": "马八进七",
+        "piece": "马",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车一平二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮八进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕四进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮八平五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅五平四",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-33",
+      "facts": {
+        "fen": "1r2kab2/3na4/2c1b1n2/p2rc3p/3C2p2/7R1/P3N1P1P/BC7/3NA4/R2A1KB2 w",
+        "move": "b2d2",
+        "side": "红方",
+        "action": "炮八平六",
+        "piece": "炮",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "炮五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮八进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕四进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮八平五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅五平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马八进七",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-34",
+      "facts": {
+        "fen": "1r2kab2/3na4/2c1b1n2/p2rc3p/3C2p2/7R1/P3N1P1P/B2C5/3NA4/R2A1KB2 b",
+        "move": "d6c6",
+        "side": "黑方",
+        "action": "车四平三",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "炮八进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕四进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮八平五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅五平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马八进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮八平六",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-35",
+      "facts": {
+        "fen": "1r2kab2/3na4/2c1b1n2/p1r1c3p/3C2p2/7R1/P3N1P1P/B2C5/3NA4/R2A1KB2 w",
+        "move": "a2c4",
+        "side": "红方",
+        "action": "相九进七",
+        "piece": "相",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "仕四进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮八平五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅五平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马八进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮八平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四平三",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-36",
+      "facts": {
+        "fen": "1r2kab2/3na4/2c1b1n2/p1r1c3p/3C2p2/2B4R1/P3N1P1P/3C5/3NA4/R2A1KB2 b",
+        "move": "e6e5",
+        "side": "黑方",
+        "action": "炮五进一",
+        "piece": "炮",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "炮八平五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅五平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马八进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮八平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四平三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相九进七",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-37",
+      "facts": {
+        "fen": "1r2kab2/3na4/2c1b1n2/p1r5p/3Cc1p2/2B4R1/P3N1P1P/3C5/3NA4/R2A1KB2 w",
+        "move": "h4f4",
+        "side": "红方",
+        "action": "车二平四",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "帅五平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马八进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮八平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四平三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相九进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-38",
+      "facts": {
+        "fen": "1r2kab2/3na4/2c1b1n2/p1r5p/3Cc1p2/2B2R3/P3N1P1P/3C5/3NA4/R2A1KB2 b",
+        "move": "c6h6",
+        "side": "黑方",
+        "action": "车三平八",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "马八进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮八平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四平三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相九进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二平四",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-39",
+      "facts": {
+        "fen": "1r2kab2/3na4/2c1b1n2/p6rp/3Cc1p2/2B2R3/P3N1P1P/3C5/3NA4/R2A1KB2 w",
+        "move": "d2d8",
+        "side": "红方",
+        "action": "后炮进六",
+        "piece": "炮",
+        "capture": "马",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "炮八平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四平三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相九进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车三平八",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-40",
+      "facts": {
+        "fen": "1r2kab2/3Ca4/2c1b1n2/p6rp/3Cc1p2/2B2R3/P3N1P1P/9/3NA4/R2A1KB2 b",
+        "move": "b9b8",
+        "side": "黑方",
+        "action": "车二进一",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车四平三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相九进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车三平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "后炮进六",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-41",
+      "facts": {
+        "fen": "4kab2/1r1Ca4/2c1b1n2/p6rp/3Cc1p2/2B2R3/P3N1P1P/9/3NA4/R2A1KB2 w",
+        "move": "a0b0",
+        "side": "红方",
+        "action": "车九平八",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "相九进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车三平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "后炮进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-42",
+      "facts": {
+        "fen": "4kab2/1r1Ca4/2c1b1n2/p6rp/3Cc1p2/2B2R3/P3N1P1P/9/3NA4/1R1A1KB2 b",
+        "move": "b8d8",
+        "side": "黑方",
+        "action": "车二平四",
+        "piece": "车",
+        "capture": "炮",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "炮五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车三平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "后炮进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车九平八",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-43",
+      "facts": {
+        "fen": "4kab2/3ra4/2c1b1n2/p6rp/3Cc1p2/2B2R3/P3N1P1P/9/3NA4/1R1A1KB2 w",
+        "move": "c4e2",
+        "side": "红方",
+        "action": "相七退五",
+        "piece": "相",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车三平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "后炮进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车九平八",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-44",
+      "facts": {
+        "fen": "4kab2/3ra4/2c1b1n2/p6rp/3Cc1p2/5R3/P3N1P1P/4B4/3NA4/1R1A1KB2 b",
+        "move": "d8d9",
+        "side": "黑方",
+        "action": "车四退一",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车三平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "后炮进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车九平八",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相七退五",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-45",
+      "facts": {
+        "fen": "3rkab2/4a4/2c1b1n2/p6rp/3Cc1p2/5R3/P3N1P1P/4B4/3NA4/1R1A1KB2 w",
+        "move": "g3g4",
+        "side": "红方",
+        "action": "兵三进一",
+        "piece": "兵",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "后炮进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车九平八",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相七退五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四退一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-46",
+      "facts": {
+        "fen": "3rkab2/4a4/2c1b1n2/p6rp/3Cc1p2/5RP2/P3N3P/4B4/3NA4/1R1A1KB2 b",
+        "move": "g7e6",
+        "side": "黑方",
+        "action": "马七进五",
+        "piece": "马",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车二进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车九平八",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相七退五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-47",
+      "facts": {
+        "fen": "3rkab2/4a4/2c1b4/p3n2rp/3Cc1p2/5RP2/P3N3P/4B4/3NA4/1R1A1KB2 w",
+        "move": "f4f5",
+        "side": "红方",
+        "action": "车四进一",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车九平八",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相七退五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马七进五",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-48",
+      "facts": {
+        "fen": "3rkab2/4a4/2c1b4/p3n2rp/3CcRp2/6P2/P3N3P/4B4/3NA4/1R1A1KB2 b",
+        "move": "c7c5",
+        "side": "黑方",
+        "action": "炮三进二",
+        "piece": "炮",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车二平四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相七退五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马七进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-49",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n2rp/2cCcRp2/6P2/P3N3P/4B4/3NA4/1R1A1KB2 w",
+        "move": "g4g5",
+        "side": "红方",
+        "action": "兵三进一",
+        "piece": "兵",
+        "capture": "卒",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "相七退五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马七进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进二",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-50",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n2rp/2cCcRP2/9/P3N3P/4B4/3NA4/1R1A1KB2 b",
+        "move": "e5e2",
+        "side": "黑方",
+        "action": "炮五进三",
+        "piece": "炮",
+        "capture": "相",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车四退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马七进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "n50-branch-0",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n2rp/2cC1RP2/9/P3N3P/4c4/3NA4/1R1A1KB2 w",
+        "move": "g5h5",
+        "side": "红方",
+        "action": "兵三平二",
+        "piece": "兵",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马七进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-1",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n2rp/2cC1R1P1/9/P3N3P/4c4/3NA4/1R1A1KB2 b",
+        "move": "h6g6",
+        "side": "黑方",
+        "action": "车八平七",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "马七进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三平二",
+          "gives_check": false
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-2",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n1r1p/2cC1R1P1/9/P3N3P/4c4/3NA4/1R1A1KB2 w",
+        "move": "h5g5",
+        "side": "红方",
+        "action": "兵二平三",
+        "piece": "兵",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": false
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-3",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n1r1p/2cC1RP2/9/P3N3P/4c4/3NA4/1R1A1KB2 b",
+        "move": "e6g5",
+        "side": "黑方",
+        "action": "马五进七",
+        "piece": "马",
+        "capture": "兵",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "炮三进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵二平三",
+          "gives_check": false
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-4",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p5r1p/2cC1Rn2/9/P3N3P/4c4/3NA4/1R1A1KB2 w",
+        "move": "d5g5",
+        "side": "红方",
+        "action": "炮六平三",
+        "piece": "炮",
+        "capture": "马",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵二平三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马五进七",
+          "gives_check": false
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-5",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p5r1p/2c2RC2/9/P3N3P/4c4/3NA4/1R1A1KB2 b",
+        "move": "g6g5",
+        "side": "黑方",
+        "action": "车七进一",
+        "piece": "车",
+        "capture": "炮",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵二平三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮六平三",
+          "gives_check": false
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-6",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p7p/2c2Rr2/9/P3N3P/4c4/3NA4/1R1A1KB2 w",
+        "move": "g0e2",
+        "side": "红方",
+        "action": "相三进五",
+        "piece": "相",
+        "capture": "炮",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "兵三平二",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵二平三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮六平三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七进一",
+          "gives_check": false
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-7",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p7p/2c2Rr2/9/P3N3P/4B4/3NA4/1R1A1K3 b",
+        "move": "g5f5",
+        "side": "黑方",
+        "action": "车七平六",
+        "piece": "车",
+        "capture": "车",
+        "gives_check": true,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵二平三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮六平三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相三进五",
+          "gives_check": false
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-8",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p7p/2c2r3/9/P3N3P/4B4/3NA4/1R1A1K3 w",
+        "move": "e3f5",
+        "side": "红方",
+        "action": "马五进四",
+        "piece": "马",
+        "capture": "车",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "兵二平三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮六平三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相三进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七平六",
+          "gives_check": true
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-9",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p7p/2c2N3/9/P7P/4B4/3NA4/1R1A1K3 b",
+        "move": "d9d1",
+        "side": "黑方",
+        "action": "车四进八",
+        "piece": "车",
+        "capture": "马",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮六平三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相三进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七平六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "马五进四",
+          "gives_check": false
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-10",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/2c2N3/9/P7P/4B4/3rA4/1R1A1K3 w",
+        "move": "b0b6",
+        "side": "红方",
+        "action": "车八进六",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "炮六平三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相三进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七平六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "马五进四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四进八",
+          "gives_check": false
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "n50-branch-11",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/pR6p/2c2N3/9/P7P/4B4/3rA4/3A1K3 b",
+        "move": "d1d5",
+        "side": "黑方",
+        "action": "车四退四",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车七进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "相三进五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七平六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "马五进四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四进八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进六",
+          "gives_check": false
+        }
+      ],
+      "branch": "炮吃相后局面仍平 · 换个走法"
+    },
+    {
+      "id": "main-51",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n2rp/2cC1RP2/9/P3N3P/4c4/3NA4/1R1A1KB2 w",
+        "move": "f5f2",
+        "side": "红方",
+        "action": "车四退三",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马七进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-52",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n2rp/2cC2P2/9/P3N3P/4cR3/3NA4/1R1A1KB2 b",
+        "move": "h6h0",
+        "side": "黑方",
+        "action": "车八进六",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "马七进五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四退三",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-53",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n3p/2cC2P2/9/P3N3P/4cR3/3NA4/1R1A1KBr1 w",
+        "move": "f2e2",
+        "side": "红方",
+        "action": "车四平五",
+        "piece": "车",
+        "capture": "炮",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四退三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进六",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-54",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n3p/2cC2P2/9/P3N3P/4R4/3NA4/1R1A1KBr1 b",
+        "move": "h0g0",
+        "side": "黑方",
+        "action": "车八平七",
+        "piece": "车",
+        "capture": "相",
+        "gives_check": true,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "炮三进二",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四退三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进六",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四平五",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-55",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n3p/2cC2P2/9/P3N3P/4R4/3NA4/1R1A1Kr2 w",
+        "move": "f0f1",
+        "side": "红方",
+        "action": "帅四进一",
+        "piece": "帅",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "兵三进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四退三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进六",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": true
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-56",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p3n3p/2cC2P2/9/P3N3P/4R4/3NAK3/1R1A2r2 b",
+        "move": "e6f4",
+        "side": "黑方",
+        "action": "马五进六",
+        "piece": "马",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "炮五进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四退三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进六",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-57",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p7p/2cC2P2/5n3/P3N3P/4R4/3NAK3/1R1A2r2 w",
+        "move": "e2d2",
+        "side": "红方",
+        "action": "车五平六",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车四退三",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进六",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马五进六",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-58",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p7p/2cC2P2/5n3/P3N3P/3R5/3NAK3/1R1A2r2 b",
+        "move": "g0g5",
+        "side": "黑方",
+        "action": "车七退五",
+        "piece": "车",
+        "capture": "兵",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车八进六",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马五进六",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车五平六",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-59",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p7p/2cC2r2/5n3/P3N3P/3R5/3NAK3/1R1A5 w",
+        "move": "d5f5",
+        "side": "红方",
+        "action": "炮六平四",
+        "piece": "炮",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马五进六",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七退五",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-60",
+      "facts": {
+        "fen": "3rkab2/4a4/4b4/p7p/2c2Cr2/5n3/P3N3P/3R5/3NAK3/1R1A5 b",
+        "move": "d9d2",
+        "side": "黑方",
+        "action": "车四进七",
+        "piece": "车",
+        "capture": "车",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车八平七",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马五进六",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七退五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮六平四",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-61",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/2c2Cr2/5n3/P3N3P/3r5/3NAK3/1R1A5 w",
+        "move": "e1d2",
+        "side": "红方",
+        "action": "仕五进六",
+        "piece": "仕",
+        "capture": "车",
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马五进六",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七退五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮六平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四进七",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-62",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/2c2Cr2/5n3/P3N3P/3A5/3N1K3/1R1A5 b",
+        "move": "f4d5",
+        "side": "黑方",
+        "action": "马六退四",
+        "piece": "马",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "马五进六",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七退五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮六平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕五进六",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-63",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/2cn1Cr2/9/P3N3P/3A5/3N1K3/1R1A5 w",
+        "move": "d2e1",
+        "side": "红方",
+        "action": "仕六退五",
+        "piece": "仕",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七退五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮六平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕五进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马六退四",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-64",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/2cn1Cr2/9/P3N3P/9/3NAK3/1R1A5 b",
+        "move": "c5c1",
+        "side": "黑方",
+        "action": "炮三进四",
+        "piece": "炮",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车七退五",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "炮六平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕五进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马六退四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕六退五",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-65",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/3n1Cr2/9/P3N3P/9/2cNAK3/1R1A5 w",
+        "move": "f1f2",
+        "side": "红方",
+        "action": "帅四进一",
+        "piece": "帅",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "炮六平四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车四进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕五进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马六退四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕六退五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进四",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-66",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/3n1Cr2/9/P3N3P/5K3/2cNA4/1R1A5 b",
+        "move": "g5h5",
+        "side": "黑方",
+        "action": "车七平八",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车四进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕五进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马六退四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕六退五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-67",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/3n1C1r1/9/P3N3P/5K3/2cNA4/1R1A5 w",
+        "move": "f2e2",
+        "side": "红方",
+        "action": "帅四平五",
+        "piece": "帅",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "仕五进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马六退四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕六退五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七平八",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-68",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/3n1C1r1/9/P3N3P/4K4/2cNA4/1R1A5 b",
+        "move": "d5f4",
+        "side": "黑方",
+        "action": "马四进六",
+        "piece": "马",
+        "capture": null,
+        "gives_check": true,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "马六退四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "仕六退五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-69",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/5C1r1/5n3/P3N3P/4K4/2cNA4/1R1A5 w",
+        "move": "e2d2",
+        "side": "红方",
+        "action": "帅五平六",
+        "piece": "帅",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "仕六退五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-70",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/5C1r1/5n3/P3N3P/3K5/2cNA4/1R1A5 b",
+        "move": "h5h6",
+        "side": "黑方",
+        "action": "车八退一",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "炮三进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "n70-branch-0",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/5C1r1/5n3/P3N3P/3K5/2cNA4/1R1A5 b",
+        "move": "h5h2",
+        "side": "黑方",
+        "action": "车八进三",
+        "piece": "车",
+        "capture": null,
+        "gives_check": true,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "炮三进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        }
+      ],
+      "branch": "黑方退车让出先手 · 换个走法"
+    },
+    {
+      "id": "n70-branch-1",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/5C3/5n3/P3N3P/3K3r1/2cNA4/1R1A5 w",
+        "move": "e1f2",
+        "side": "红方",
+        "action": "仕五进四",
+        "piece": "仕",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进三",
+          "gives_check": true
+        }
+      ],
+      "branch": "黑方退车让出先手 · 换个走法"
+    },
+    {
+      "id": "n70-branch-2",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p7p/5C3/5n3/P3N3P/3K1A1r1/2cN5/1R1A5 b",
+        "move": "c1c9",
+        "side": "黑方",
+        "action": "炮三退八",
+        "piece": "炮",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车七平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进三",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "仕五进四",
+          "gives_check": false
+        }
+      ],
+      "branch": "黑方退车让出先手 · 换个走法"
+    },
+    {
+      "id": "n70-branch-3",
+      "facts": {
+        "fen": "2c1kab2/4a4/4b4/p7p/5C3/5n3/P3N3P/3K1A1r1/3N5/1R1A5 w",
+        "move": "b0b4",
+        "side": "红方",
+        "action": "车八进四",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进三",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "仕五进四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三退八",
+          "gives_check": false
+        }
+      ],
+      "branch": "黑方退车让出先手 · 换个走法"
+    },
+    {
+      "id": "n70-branch-4",
+      "facts": {
+        "fen": "2c1kab2/4a4/4b4/p7p/5C3/1R3n3/P3N3P/3K1A1r1/3N5/3A5 b",
+        "move": "h2h3",
+        "side": "黑方",
+        "action": "车八退一",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进三",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "仕五进四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三退八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进四",
+          "gives_check": false
+        }
+      ],
+      "branch": "黑方退车让出先手 · 换个走法"
+    },
+    {
+      "id": "n70-branch-5",
+      "facts": {
+        "fen": "2c1kab2/4a4/4b4/p7p/5C3/1R3n3/P3N2rP/3K1A3/3N5/3A5 w",
+        "move": "b4e4",
+        "side": "红方",
+        "action": "车八平五",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进三",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "仕五进四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "炮三退八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进四",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        }
+      ],
+      "branch": "黑方退车让出先手 · 换个走法"
+    },
+    {
+      "id": "main-71",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p6rp/5C3/5n3/P3N3P/3K5/2cNA4/1R1A5 w",
+        "move": "e3c4",
+        "side": "红方",
+        "action": "马五进七",
+        "piece": "马",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "帅四进一",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车七平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-72",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p6rp/5C3/2N2n3/P7P/3K5/2cNA4/1R1A5 b",
+        "move": "e8d9",
+        "side": "黑方",
+        "action": "士五退四",
+        "piece": "士",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车七平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "n72-branch-0",
+      "facts": {
+        "fen": "4kab2/4a4/4b4/p6rp/5C3/2N2n3/P7P/3K5/2cNA4/1R1A5 b",
+        "move": "e8d7",
+        "side": "黑方",
+        "action": "士五进四",
+        "piece": "士",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车七平八",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        }
+      ],
+      "branch": "退士到底线，红车压上 · 换个走法"
+    },
+    {
+      "id": "n72-branch-1",
+      "facts": {
+        "fen": "4kab2/9/3ab4/p6rp/5C3/2N2n3/P7P/3K5/2cNA4/1R1A5 w",
+        "move": "b0b9",
+        "side": "红方",
+        "action": "车八进九",
+        "piece": "车",
+        "capture": null,
+        "gives_check": true,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士五进四",
+          "gives_check": false
+        }
+      ],
+      "branch": "退士到底线，红车压上 · 换个走法"
+    },
+    {
+      "id": "n72-branch-2",
+      "facts": {
+        "fen": "1R2kab2/9/3ab4/p6rp/5C3/2N2n3/P7P/3K5/2cNA4/3A5 b",
+        "move": "e7c9",
+        "side": "黑方",
+        "action": "象五退三",
+        "piece": "象",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士五进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进九",
+          "gives_check": true
+        }
+      ],
+      "branch": "退士到底线，红车压上 · 换个走法"
+    },
+    {
+      "id": "n72-branch-3",
+      "facts": {
+        "fen": "1Rb1kab2/9/3a5/p6rp/5C3/2N2n3/P7P/3K5/2cNA4/3A5 w",
+        "move": "b9b3",
+        "side": "红方",
+        "action": "车八退六",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士五进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进九",
+          "gives_check": true
+        },
+        {
+          "side": "黑方",
+          "action": "象五退三",
+          "gives_check": false
+        }
+      ],
+      "branch": "退士到底线，红车压上 · 换个走法"
+    },
+    {
+      "id": "n72-branch-4",
+      "facts": {
+        "fen": "2b1kab2/9/3a5/p6rp/5C3/2N2n3/PR6P/3K5/2cNA4/3A5 b",
+        "move": "f4g2",
+        "side": "黑方",
+        "action": "马六进七",
+        "piece": "马",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士五进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进九",
+          "gives_check": true
+        },
+        {
+          "side": "黑方",
+          "action": "象五退三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八退六",
+          "gives_check": false
+        }
+      ],
+      "branch": "退士到底线，红车压上 · 换个走法"
+    },
+    {
+      "id": "n72-branch-5",
+      "facts": {
+        "fen": "2b1kab2/9/3a5/p6rp/5C3/2N6/PR6P/3K2n2/2cNA4/3A5 w",
+        "move": "e1f2",
+        "side": "红方",
+        "action": "仕五进四",
+        "piece": "仕",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士五进四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进九",
+          "gives_check": true
+        },
+        {
+          "side": "黑方",
+          "action": "象五退三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八退六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马六进七",
+          "gives_check": false
+        }
+      ],
+      "branch": "退士到底线，红车压上 · 换个走法"
+    },
+    {
+      "id": "main-73",
+      "facts": {
+        "fen": "3akab2/9/4b4/p6rp/5C3/2N2n3/P7P/3K5/2cNA4/1R1A5 w",
+        "move": "b0b6",
+        "side": "红方",
+        "action": "车八进六",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "帅四平五",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士五退四",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-74",
+      "facts": {
+        "fen": "3akab2/9/4b4/pR5rp/5C3/2N2n3/P7P/3K5/2cNA4/3A5 b",
+        "move": "h6h3",
+        "side": "黑方",
+        "action": "车八进三",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "马四进六",
+          "gives_check": true
+        },
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士五退四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进六",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-75",
+      "facts": {
+        "fen": "3akab2/9/4b4/pR6p/5C3/2N2n3/P6rP/3K5/2cNA4/3A5 w",
+        "move": "b6d6",
+        "side": "红方",
+        "action": "车八平六",
+        "piece": "车",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "帅五平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士五退四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进三",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-76",
+      "facts": {
+        "fen": "3akab2/9/4b4/p2R4p/5C3/2N2n3/P6rP/3K5/2cNA4/3A5 b",
+        "move": "e7g5",
+        "side": "黑方",
+        "action": "象五进七",
+        "piece": "象",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车八退一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士五退四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八平六",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-77",
+      "facts": {
+        "fen": "3akab2/9/9/p2R4p/5Cb2/2N2n3/P6rP/3K5/2cNA4/3A5 w",
+        "move": "d6d9",
+        "side": "红方",
+        "action": "车六进三",
+        "piece": "车",
+        "capture": "士",
+        "gives_check": true,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "马五进七",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "士五退四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "象五进七",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-78",
+      "facts": {
+        "fen": "3Rkab2/9/9/p7p/5Cb2/2N2n3/P6rP/3K5/2cNA4/3A5 b",
+        "move": "e9e8",
+        "side": "黑方",
+        "action": "将五进一",
+        "piece": "将",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "士五退四",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "象五进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车六进三",
+          "gives_check": true
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-79",
+      "facts": {
+        "fen": "3R1ab2/4k4/9/p7p/5Cb2/2N2n3/P6rP/3K5/2cNA4/3A5 w",
+        "move": "c4d6",
+        "side": "红方",
+        "action": "马七进六",
+        "piece": "马",
+        "capture": null,
+        "gives_check": true,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车八进六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "车八进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "象五进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车六进三",
+          "gives_check": true
+        },
+        {
+          "side": "黑方",
+          "action": "将五进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-80",
+      "facts": {
+        "fen": "3R1ab2/4k4/9/p2N4p/5Cb2/5n3/P6rP/3K5/2cNA4/3A5 b",
+        "move": "e8e7",
+        "side": "黑方",
+        "action": "将五进一",
+        "piece": "将",
+        "capture": null,
+        "gives_check": false,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "黑方",
+          "action": "车八进三",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车八平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "象五进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车六进三",
+          "gives_check": true
+        },
+        {
+          "side": "黑方",
+          "action": "将五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马七进六",
+          "gives_check": true
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "main-81",
+      "facts": {
+        "fen": "3R1ab2/9/4k4/p2N4p/5Cb2/5n3/P6rP/3K5/2cNA4/3A5 w",
+        "move": "d6c8",
+        "side": "红方",
+        "action": "前马进七",
+        "piece": "马",
+        "capture": null,
+        "gives_check": true,
+        "verified_labels": []
+      },
+      "history": [
+        {
+          "side": "红方",
+          "action": "车八平六",
+          "gives_check": false
+        },
+        {
+          "side": "黑方",
+          "action": "象五进七",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "车六进三",
+          "gives_check": true
+        },
+        {
+          "side": "黑方",
+          "action": "将五进一",
+          "gives_check": false
+        },
+        {
+          "side": "红方",
+          "action": "马七进六",
+          "gives_check": true
+        },
+        {
+          "side": "黑方",
+          "action": "将五进一",
+          "gives_check": false
+        }
+      ],
+      "branch": null
+    }
+  ],
+  "announcements": [
+    {
+      "id": "main-5",
+      "text": "红方跳马"
+    },
+    {
+      "id": "main-6",
+      "text": "黑方进卒"
+    },
+    {
+      "id": "main-7",
+      "text": "红方起车"
+    },
+    {
+      "id": "main-8",
+      "text": "黑方进卒吃兵"
+    },
+    {
+      "id": "main-9",
+      "text": "红方飞相"
+    },
+    {
+      "id": "main-10",
+      "text": "黑方起车"
+    },
+    {
+      "id": "main-11",
+      "text": "红方跳马"
+    },
+    {
+      "id": "main-12",
+      "text": "黑方平车"
+    },
+    {
+      "id": "main-13",
+      "text": "红方进车"
+    },
+    {
+      "id": "main-14",
+      "text": "黑方跳马"
+    },
+    {
+      "id": "main-15",
+      "text": "红方平车吃卒"
+    },
+    {
+      "id": "main-16",
+      "text": "黑方进卒"
+    },
+    {
+      "id": "main-17",
+      "text": "红方进兵"
+    },
+    {
+      "id": "main-18",
+      "text": "黑方上士"
+    },
+    {
+      "id": "main-19",
+      "text": "红方跳马"
+    },
+    {
+      "id": "main-20",
+      "text": "黑方进车"
+    },
+    {
+      "id": "main-21",
+      "text": "红方进兵"
+    },
+    {
+      "id": "main-22",
+      "text": "黑方进卒吃兵"
+    },
+    {
+      "id": "main-23",
+      "text": "红方平车"
+    },
+    {
+      "id": "main-24",
+      "text": "黑方平车"
+    },
+    {
+      "id": "main-25",
+      "text": "红方进炮吃卒"
+    },
+    {
+      "id": "main-26",
+      "text": "黑方出车"
+    },
+    {
+      "id": "main-27",
+      "text": "红方平炮"
+    },
+    {
+      "id": "main-28",
+      "text": "黑方进炮"
+    },
+    {
+      "id": "main-29",
+      "text": "红方上仕"
+    },
+    {
+      "id": "main-30",
+      "text": "黑方平炮"
+    },
+    {
+      "id": "main-31",
+      "text": "红方平帅"
+    },
+    {
+      "id": "main-32",
+      "text": "黑方跳马"
+    },
+    {
+      "id": "main-33",
+      "text": "红方平炮"
+    },
+    {
+      "id": "main-34",
+      "text": "黑方平车"
+    },
+    {
+      "id": "main-35",
+      "text": "红方飞相"
+    },
+    {
+      "id": "main-36",
+      "text": "黑方进炮"
+    },
+    {
+      "id": "main-37",
+      "text": "红方平车"
+    },
+    {
+      "id": "main-38",
+      "text": "黑方平车"
+    },
+    {
+      "id": "main-39",
+      "text": "红方后炮进吃马"
+    },
+    {
+      "id": "main-40",
+      "text": "黑方进车"
+    },
+    {
+      "id": "main-41",
+      "text": "红方平车"
+    },
+    {
+      "id": "main-42",
+      "text": "黑方平车吃炮"
+    },
+    {
+      "id": "main-43",
+      "text": "红方退相"
+    },
+    {
+      "id": "main-44",
+      "text": "黑方退车"
+    },
+    {
+      "id": "main-45",
+      "text": "红方进兵"
+    },
+    {
+      "id": "main-46",
+      "text": "黑方跳马"
+    },
+    {
+      "id": "main-47",
+      "text": "红方进车"
+    },
+    {
+      "id": "main-48",
+      "text": "黑方进炮"
+    },
+    {
+      "id": "main-49",
+      "text": "红方进兵吃卒"
+    },
+    {
+      "id": "main-50",
+      "text": "黑方进炮吃相"
+    },
+    {
+      "id": "n50-branch-0",
+      "text": "红方平兵"
+    },
+    {
+      "id": "n50-branch-1",
+      "text": "黑方平车"
+    },
+    {
+      "id": "n50-branch-2",
+      "text": "红方平兵"
+    },
+    {
+      "id": "n50-branch-3",
+      "text": "黑方跳马吃兵"
+    },
+    {
+      "id": "n50-branch-4",
+      "text": "红方平炮吃马"
+    },
+    {
+      "id": "n50-branch-5",
+      "text": "黑方进车吃炮"
+    },
+    {
+      "id": "n50-branch-6",
+      "text": "红方飞相吃炮"
+    },
+    {
+      "id": "n50-branch-7",
+      "text": "黑方平车吃车将军"
+    },
+    {
+      "id": "n50-branch-8",
+      "text": "红方跳马吃车"
+    },
+    {
+      "id": "n50-branch-9",
+      "text": "黑方进车吃马"
+    },
+    {
+      "id": "n50-branch-10",
+      "text": "红方进车"
+    },
+    {
+      "id": "n50-branch-11",
+      "text": "黑方退车"
+    },
+    {
+      "id": "main-51",
+      "text": "红方退车"
+    },
+    {
+      "id": "main-52",
+      "text": "黑方进车"
+    },
+    {
+      "id": "main-53",
+      "text": "红方平车吃炮"
+    },
+    {
+      "id": "main-54",
+      "text": "黑方平车吃相将军"
+    },
+    {
+      "id": "main-55",
+      "text": "红方进帅"
+    },
+    {
+      "id": "main-56",
+      "text": "黑方跳马"
+    },
+    {
+      "id": "main-57",
+      "text": "红方平车"
+    },
+    {
+      "id": "main-58",
+      "text": "黑方退车吃兵"
+    },
+    {
+      "id": "main-59",
+      "text": "红方平炮"
+    },
+    {
+      "id": "main-60",
+      "text": "黑方进车吃车"
+    },
+    {
+      "id": "main-61",
+      "text": "红方仕吃车"
+    },
+    {
+      "id": "main-62",
+      "text": "黑方退马"
+    },
+    {
+      "id": "main-63",
+      "text": "红方退仕"
+    },
+    {
+      "id": "main-64",
+      "text": "黑方进炮"
+    },
+    {
+      "id": "main-65",
+      "text": "红方帅进一"
+    },
+    {
+      "id": "main-66",
+      "text": "黑方平车"
+    },
+    {
+      "id": "main-67",
+      "text": "红方平帅"
+    },
+    {
+      "id": "main-68",
+      "text": "黑方跳马将军"
+    },
+    {
+      "id": "main-69",
+      "text": "红方平帅"
+    },
+    {
+      "id": "main-70",
+      "text": "黑方退车"
+    },
+    {
+      "id": "n70-branch-0",
+      "text": "黑方进车将军"
+    },
+    {
+      "id": "n70-branch-1",
+      "text": "红方进仕"
+    },
+    {
+      "id": "n70-branch-2",
+      "text": "黑方退炮"
+    },
+    {
+      "id": "n70-branch-3",
+      "text": "红方进车"
+    },
+    {
+      "id": "n70-branch-4",
+      "text": "黑方退车"
+    },
+    {
+      "id": "n70-branch-5",
+      "text": "红方平车"
+    },
+    {
+      "id": "main-71",
+      "text": "红方跳马"
+    },
+    {
+      "id": "main-72",
+      "text": "黑方退士"
+    },
+    {
+      "id": "n72-branch-0",
+      "text": "黑方进士"
+    },
+    {
+      "id": "n72-branch-1",
+      "text": "红方进车将军"
+    },
+    {
+      "id": "n72-branch-2",
+      "text": "黑方退象"
+    },
+    {
+      "id": "n72-branch-3",
+      "text": "红方退车"
+    },
+    {
+      "id": "n72-branch-4",
+      "text": "黑方跳马"
+    },
+    {
+      "id": "n72-branch-5",
+      "text": "红方撑仕"
+    },
+    {
+      "id": "main-73",
+      "text": "红方进车"
+    },
+    {
+      "id": "main-74",
+      "text": "黑方进车"
+    },
+    {
+      "id": "main-75",
+      "text": "红方平车"
+    },
+    {
+      "id": "main-76",
+      "text": "黑方飞象"
+    },
+    {
+      "id": "main-77",
+      "text": "红方进车吃士将军"
+    },
+    {
+      "id": "main-78",
+      "text": "黑方上将"
+    },
+    {
+      "id": "main-79",
+      "text": "红方跳马将军"
+    },
+    {
+      "id": "main-80",
+      "text": "黑方再上将"
+    },
+    {
+      "id": "main-81",
+      "text": "红方跳马将军"
+    }
+  ]
+}

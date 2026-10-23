@@ -206,3 +206,38 @@ test('automatic restoration waits for its animation before starting the next nar
   tick(649);assert.equal(player.index,2);
   tick(1);assert.equal(player.index,3);
 });
+
+
+function openingSetup() {
+  const env=setup();
+  env.player.demo.events=[{type:'move_group',paragraph:'one',animation_ms:350,
+    before_state:{fen:'before',caption:'one'},frames:[0,1,2,3].map(i=>({state:{fen:'step'+i,caption:'one'}})),
+    state:{fen:'step3',caption:'one'}},{type:'speak',paragraph:'move',state:{fen:'step3'}}];
+  env.player.seek(0);
+  return env;
+}
+
+test('one opening phrase advances several verified moves and pause preserves its step time',async()=>{
+  const {player,tick,renders,audio}=openingSetup();
+  assert.equal(renders.at(-1).fen,'before');
+  await player.play();assert.equal(renders.at(-1).fen,'step0');
+  tick(1250);assert.equal(renders.at(-1).fen,'step1');
+  tick(500);audio.currentTime=1.75;player.pause();
+  tick(5000);assert.equal(renders.at(-1).fen,'step1');
+  await player.play();assert.equal(audio.currentTime,1.75);
+  tick(749);assert.equal(renders.at(-1).fen,'step1');
+  tick(1);assert.equal(renders.at(-1).fen,'step2');
+  tick(1250);assert.equal(renders.at(-1).fen,'step3');
+  audio.onended();assert.equal(player.index,1);
+});
+
+test('opening steps wait for real audio, stop on buffering and never leak after seek',async()=>{
+  const {player,tick,renders,audio,jobs}=openingSetup();
+  let resolve;audio.play=()=>new Promise(done=>{resolve=done;});
+  const pending=player.play();tick(5000);assert.equal(renders.at(-1).fen,'before');
+  resolve();await pending;
+  tick(250);audio.onwaiting();tick(5000);assert.equal(renders.at(-1).fen,'step0');
+  audio.onplaying();tick(999);assert.equal(renders.at(-1).fen,'step0');
+  tick(1);assert.equal(renders.at(-1).fen,'step1');
+  player.seek(1);tick(10000);assert.equal(player.index,1);assert.equal(jobs.size,0);
+});
