@@ -233,7 +233,7 @@ async function openGame(payload) {
 }
 
 async function start() {
-  const response=await fetch("/api/examples");
+  const response=await fetch("api/examples");
   if(!response.ok) throw new Error("无法读取示例棋谱");
   const catalog=await response.json();
   $("example-select").replaceChildren();
@@ -241,7 +241,7 @@ async function start() {
     const option=document.createElement("option");option.value=example.id;option.textContent=example.title;
     $("example-select").append(option);
   }
-  const updateDownload=()=>$("download-example").href=`/api/examples/${$("example-select").value}/download`;
+  const updateDownload=()=>$("download-example").href=`api/examples/${$("example-select").value}/download`;
   $("example-select").onchange=updateDownload;updateDownload();
   $("load-example").onclick=()=>openGame({example_id:$("example-select").value});
   $("game-file").onchange=async event=>{

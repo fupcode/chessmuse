@@ -44,7 +44,7 @@ def test_sample_preparation_reuses_audio_without_llm_credentials(demo_audio, mon
     assert values == sorted(values)
     assert values[-1] == 100
     assert len(result["paragraphs"]) == 15
-    assert all(p["audio"].startswith("/audio/opening-v1/") for p in result["paragraphs"])
+    assert all(p["audio"].startswith("/chessmuse/audio/opening-v1/") for p in result["paragraphs"])
 
 
 def test_http_import_returns_real_job_progress_and_errors(tmp_path, monkeypatch):
@@ -63,13 +63,13 @@ def test_http_import_returns_real_job_progress_and_errors(tmp_path, monkeypatch)
         thread.start()
         base = f"http://127.0.0.1:{server.server_port}"
         def post(payload, **headers):
-            return urlopen(Request(base + "/api/import", data=json.dumps(payload).encode(),
+            return urlopen(Request(base + "/chessmuse/api/import", data=json.dumps(payload).encode(),
                 headers={"Content-Type": "application/json", **headers}))
         try:
-            with urlopen(base + "/api/examples") as response:
+            with urlopen(base + "/chessmuse/api/examples") as response:
                 assert {entry["id"] for entry in json.load(response)["examples"]} == {
                     "cao-wang-2025", "qima-13", "horse-opening"}
-            with urlopen(base + "/api/examples/horse-opening/download") as response:
+            with urlopen(base + "/chessmuse/api/examples/horse-opening/download") as response:
                 source = json.load(response)
                 assert source["moves"] == ["h0g2", "h9g7", "b0c2", "b9c7"]
             with post({"game": source}) as response:
@@ -77,7 +77,7 @@ def test_http_import_returns_real_job_progress_and_errors(tmp_path, monkeypatch)
                 job_id = json.load(response)["job_id"]
             deadline = time.monotonic() + 2
             while True:
-                with urlopen(base + "/api/jobs/" + job_id) as response:
+                with urlopen(base + "/chessmuse/api/jobs/" + job_id) as response:
                     status = json.load(response)
                 if status["status"] == "complete":
                     break
@@ -92,7 +92,7 @@ def test_http_import_returns_real_job_progress_and_errors(tmp_path, monkeypatch)
                 post({"example_id": "opening-v1"}, Origin="https://other.example")
             assert error.value.code == 403
             with pytest.raises(HTTPError) as error:
-                urlopen(base + "/audio/opening-v1/../../.env")
+                urlopen(base + "/chessmuse/audio/opening-v1/../../.env")
             assert error.value.code == 404
         finally:
             server.shutdown()

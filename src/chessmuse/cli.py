@@ -12,6 +12,7 @@ from tempfile import TemporaryDirectory
 from cchess import FULL_INIT_FEN
 
 from chessmuse.demo import compile_demo
+from chessmuse.urls import BASE_URL
 from chessmuse.library import DEFAULT_EXAMPLE, GameLibrary
 from chessmuse.server import DemoHandler, ImportJobs
 from chessmuse.llm import ConfigurationError, DeepSeekClient, DeepSeekSettings, LLMError, Message
@@ -221,7 +222,7 @@ def main():
     handler = partial(DemoHandler, library=library, jobs=jobs)
     try:
         with ThreadingHTTPServer((args.host, args.port), handler) as server:
-            print(f"棋妙已启动：http://{args.host}:{server.server_port}（Ctrl+C 停止）", flush=True)
+            print(f"棋妙已启动：http://{args.host}:{server.server_port}{BASE_URL}（Ctrl+C 停止）", flush=True)
             try:
                 server.serve_forever()
             except KeyboardInterrupt:

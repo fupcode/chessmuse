@@ -13,7 +13,8 @@ test('import waits for real job completion and reports progress',async()=>{
   const result=await prepareGame({game:{moves:['h2e2']}},(value,text)=>progress.push(value),fetcher,async()=>{});
   assert.deepEqual(progress,[0,35,75,100]);
   assert.equal(result.id,'ready');assert.equal(requests[0].options.method,'POST');
-  assert.ok(requests.slice(1).every(item=>item.url==='/api/jobs/one'));
+  assert.equal(new URL(requests[0].url,'https://example.com/chessmuse/').pathname,'/chessmuse/api/import');
+  assert.ok(requests.slice(1).every(item=>item.url==='api/jobs/one'));
 });
 
 test('failed imports never fabricate completion',async()=>{

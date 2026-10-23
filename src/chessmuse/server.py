@@ -13,6 +13,7 @@ from uuid import uuid4
 
 from chessmuse.library import GameLibrary
 from chessmuse.llm import ConfigurationError, LLMError
+from chessmuse.urls import BASE_URL
 
 STATIC = Path(__file__).parent / "static"
 MAX_UPLOAD_BYTES = 256 * 1024
@@ -82,8 +83,35 @@ class DemoHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(payload)
 
+    def app_path(self, path):
+        route = urlsplit(path).path
+        return "/" + route[len(BASE_URL):] if route.startswith(BASE_URL) else None
+
+    def redirect_entry(self):
+        request = urlsplit(self.path)
+        if request.path not in {"/", BASE_URL.rstrip("/")}:
+            return False
+        self.send_response(308)
+        self.send_header("Location", BASE_URL + ("?" + request.query if request.query else ""))
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+        return True
+
+    def do_HEAD(self):
+        if self.redirect_entry():
+            return
+        if self.app_path(self.path) is None:
+            self.send_error(404)
+            return
+        super().do_HEAD()
+
     def do_GET(self):
-        path = urlsplit(self.path).path
+        if self.redirect_entry():
+            return
+        path = self.app_path(self.path)
+        if path is None:
+            self.send_error(404)
+            return
         if path == "/api/examples":
             self.json_response(200, {"examples": [{"id": game["id"], "title": game["title"],
                 "description": game["description"]} for game in self.library.builtins.values()]})
@@ -114,7 +142,7 @@ class DemoHandler(SimpleHTTPRequestHandler):
             super().do_GET()
 
     def do_POST(self):
-        if urlsplit(self.path).path != "/api/import" or not self.jobs:
+        if self.app_path(self.path) != "/api/import" or not self.jobs:
             self.json_response(404, {"error": "接口不存在"})
             return
         origin = self.headers.get("Origin")
@@ -144,7 +172,9 @@ class DemoHandler(SimpleHTTPRequestHandler):
         self.json_response(202, {"job_id": job_id})
 
     def translate_path(self, path):
-        route = urlsplit(path).path
+        route = self.app_path(path)
+        if route is None:
+            return str(STATIC / "__missing__")
         if route.startswith("/audio/"):
             parts = route.removeprefix("/audio/").split("/")
             if len(parts) == 2 and re.fullmatch(r"[a-zA-Z0-9-]+", parts[0]) and re.fullmatch(r"[a-zA-Z0-9_.-]+\.(mp3|wav)", parts[1]):
@@ -156,7 +186,7 @@ class DemoHandler(SimpleHTTPRequestHandler):
                 except (OSError, ValueError, KeyError, TypeError):
                     pass
             return str(STATIC / "__missing__")
-        return super().translate_path(path)
+        return super().translate_path(route)
 
     def list_directory(self, path):
         self.send_error(404)

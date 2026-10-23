@@ -9,6 +9,7 @@ from chessmuse.annotations import validate_annotation
 from chessmuse.game import move_facts, play
 from chessmuse.narration import read_announcements
 from chessmuse.tts import audio_duration, speech_text
+from chessmuse.urls import BASE_URL
 
 DATA = Path(__file__).parent / "data"
 AUDIO_ROOT = Path("audio")
@@ -170,7 +171,7 @@ def compile_demo(script: dict | None = None, *, require_audio: bool = True, requ
             if Path(filename).name != filename or "/" in filename or "\\" in filename:
                 raise ValueError("Audio file must be a simple filename")
             paragraph["duration"] = audio_duration(audio_dir / filename)
-            paragraph["audio"] = f"/audio/{script['id']}/{filename}"
+            paragraph["audio"] = f"{BASE_URL}audio/{script['id']}/{filename}"
         for event in script["events"]:
             if event["type"] == "move_group":
                 event["animation_ms"] = min(420, paragraphs[event["paragraph"]]["duration"] * 650 / len(event["frames"]))

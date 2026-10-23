@@ -6,15 +6,17 @@
 
 仅接受 JSON 对象，`title` 为可选标题（最多100字），`moves` 为必填 ICCS 列表，例如 `h2e2`。从标准初始局面开始，红方先行，最多200个半回合。当前不支持自定义起始局面和多格式兼容。整份文件最大256KB，非法棋步会在调用模型之前被拒绝。
 
+页面挂载在 `/chessmuse/`，访问 `/` 或 `/chessmuse` 会重定向到 `/chessmuse/`。
+
 ## HTTP 接口
 
 | 接口 | 用途 |
 | --- | --- |
-| `GET /api/examples` | 可选示例的名称和标识 |
-| `GET /api/examples/<id>/download` | 下载可导入的 JSON 示例 |
-| `POST /api/import` | 提交 `{"example_id":"cao-wang-2025"}` 或 `{"game":{"title":"棋谱","moves":["h2e2"]}}` |
-| `GET /api/jobs/<job_id>` | 查询任务阶段、进度、错误或最终播放数据 |
-| `GET /audio/<game_id>/<file>` | 读取当前音频清单允许的 MP3/WAV 文件 |
+| `GET /chessmuse/api/examples` | 可选示例的名称和标识 |
+| `GET /chessmuse/api/examples/<id>/download` | 下载可导入的 JSON 示例 |
+| `POST /chessmuse/api/import` | 提交 `{"example_id":"cao-wang-2025"}` 或 `{"game":{"title":"棋谱","moves":["h2e2"]}}` |
+| `GET /chessmuse/api/jobs/<job_id>` | 查询任务阶段、进度、错误或最终播放数据 |
+| `GET /chessmuse/audio/<game_id>/<file>` | 读取当前音频清单允许的 MP3/WAV 文件 |
 
 创建任务返回202与 `job_id`。任务状态为 `queued`、`processing`、`complete` 或 `error`。进度来自实际校验、LLM批次及TTS片段完成数量；前端轮询并动画显示进度，不用定时器虚构百分比。完成后 `result` 包含播放器需要的合法快照与音频URL。
 
