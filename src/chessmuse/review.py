@@ -1,6 +1,7 @@
 """Evidence-backed famous-game review; language models cannot author moves."""
 
 import json
+import re
 from dataclasses import asdict
 from pathlib import Path
 
@@ -120,15 +121,6 @@ def build_evidence(engine, *, force=False, progress=print) -> dict:
             "retreat_error": {"ply": 14, "best": defense, "actual": retreat, "loss_cp": cp_loss(defense, retreat)}}
 
 
-def score_text(result: dict) -> str:
-    score = result["lines"][0]["score"]
-    if score["bound"] != "exact":
-        raise ValueError("讲解不能把搜索界限作为精确评价引用")
-    if score["kind"] == "mate":
-        return "搜索发现杀棋" if score["value"] > 0 else "搜索发现对方存在杀棋"
-    return f"行棋方视角的评价为{score['value']}，这是有限深度的引擎估计"
-
-
 def fact_catalog(evidence: dict) -> dict:
     nodes = {n["ply"]: n for n in evidence["nodes"]}
     a, b, c = [nodes[ply] for ply in KEY_PLIES]
@@ -137,7 +129,6 @@ def fact_catalog(evidence: dict) -> dict:
     intuitive = mat["candidates"][0]
     expert_move = b["expert"]["bestmove"]
     notation = lambda fen, move: play(fen, move)[1]
-    rank = next(r["rank"] for r in mat["candidates"] if r["move"] == expert_move)
     cannon_attack_evidence(play(b["fen"], "b2b7")[0])
     sac = c["sacrifice"]
     # These values are asserted against the actual evidence before authoring.
@@ -147,36 +138,84 @@ def fact_catalog(evidence: dict) -> dict:
         raise ValueError("搜索结果已改变，需重新审查讲解事实目录，不能沿用旧结论")
     return {
         "12": {
-            "intuition": "先看黑方眼前的收益。纯子力模型在一层、三层和五层搜索中都把炮二进七吃马排在首位；它看见了少一匹马带来的物质收益。",
-            "disagreement": f"专家在十六层搜索里更偏好先走{notation(a['fen'], a['expert']['bestmove'])}。吃马分支的{score_text(a['candidates']['b7b0'])}。这不是黑方一吃马就被证明必败。",
-            "variation": "现在从吃马前的局面看一条专家建议的防守变化。推演只是代表性应对，不是唯一走法。看完后回到古谱，继续观察红方怎样利用出子先手。",
-            "lesson": "这个节点要比较的是眼前得子与完成防守的先后。浅层模型的偏好不能代表所有普通棋手，古谱的漂亮结尾也不能替代对其他防守的检查。",
+            "intuition": "这匹马就摆在炮口上，黑方当然想吃。炮二进七，马是拿到了，可接下来还得顾着自己的防守。",
+            "disagreement": f"这里可不能光顾着吃马。先走{notation(a['fen'], a['expert']['bestmove'])}补好防守，是更稳妥的选择。不过，吃马也不等于马上输棋，黑方后面还有补防的机会。",
+            "variation": "把棋退回吃马之前，看看黑方先补防会怎么走。这里只看其中一种应对，随后再接着看古谱里的吃马。",
+            "lesson": "有子可吃，先别急着伸手。把防守补好，还是先拿这匹马，要连着对方后面的出子一起看。",
         },
         "13": {
-            "intuition": f"红方已经少了一匹马。纯子力模型在五层搜索中优先选择{intuitive['features']['action']}，希望把车沿边线退回，攻击刚吃马的黑炮。它并不是当场就把炮吃掉。",
-            "disagreement": f"专家十六层搜索把炮八进五列为首选，而它在同样五层的纯子力模型中排第{rank}。进炮后，黑方中炮成为炮架，红炮隔子攻击黑方七路马。这是攻击关系，并非已经吃到马，黑方仍可应对。加入位置表和将帅安全等特征的传统评价模型，在五层时也选择进炮。",
-            "variation": "先回到红方走前的位置，对照看回车追炮的变化。对手可以移动黑炮，眼前追子并没有自动换回失去的马。之后恢复古谱中的进炮局面。",
-            "lesson": "两套模型的差别说明，只数棋子容易忽略局面中的其他价值。但五层搜索仍很短，我们只把这个结果当作可解释的模型对照，不把它当成人类棋力等级。",
+            "intuition": f"红方少了一匹马，很容易想着赶紧追回来。比如走{intuitive['features']['action']}，退车去追那门吃马的炮。但追上炮，可不等于已经把子拿回来了。",
+            "disagreement": "红方选择炮八进五。注意黑方的中炮，恰好给红炮当了炮架，红炮隔着它就盯上了黑马。这会儿还没吃到马，黑方也能应对，但进炮和退车追炮，着眼点已经不同了。",
+            "variation": "如果红方回车追炮呢？把刚才这步退回来看看。黑炮可以走开，红方并不能追一下就把丢掉的马补回来。看过这条变化，再回到进炮的局面。",
+            "lesson": "少了子，也别只盯着怎么追回来。这步进炮借用了对方的炮架，把目标转向黑马；先看看手里的棋子还能做什么，再决定要不要追着吃。",
         },
         "19": {
-            "intuition": "红方前车进一，先吃掉底士并将军；黑士可以回吃这辆车。这是一个有明确物质代价的弃车攻杀候选。",
-            "disagreement": "十二层和十六层的专家复查都认可这步进车。主线接下来确实损失了一辆红车，但这不等于黑方必须接受弃车。",
-            "variation": "先看拒绝弃车的将六进一分支，黑方没有吃车，局面还要继续算。再看古谱接受弃车的分支：士五退四吃车后，另一辆红车平四将军，随后进车吃炮，再由炮八平五收尾。",
-            "lesson": "古谱接受弃车的这条变化，最后的将军和无合法应对都已用规则核验。将死结论只针对这条走到终局的分支；其他防守不能一概称为必杀。",
+            "intuition": "这一步，红方前车进一，吃士将军！可黑士回头就能吃掉这辆车，红方为什么还敢往里送？",
+            "disagreement": "红方看中的是吃车以后的进攻，愿意为此付出一辆车。不过黑方也不一定非吃不可，还可以走将六进一。吃还是不吃，得分开来看。",
+            "variation": "先看看黑方不吃车，走将六进一会怎样，这条路还要继续周旋。再回来看古谱：黑方士五退四吃车，红方另一辆车马上平四将军，接着进车吃炮，最后炮八平五收尾。",
+            "lesson": "古谱里黑方吃下这辆车，最后确实被将死了。漂亮就漂亮在，红方送掉一车，另一辆车和炮却接上了进攻。不过这个结尾是顺着吃车走出来的，黑方不吃车时，还得另算。",
         },
     }
 
 
-TRANSITIONS = ("先看直觉。", "问题在哪里？", "让我们用变化验证。", "回到这一步的棋理。")
+# The cards already contain spoken transitions; do not prepend workflow labels.
+TRANSITIONS = ("",)
 STAGES = ("intuition", "disagreement", "variation", "lesson")
+
+
+COMMENTARY_SYSTEM_PROMPT = """你是一位正在和观众一起看棋的中国象棋讲解员。观众只关心这步棋为什么这样走、对手怎样应，以及接下来会发生什么。
+
+口吻与内容：
+- 直接从棋盘上的具体问题说起：哪颗子能吃、哪颗子受攻、谁要补防、怎样接上进攻。用简洁、顺口的中文，像坐在棋盘旁讲给人听。
+- 先说眼前走法的吸引力或危险，再用已核验的应对解释后果。不要每段都套同一个开场，也不要把“这里可不能”变成新的固定口头禅。
+- 直接说明事实和理由，禁止“不是……而是……”“并非……而是……”“不在于……而在于……”这类先否定再转折的表达。不要为说明一个事实，凭空引入观众没提出、此前没讨论的错误观点。不要把同一句式换成“并不是”“并非”继续使用。实际存在的两种走法可以直接说明各自后果。
+- 每个判断尽量落到具体棋子、走法或变化上。不能只把分数换成“优势很大”“局面更好”，也不能只用“引擎推荐”代替原因。
+
+绝不进入字幕或语音的内容：
+- “先看直觉”“问题/分歧分析”“专家走法”“变化验证”“棋理总结”等流程播报。
+- 纯子力模型、传统评价模型、直觉模型、两套模型、专家模型、Pikafish、ElephantEye、算法、位置表、搜索、深度、层数、节点数、候选排名、首选排名、PV、MultiPV。
+- 引擎评分、分差、评价值、cp、胜率，以及“评价为-71”“损失778分”“一层、三层和五层都排首位”等数值报告。棋谱中的路数、步数和真实得失子数量可以正常使用。
+这些是后台选材和核验资料，不能照读，也不要换个说法讲技术过程。
+
+表达示例（只示范口吻，不给当前局面增加事实）：
+反例：“先看直觉。纯子力模型在一层、三层和五层搜索中都把炮二进七吃马排在首位。”
+正例：“这匹马就摆在炮口上，很容易想先吃下来。可吃完以后，自己的防守顾得上吗？”
+反例：“专家十六层搜索认为这步损失778个引擎分值。”
+正例：“这一步退马，给了红方继续进攻的机会。”仅当给定事实确实支持这一后果时才可这样说。
+反例：“两套模型有分歧，接下来用变化验证。”
+正例：“急着退车追炮，黑炮走开了怎么办？咱们把这几步摆出来看看。”
+
+事实边界：
+只能使用给定事实卡，不得编造走法、攻击关系、得失子或杀棋。不能把“攻击到”说成“已经吃到”，不能把一条变化里的将死说成所有防守都必败。没有具体原因可用时，少说一句，不能拿技术指标或空泛赞叹凑解释。
+
+当前任务是编排已经审阅的口语事实卡，不是自由改写：严格按示例 JSON 返回全部三个节点，每节点四段。fact 必须依次为 intuition、disagreement、variation、lesson；它们仅是程序内部引用键，不是观众听到的标题。transition 必须为空字符串，卡片自身已有衔接。只返回 JSON。
+"""
+
+_TECHNICAL_COMMENTARY = re.compile(
+    r"先看直觉|两套模型|模型|引擎|搜索|算法|位置表|分歧|变化验证|棋理总结|专家走法|"
+    r"候选排名|排在首位|排第|评价[值为]|评分|分差|分值|胜率|层数|节点数|"
+    r"(?:[一二三四五六七八九十百零、和及\d]+)层|"
+    r"Pikafish|ElephantEye|MultiPV|\bPV\b|\bcp\b|depth",
+    re.IGNORECASE,
+)
+
+
+def validate_spoken_commentary(text: str):
+    if re.search(r"(?:不是|并非|不在于)[^。！？\n]*(?:而是|而在于)", text):
+        raise ValueError("讲解请直接说明事实，禁止先否定再转折的立靶表达")
+    if _TECHNICAL_COMMENTARY.search(text):
+        raise ValueError("讲解含后台技术话语，请只讲具体棋子、攻防与走法后果")
 
 
 async def plan_commentary(client, catalog: dict) -> dict:
     """LLM composes from verified fact cards, never supplies tactical free text."""
-    example = {"nodes": [{"ply": ply, "segments": [{"fact": stage, "transition": TRANSITIONS[i]}
-                  for i,stage in enumerate(STAGES)]} for ply in KEY_PLIES]}
+    for cards in catalog.values():
+        for text in cards.values():
+            validate_spoken_commentary(text)
+    example = {"nodes": [{"ply": ply, "segments": [{"fact": stage, "transition": ""}
+                  for stage in STAGES]} for ply in KEY_PLIES]}
     messages = [
-        Message("system", "你是象棋讲解编辑。按直觉、分歧、变化、总结组织给定事实卡。只可引用事实卡，不得改写事实或生成棋步。严格按示例JSON的结构，每节点四段，fact字段只能依次为intuition,disagreement,variation,lesson。transition只能从提供的短语中选，可为空字符串。"),
+        Message("system", COMMENTARY_SYSTEM_PROMPT),
         Message("user", json.dumps({"cards": catalog, "transitions": TRANSITIONS, "example": example}, ensure_ascii=False)),
     ]
     for attempt in range(2):
@@ -199,6 +238,9 @@ def validate_plan(catalog: dict, plan: dict):
         raise ValueError("解说计划格式无效")
     if any(not isinstance(n, dict) for n in plan["nodes"]) or [n.get("ply") for n in plan["nodes"]] != list(KEY_PLIES):
         raise ValueError("解说节点缺失或顺序错误")
+    for cards in catalog.values():
+        for text in cards.values():
+            validate_spoken_commentary(text)
     for node in plan["nodes"]:
         segments = node.get("segments", [])
         if (not isinstance(segments, list) or any(not isinstance(s, dict) for s in segments)
@@ -215,9 +257,12 @@ def compile_review(evidence: dict, composition: dict) -> dict:
     validate_plan(catalog, composition["plan"])
     source = evidence["source"]
     script = {**source, "paragraphs": [], "events": [], "evidence_schema": 1,
-              "commentary_mode": composition["mode"]}
+              "commentary_mode": composition["mode"],
+              "description": "古谱完整主线 · 吃马、进炮与弃车攻杀 · 关键变化推演"}
     paragraphs, events = script["paragraphs"], script["events"]
     def speak(key, title, text, chapter=None):
+        validate_spoken_commentary(title)
+        validate_spoken_commentary(text)
         paragraphs.append({"id": key, "title": title, "text": text})
         events.append({"id": key, "type": "speak", "paragraph": key,
                        **({"chapter": chapter} if chapter else {})})
@@ -226,23 +271,24 @@ def compile_review(evidence: dict, composition: dict) -> dict:
         for i, move in enumerate(moves):
             events.append({"id": f"{key}-m{i+1}", "type": "move", "move": move})
         events.append({"id": f"{key}-restore", "type": "set_position", "mainline_ply": return_ply})
-        speak(f"{key}-return", "回到古谱", "推演到这里，回到古谱当前局面。")
-    speak("famous-intro", "认识这份古谱", "今天看橘中秘的弃马十三着。这是古谱的十三回合通行版本，不是现代比赛实战。我们看完完整主线，重点讲吃马的诱惑、进炮与追子的取舍，以及最后的弃车攻杀；同时用现代搜索检查黑方是否还有其他防守。", "古谱开场")
+        speak(f"{key}-return", "回到古谱", "好，再接着看古谱。")
+    speak("famous-intro", "认识这份古谱", "今天看橘中秘里的弃马十三着。红方先让黑炮吃马，后面又送出一辆车，这盘棋究竟是怎么攻起来的？咱们顺着古谱往下看，遇到关键地方，也看看黑方有没有别的走法。", "古谱开场")
     plans = {n["ply"]: n for n in composition["plan"]["nodes"]}
     nodes = {n["ply"]: n for n in evidence["nodes"]}
     for ply, move in enumerate(source["mainline"], 1):
         events.append({"id": f"famous-m{ply}", "type": "move", "move": move})
         if ply == 14:
-            loss = evidence["retreat_error"]["loss_cp"]
-            speak("retreat-error", "退马并非最强防守", f"古谱中的黑方选择退马。十六层搜索中，这步相对同一局面的最佳走法损失约{loss}个引擎分值。这个差值只说明本局面的搜索结果；吃马后仍能补防，退马这一步才让红方的机会明显扩大。")
+            speak("retreat-error", "退马并非最强防守", "黑方选择退马，这一下，红方的机会就大了。前面吃马以后，黑方本来还有补防的余地，走到这里却没有抓住。别看最后红方攻得漂亮，黑方也有过把局面守好的机会。")
         if ply not in plans:
             continue
         node = nodes[ply]
         for index, segment in enumerate(plans[ply]["segments"]):
             stage = segment["fact"]
-            speak(f"node-{ply}-{stage}", ["直觉", "分歧", "变化验证", "棋理总结"][index],
+            speak(f"node-{ply}-{stage}", {12: ["这匹马能吃吗", "先补防还是先吃马", "换个走法看看", "吃子之前看防守"],
+                         13: ["少了马，急着追吗", "借对方的炮架", "回车追炮会怎样", "别只盯着追回子"],
+                         19: ["这辆车也敢送", "黑方一定要吃吗", "吃与不吃的两条路", "车炮接上进攻"]}[ply][index],
                   segment["transition"] + catalog[str(ply)][stage],
-                  node["selection_reason"] if index == 0 else None)
+                  {12: "吃马之前", 13: "进炮还是追炮", 19: "弃车以后的进攻"}[ply] if index == 0 else None)
             if stage == "variation":
                 if ply == 12:
                     branch("defense", ply, node["expert"]["lines"][0]["pv"][:6], "黑方先补防", ply)
@@ -252,7 +298,7 @@ def compile_review(evidence: dict, composition: dict) -> dict:
                     refusal = node["sacrifice"]["declined"]["lines"][0]["pv"][:5]
                     branch("decline", ply, [move] + refusal, "拒绝弃车", ply)
                     branch("accept", ply, source["mainline"][ply-1:], "古谱接受弃车至将死", ply)
-    speak("famous-finish", "复盘结束", "炮八平五，黑方已无合法应对，古谱主线到此结束。今天的关键不是见子就吃或见弃子就叫妙手，而是把眼前收益、出子节奏和后续防守放在同一条变化里检验。我们展示了专家认可的进炮和进车，也保留了黑方拒绝弃车的防守分支。", "终局总结")
+    speak("famous-finish", "复盘结束", "炮八平五，黑方已经无处可解，这盘古谱就到这里了。回头看，进炮时没有急着追回那匹马，进车时又舍得把车送出去，都是为了接下来的进攻。轮到自己下棋，遇到眼前的得失，不妨再多问一句：下一步，对方会怎么应？", "终局总结")
     compile_demo(script, require_audio=False, require_narration=False)
     return script
 

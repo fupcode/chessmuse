@@ -105,3 +105,37 @@ def test_real_intuition_has_same_depth_exact_ranks_and_reproducible_preferences(
     assert [(r["move"],r["score"]) for r in material["candidates"]] == [(r["move"],r["score"]) for r in repeated["candidates"]]
     assert len(material["candidates"]) == len(traditional["candidates"])
     assert [c["rank"] for c in material["candidates"]] == list(range(1,len(material["candidates"])+1))
+
+
+@pytest.mark.parametrize("text", [
+    "先看直觉。",
+    "纯子力模型在一层、三层和五层搜索中都把炮二进七吃马排在首位。",
+    "这步损失778个引擎分值。",
+    "评价为-71。",
+    "十六层认为应该补士。",
+    "这个走法排第4。",
+    "红方胜率达到90%。",
+])
+def test_technical_fact_cards_are_rejected_before_composition(text):
+    composition = json.loads((DATA / "famous-composition.json").read_text(encoding="utf-8"))
+    catalog = deepcopy(composition["catalog"])
+    catalog["12"]["intuition"] = text
+    with pytest.raises(ValueError, match="后台技术话语"):
+        validate_plan(catalog, composition["plan"])
+
+
+def test_chess_numbers_and_concrete_explanations_remain_speakable():
+    from chessmuse.review import validate_spoken_commentary
+    validate_spoken_commentary("这里可不能急着吃马。先走士六进五补防，再看看红方怎么应。")
+    validate_spoken_commentary("红方少了一匹马，炮八进五，隔着黑炮盯住黑马。")
+
+
+@pytest.mark.parametrize("text", [
+    "这步不是贪子，而是争先。",
+    "关键并非多吃一子，而是接上进攻。",
+    "关键不在于吃子，而在于补防。",
+])
+def test_commentary_rejects_invented_contrast(text):
+    from chessmuse.review import validate_spoken_commentary
+    with pytest.raises(ValueError, match="立靶"):
+        validate_spoken_commentary(text)
