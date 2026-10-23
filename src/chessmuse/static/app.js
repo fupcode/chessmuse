@@ -31,7 +31,7 @@ function drawGrid() {
   for (const row of [0,7]) {line(x(3),y(row),x(5),y(row+2));line(x(5),y(row),x(3),y(row+2));}
   board.append(svg("text",{x:157,y:306,"text-anchor":"middle",fill:"#9c845f","font-size":22,"letter-spacing":12},"楚河"));
   board.append(svg("text",{x:389,y:306,"text-anchor":"middle",fill:"#9c845f","font-size":22,"letter-spacing":12},"漢界"));
-  for(let col=0;col<9;col++) board.append(svg("text",{x:x(col),y:582,"text-anchor":"middle",fill:"#9c845f","font-size":12},"九八七六五四三二一"[col]));
+  for(let col=0;col<9;col++) board.append(svg("text",{x:x(col),y:600,"text-anchor":"middle",fill:"#9c845f","font-size":12},"九八七六五四三二一"[col]));
   board.append(svg("g",{id:"markers"}));
   board.append(svg("g",{id:"pieces"}));
 }
