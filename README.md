@@ -11,7 +11,7 @@ uv sync --locked
 uv run chessmuse serve
 ```
 
-打开 <http://127.0.0.1:8000>。默认准备「橘中秘 · 弃马十三着」，点击「播放解说」可听完整演示；也可选择开局示例或导入自己的 JSON 棋谱。服务启动不要求已存在音频；选择棋谱后会显示校验与准备进度。古谱讲解、古谱走子短句和「中炮对屏风马」短句随代码交付，播放无需在线 LLM；默认 TTS 首次生成需要联网，已有有效缓存时直接复用。
+打开 <http://127.0.0.1:8000>。默认准备「橘中秘 · 弃马十三着」，点击「播放解说」可听完整演示；也可选择开局示例或导入自己的 JSON 棋谱。服务启动不要求已存在音频；选择棋谱后会显示校验与准备进度。古谱讲解和古谱走子短句随代码交付，播放无需在线 LLM；默认 TTS 首次生成需要联网，已有有效缓存时直接复用。
 
 本工作区古谱音频已准备好。新工作区可先执行 `uv run chessmuse prepare-example --example qima-13`。完整来源、三处重点、模型实验和重做流程见 [著名古谱讲解交付](docs/famous-review.md)。
 
@@ -47,14 +47,14 @@ uv run chessmuse prepare-example
 uv run chessmuse prepare-example --example horse-opening
 
 # 强制重新生成该示例的 LLM 短句和全部音频
-uv run chessmuse prepare-example --example opening-v1 --force
+uv run chessmuse prepare-example --example qima-13 --force
 
 # 重新生成短句后，再准备与新文本匹配的音频
-uv run chessmuse prepare-narration --example opening-v1
-uv run chessmuse prepare-audio --example opening-v1
+uv run chessmuse prepare-narration --example qima-13
+uv run chessmuse prepare-audio --example qima-13
 
 # 只强制重新合成音频，保留已有短句
-uv run chessmuse prepare-audio --example opening-v1 --force
+uv run chessmuse prepare-audio --example qima-13 --force
 
 # 命令行试用其他语速（网页仍使用默认配置，见下文）
 uv run chessmuse prepare-audio --rate=+12% --force

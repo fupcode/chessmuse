@@ -10,7 +10,7 @@ from uuid import uuid4
 from cchess import FULL_INIT_FEN
 from mutagen import MutagenError
 
-from chessmuse.demo import DATA, compile_demo, load_script
+from chessmuse.demo import DATA, compile_demo
 from chessmuse.llm import DeepSeekClient, DeepSeekSettings
 from chessmuse.narration import generate_announcements, read_announcements
 from chessmuse.tts import DEFAULT_RATE, DEFAULT_VOICE, prepare_neural_audio
@@ -48,10 +48,9 @@ def make_game(source: dict, game_id: str) -> dict:
 
 
 def examples() -> dict[str, dict]:
-    original = load_script()
     horses = make_game({"title": "双方起马 · 四步示例", "moves": ["h0g2", "h9g7", "b0c2", "b9c7"]}, "horse-opening")
     horses["description"] = "简短示例 · 每步自然讲述 · 无引擎评价"
-    result = {original["id"]: original, horses["id"]: horses}
+    result = {horses["id"]: horses}
     reviewed = DATA / "famous-review.json"
     if reviewed.exists():
         famous = json.loads(reviewed.read_text(encoding="utf-8"))

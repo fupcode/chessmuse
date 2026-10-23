@@ -9,6 +9,7 @@ from urllib.request import Request, urlopen
 
 import pytest
 
+from chessmuse.demo import load_script
 from chessmuse.library import GameLibrary, make_game
 from chessmuse.server import DemoHandler, ImportJobs
 
@@ -39,7 +40,7 @@ def test_sample_preparation_reuses_audio_without_llm_credentials(demo_audio, mon
     monkeypatch.setattr("chessmuse.library.DeepSeekSettings.from_env", unexpected)
     monkeypatch.setattr("chessmuse.tts.edge_tts.Communicate", unexpected)
     values = []
-    result = asyncio.run(library.prepare(library.example("opening-v1"), progress=lambda value, text: values.append(value)))
+    result = asyncio.run(library.prepare(load_script(), progress=lambda value, text: values.append(value)))
     assert values == sorted(values)
     assert values[-1] == 100
     assert len(result["paragraphs"]) == 15
@@ -67,7 +68,7 @@ def test_http_import_returns_real_job_progress_and_errors(tmp_path, monkeypatch)
         try:
             with urlopen(base + "/api/examples") as response:
                 assert {entry["id"] for entry in json.load(response)["examples"]} == {
-                    "qima-13", "opening-v1", "horse-opening"}
+                    "qima-13", "horse-opening"}
             with urlopen(base + "/api/examples/horse-opening/download") as response:
                 source = json.load(response)
                 assert source["moves"] == ["h0g2", "h9g7", "b0c2", "b9c7"]

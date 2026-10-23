@@ -53,11 +53,11 @@ def main():
     prepare.add_argument("--provider", choices=["edge", "windows"], default="edge")
     prepare.add_argument("--voice", default=DEFAULT_VOICE, help="在线声音名称")
     prepare.add_argument("--rate", default=DEFAULT_RATE, help="在线语速，默认 +8%%（108%%），如 --rate=+8%%")
-    prepare.add_argument("--example", default="opening-v1", help="示例棋谱ID")
+    prepare.add_argument("--example", default="qima-13", help="示例棋谱ID")
     prepare.add_argument("--force", action="store_true", help="强制重新合成所有音频")
-    narrate.add_argument("--example", default="opening-v1")
+    narrate.add_argument("--example", default="qima-13")
     all_prepare = sub.add_parser("prepare-example", help="准备示例短句与语音，已有缓存时复用")
-    all_prepare.add_argument("--example", default="opening-v1")
+    all_prepare.add_argument("--example", default="qima-13")
     all_prepare.add_argument("--force", action="store_true", help="重新生成短句和语音")
     all_prepare.add_argument("--env-file", default=".env")
     intuition = sub.add_parser("prepare-intuition", help="构建ElephantEye有限深度直觉模型")
@@ -83,7 +83,7 @@ def main():
             analyze.add_argument("--candidate", action="append", default=[], help="单独搜索的候选，可重复")
         elif command == "analyze-game":
             analyze.add_argument("--input", help="本地 JSON 棋谱，支持 moves 或 mainline")
-            analyze.add_argument("--example", default="opening-v1")
+            analyze.add_argument("--example", default="qima-13")
             analyze.add_argument("--scan-depth", type=int, default=6)
             analyze.add_argument("--review-depth", type=int, default=10)
             analyze.add_argument("--max-reviews", type=int, default=3)
@@ -191,7 +191,7 @@ def main():
                     "-DataDirectory", str(audio_dir.resolve()), "-ScriptPath", str(script_path),
                 ], check=True)
     if args.command != "serve":
-        example_id = getattr(args, "example", "opening-v1")
+        example_id = getattr(args, "example", "qima-13")
         demo = compile_demo(library.example(example_id), narration_path=library.narration_path(example_id),
                             audio_dir=library.audio / example_id)
         print(f"验证通过：{len(demo['mainline'])} 个主线半回合，"

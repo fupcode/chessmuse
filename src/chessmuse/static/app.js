@@ -91,7 +91,8 @@ function mountDemo(demo) {
   $("description").textContent=demo.description;
   $("evidence-note").textContent=demo.evidence_schema
     ? "跟着古谱看攻防，也换几种应法试一试。推演中的走法均已核验。"
-    : "走子短句基于已验证事实生成；本棋谱未提供专家复盘讲解。";
+    : "";
+  $("evidence-note").hidden=!demo.evidence_schema;
   const voiceName={"zh-CN-XiaoxiaoNeural":"晓晓", "zh-CN-YunxiNeural":"云希", "Microsoft Huihui Desktop":"慧慧"}[demo.voice];
   $("voice-label").textContent=voiceName ? `中文语音 · ${voiceName}` : "中文语音";
   drawGrid();
