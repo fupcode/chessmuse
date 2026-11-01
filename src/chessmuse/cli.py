@@ -4,6 +4,7 @@ import argparse
 import asyncio
 import json
 import subprocess
+import sys
 from functools import partial
 from http.server import ThreadingHTTPServer
 from pathlib import Path
@@ -69,7 +70,8 @@ def main():
     intuition = sub.add_parser("prepare-intuition", help="构建ElephantEye有限深度直觉模型")
     intuition.add_argument("--download", action="store_true", help="从固定官方版本下载，仅提取C++白名单")
     famous = sub.add_parser("prepare-famous", help="构建弃马十三着的专家证据、讲解与语音")
-    famous.add_argument("--engine", default=".cache/pikafish/Pikafish-Windows-x86-64-universal.exe")
+    _exe_name = "Pikafish-Windows-x86-64-universal.exe" if sys.platform == "win32" else "pikafish"
+    famous.add_argument("--engine", default=f".cache/pikafish/{_exe_name}")
     famous.add_argument("--env-file", default=".env")
     famous.add_argument("--force", action="store_true")
     for command, help_text in (("analyze-position", "专家分析单个局面及指定候选"),
@@ -193,6 +195,8 @@ def main():
             parser.exit(1, f"{error}\n")
         return
     if args.command == "prepare-audio":
+        if args.provider == "windows" and sys.platform != "win32":
+            parser.exit(1, "Windows TTS 后端仅支持 Windows，请使用 --provider edge 或切换系统\n")
         script = compile_demo(library.example(args.example), require_audio=False,
                               narration_path=library.narration_path(args.example))
         audio_dir = library.audio / args.example

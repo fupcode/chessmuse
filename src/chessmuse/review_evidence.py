@@ -1,6 +1,7 @@
 """Game-independent key-moment selection and verified branch evidence."""
 
 import json
+import sys
 from pathlib import Path
 
 from cchess import ChessBoard
@@ -14,7 +15,8 @@ from chessmuse.intuition import EXECUTABLE, rank_candidates
 from chessmuse.openings import recognize_opening
 
 EVIDENCE_VERSION = 5
-DEFAULT_ENGINE = Path(".cache/pikafish/Pikafish-Windows-x86-64-universal.exe")
+_DEFAULT_ENGINE_NAME = "Pikafish-Windows-x86-64-universal.exe" if sys.platform == "win32" else "pikafish"
+DEFAULT_ENGINE = Path(f".cache/pikafish/{_DEFAULT_ENGINE_NAME}")
 VALUES = {"r": 600, "n": 270, "c": 285, "a": 120, "b": 120, "p": 30, "k": 0}
 PIECES = {"r": "车", "n": "马", "b": "象", "a": "士", "k": "将", "c": "炮", "p": "卒",
           "R": "车", "N": "马", "B": "相", "A": "仕", "K": "帅", "C": "炮", "P": "兵"}
