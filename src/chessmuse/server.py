@@ -17,6 +17,9 @@ from chessmuse.urls import BASE_URL
 
 STATIC = Path(__file__).parent / "static"
 MAX_UPLOAD_BYTES = 256 * 1024
+# Manifest-checked audio must keep a stable IANA type regardless of the host's
+# mimetypes database (some builds report audio/x-wav for .wav).
+AUDIO_TYPES = {".mp3": "audio/mpeg", ".wav": "audio/wav"}
 
 
 class ImportJobs:
@@ -187,6 +190,12 @@ class DemoHandler(SimpleHTTPRequestHandler):
                     pass
             return str(STATIC / "__missing__")
         return super().translate_path(route)
+
+    def guess_type(self, path):
+        ext = Path(path).suffix.lower()
+        if ext in AUDIO_TYPES:
+            return AUDIO_TYPES[ext]
+        return super().guess_type(path)
 
     def list_directory(self, path):
         self.send_error(404)
