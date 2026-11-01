@@ -34,7 +34,7 @@ uv run chessmuse serve
 - `.cache/tts/`、`.cache/narration/`：生成中的临时文件。
 - `.cache/review/`、`.cache/analysis/`：古谱证据和专家搜索；`.cache/elephanteye/`：白名单源码、直觉模型构建及实验缓存。
 - `.cache/uv/`、`.cache/pytest_cache/`、`.cache/pytest-tmp/`：工具缓存与测试临时文件。
-- `src/chessmuse/data/`：内置示例及一份可复用的文本短句记录，随代码交付。
+- `src/chessmuse/data/`：内置棋谱，主示例与古谱已审阅的讲解文本和走子短句，以及专家分析小样本局面集，随代码交付。
 
 每次选择示例，会按文本、音色、语速和文件有效性检查缓存。匹配的语音不会再次调用 TTS；只生成缺失或失效的片段。短句输入及上下文未变化时也不会调用 LLM。生成失败保留原有清单；新文件全部成功后才发布新清单。已有缓存时播放可离线完成。
 
